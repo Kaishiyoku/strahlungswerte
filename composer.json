@@ -1,9 +1,8 @@
 {
-    "name": "laravel/laravel",
+    "name": "kaishiyoku/strahlungswerte",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "",
     "keywords": [
-        "framework",
         "laravel"
     ],
     "license": "MIT",
