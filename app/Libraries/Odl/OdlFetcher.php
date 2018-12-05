@@ -2,8 +2,8 @@
 
 namespace App\Libraries\Odl;
 
-use App\Libraries\Odl\Models\Location;
 use App\Libraries\Odl\Models\MeasurementSite;
+use App\Models\Location;
 use GuzzleHttp\Client;
 
 class OdlFetcher
@@ -79,7 +79,7 @@ class OdlFetcher
         $locations = collect();
 
         foreach ($this->fetchUrl('stamm.json') as $locationJson) {
-            $locations->push(Location::fromJson($locationJson));
+            $locations->push(Location::createFromJson($locationJson));
         }
 
         $this->locations = $locations;

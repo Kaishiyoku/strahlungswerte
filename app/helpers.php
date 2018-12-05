@@ -46,9 +46,40 @@ if (! function_exists('getIdFromSlug')) {
     }
 }
 
-if (!function_exists('toSlug')) {
+if (! function_exists('toSlug')) {
     function toSlug($id, $title)
     {
         return $id . '-' . \Illuminate\Support\Str::slug($title);
+    }
+}
+
+if (! function_exists('getOdlStatusEnumFromId')) {
+    function getOdlStatusEnumFromId($id) {
+        $statusMappings = [
+            0 => 'FAULTY',
+            1 => 'OPERATIONAL',
+            128 => 'TEST_MODE',
+            2048 => 'MAINTENANCE',
+        ];
+
+        return $statusMappings[$id];
+    }
+}
+
+if (! function_exists('getKeyValuePairsFromStr')) {
+    function getKeyValuePairsFromStr($str) {
+        if (empty($str)) {
+            return collect();
+        }
+
+        $list = collect(array_map(function ($value) {
+            return explode(',', $value);
+        }, explode(';', $str)));
+
+        $list = $list->mapWithKeys(function ($item) {
+            return [$item[0] => $item[1]];
+        });
+
+        return $list;
     }
 }

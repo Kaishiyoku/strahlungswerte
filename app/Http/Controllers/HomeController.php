@@ -21,6 +21,8 @@ class HomeController extends Controller
         $odl = new OdlFetcher(env('ODL_BASE_URL'), env('ODL_USER'), env('ODL_PASSWORD'));
         $measurementSite = $odl->getMeasurementSite($uuid);
 
+        dd($measurementSite);
+
         return view('home.show', compact('measurementSite'));
     }
 }
