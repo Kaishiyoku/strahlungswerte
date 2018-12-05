@@ -28,3 +28,27 @@ if (! function_exists('formatBoolean')) {
         return $str;
     }
 }
+
+if (! function_exists('getIdFromSlug')) {
+    function getIdFromSlug($slug)
+    {
+        if (!strpos($slug, '-')) {
+            return null;
+        }
+
+        $values = explode('-', $slug);
+
+        if (empty($values[0] || empty($values[1])) || $values[0] == '' || $values[1] == '') {
+            return null;
+        }
+
+        return $values[0];
+    }
+}
+
+if (!function_exists('toSlug')) {
+    function toSlug($id, $title)
+    {
+        return $id . '-' . \Illuminate\Support\Str::slug($title);
+    }
+}

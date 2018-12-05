@@ -11,6 +11,7 @@
         "davejamesmiller/laravel-breadcrumbs": "5.2.0",
         "doctrine/dbal": "2.8.0",
         "fideloper/proxy": "^4.0",
+        "guzzlehttp/guzzle": "^6.3",
         "kaishiyoku/laravel-cli-create-user": "2.1.0",
         "kaishiyoku/laravel-menu": "2.0.0",
         "laracasts/flash": "3.0.2",

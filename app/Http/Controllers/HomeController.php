@@ -2,21 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\DB;
-use PicoFeed\PicoFeedException;
-use PicoFeed\Reader\Reader;
-use Vinelab\Rss\Rss;
+use App\Libraries\Odl\OdlFetcher;
 
 class HomeController extends Controller
 {
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return view('home.index');
+        $odlFetcher = new OdlFetcher(env('ODL_BASE_URL'), env('ODL_USER'), env('ODL_PASSWORD'));
+        $locations = $odlFetcher->fetchLocations()->sortBy('postalCode');
+
+        return view('home.index', compact('locations'));
+    }
+
+    public function show($slug)
+    {
+        $uuid = getIdFromSlug($slug);
+
+        $odl = new OdlFetcher(env('ODL_BASE_URL'), env('ODL_USER'), env('ODL_PASSWORD'));
+        $measurementSite = $odl->getMeasurementSite($uuid);
+
+        return view('home.show', compact('measurementSite'));
     }
 }
