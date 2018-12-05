@@ -15,14 +15,14 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($locations as $location)
+            @foreach ($locations->get() as $location)
                 <tr>
-                    <td>{{ Html::linkRoute('home.show', $location->getPlace(), toSlug($location->getUuid(), $location->getPlace())) }}</td>
-                    <td>{{ $location->getStatus() }}</td>
-                    <td>{{ $location->getLastMeasuredOneHourValue() }}</td>
-                    <td>{{ $location->getHeight() }}</td>
-                    <td>{{ $location->getLongitude() }}</td>
-                    <td>{{ $location->getLatitude() }}</td>
+                    <td>{{ Html::linkRoute('home.show', $location->name, toSlug($location->uuid, $location->name)) }}</td>
+                    <td>{{ $location->status->name }}</td>
+                    <td>{{ $location->last_measured_one_hour_value }}</td>
+                    <td>{{ $location->height }}</td>
+                    <td>{{ $location->longitude }}</td>
+                    <td>{{ $location->latitude }}</td>
                 </tr>
             @endforeach
         </tbody>

@@ -7,13 +7,13 @@ class HourlyMeasurement extends Measurement
     private $inspectionStatus;
 
     /**
-     * @param $dateTime
+     * @param $date
      * @param $value
      * @param $inspectionStatus
      */
-    public function __construct($dateTime, $value, $inspectionStatus)
+    public function __construct($date, $value, $inspectionStatus)
     {
-        $this->dateTime = $dateTime;
+        $this->date = $date;
         $this->value = $value;
         $this->inspectionStatus = $inspectionStatus;
     }

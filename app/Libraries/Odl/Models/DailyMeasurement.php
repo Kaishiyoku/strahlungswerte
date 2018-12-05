@@ -5,12 +5,12 @@ namespace App\Libraries\Odl\Models;
 class DailyMeasurement extends Measurement
 {
     /**
-     * @param $dateTime
+     * @param $date
      * @param $value
      */
-    public function __construct($dateTime, $value)
+    public function __construct($date, $value)
     {
-        $this->dateTime = $dateTime;
+        $this->date = $date;
         $this->value = $value;
     }
 }

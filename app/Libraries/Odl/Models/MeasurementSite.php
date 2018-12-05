@@ -2,6 +2,7 @@
 
 namespace App\Libraries\Odl\Models;
 
+use App\Models\Location;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
@@ -34,7 +35,7 @@ class MeasurementSite
     public static function fromJson($json)
     {
         $measurementSite = new MeasurementSite();
-        $measurementSite->location = Location::fromJson($json['stamm']);
+        $measurementSite->location = Location::createFromJson($json['stamm']);
         $measurementSite->hourlyMeasurements = collect();
         $measurementSite->hourlyPrecipitationProbabilities = collect();
         $measurementSite->dailyMeasurements = collect();
@@ -44,18 +45,18 @@ class MeasurementSite
 
         foreach ($mw1hData['mw'] as $key => $hourlyMeasurement) {
             $value = $hourlyMeasurement ?: 0;
-            $dateTime = new Carbon($mw1hData['t'][$key]);
+            $date = new Carbon($mw1hData['t'][$key]);
             $inspectionStatus = $mw1hData['ps'][$key];
 
-            $measurementSite->hourlyMeasurements->push(new HourlyMeasurement($dateTime, $value, $inspectionStatus));
+            $measurementSite->hourlyMeasurements->push(new HourlyMeasurement($date, $value, $inspectionStatus));
         }
 
         // hourly precipitation probabilities
         foreach ($mw1hData['r'] as $key => $hourlyPrecipitationProbability) {
             $value = $hourlyPrecipitationProbability ?: 0;
-            $dateTime = new Carbon($mw1hData['tr'][$key]);
+            $date = new Carbon($mw1hData['tr'][$key]);
 
-            $measurementSite->hourlyPrecipitationProbabilities->push(new PrecipitationProbability($dateTime, $value));
+            $measurementSite->hourlyPrecipitationProbabilities->push(new PrecipitationProbability($date, $value));
         }
 
         // daily measurements
@@ -63,9 +64,9 @@ class MeasurementSite
 
         foreach ($mw24hData['mw'] as $key => $dailyMeasurement) {
             $value = $dailyMeasurement ?: 0;
-            $dateTime = new Carbon($mw24hData['t'][$key]);
+            $date = new Carbon($mw24hData['t'][$key]);
 
-            $measurementSite->dailyMeasurements->push(new DailyMeasurement($dateTime, $value));
+            $measurementSite->dailyMeasurements->push(new DailyMeasurement($date, $value));
         }
 
         // reverse collections

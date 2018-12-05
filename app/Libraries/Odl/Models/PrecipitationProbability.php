@@ -4,7 +4,7 @@ namespace App\Libraries\Odl\Models;
 
 class PrecipitationProbability extends Measurement
 {
-    protected $dateTime;
+    protected $date;
     protected $value;
 
     /**
@@ -13,7 +13,7 @@ class PrecipitationProbability extends Measurement
      */
     public function __construct($dateTime, $value)
     {
-        $this->dateTime = $dateTime;
+        $this->date = $dateTime;
         $this->value = $value;
     }
 

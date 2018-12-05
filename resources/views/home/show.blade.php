@@ -4,7 +4,7 @@
 
 @section('content')
     <h1>
-        {{ $measurementSite->getLocation()->getPostalCode() }} {{ $measurementSite->getLocation()->getPlace() }}
+
     </h1>
 
     <div class="row">
@@ -13,19 +13,19 @@
                 <tbody>
                     <tr>
                         <td>Höhe:</td>
-                        <td>{{ $measurementSite->getLocation()->getHeight() }}m</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>Letzter Wert:</td>
-                        <td>{{ $measurementSite->getLocation()->getLastMeasuredOneHourValue() }} µSv/h</td>
+                        <td> µSv/h</td>
                     </tr>
                     <tr>
                         <td>Längengrad</td>
-                        <td>{{ $measurementSite->getLocation()->getLongitude() }}</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>Breitengrad</td>
-                        <td>{{ $measurementSite->getLocation()->getLatitude() }}</td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>

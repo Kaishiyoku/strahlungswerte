@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Libraries\Odl\OdlFetcher;
 use Illuminate\Console\Command;
 
-class FetchOdlLocations extends Command
+class OdlFetchOdlLocations extends Command
 {
     /**
      * The name and signature of the console command.

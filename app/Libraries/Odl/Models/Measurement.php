@@ -4,12 +4,12 @@ namespace App\Libraries\Odl\Models;
 
 abstract class Measurement
 {
-    protected $dateTime;
+    protected $date;
     protected $value;
 
-    public function getDateTime()
+    public function getDate()
     {
-        return $this->dateTime;
+        return $this->date;
     }
 
     public function getValue()

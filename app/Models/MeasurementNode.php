@@ -4,6 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\MeasurementNode
+ *
+ * @property int $id
+ * @property string $name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Location[] $locations
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MeasurementNode newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MeasurementNode newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MeasurementNode query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MeasurementNode whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MeasurementNode whereName($value)
+ * @mixin \Eloquent
+ */
 class MeasurementNode extends Model
 {
     /**
