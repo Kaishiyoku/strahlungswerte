@@ -15,7 +15,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($locations->get() as $location)
+            @foreach ($locations as $location)
                 <tr>
                     <td>{{ Html::linkRoute('home.show', $location->name, toSlug($location->uuid, $location->name)) }}</td>
                     <td>{{ $location->status->name }}</td>
@@ -27,4 +27,6 @@
             @endforeach
         </tbody>
     </table>
+
+    {{ $locations->links() }}
 @endsection

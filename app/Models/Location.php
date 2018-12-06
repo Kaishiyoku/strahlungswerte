@@ -54,6 +54,13 @@ class Location extends Model
     public $incrementing = false;
 
     /**
+     * The number of models to return for pagination.
+     *
+     * @var int
+     */
+    protected $perPage = 50;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

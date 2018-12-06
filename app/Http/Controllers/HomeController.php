@@ -8,7 +8,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $locations = Location::orderBy('name');
+        $locations = Location::orderBy('name')->paginate();
 
         return view('home.index', compact('locations'));
     }
