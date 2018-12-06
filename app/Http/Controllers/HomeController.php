@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Libraries\Odl\OdlFetcher;
 use App\Models\Location;
 
 class HomeController extends Controller
