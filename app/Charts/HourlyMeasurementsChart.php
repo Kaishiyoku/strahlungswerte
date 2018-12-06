@@ -4,7 +4,7 @@ namespace App\Charts;
 
 use ConsoleTVs\Charts\Classes\Highcharts\Chart;
 
-class DailyMeasurementsChart extends Chart
+class HourlyMeasurementsChart extends Chart
 {
     /**
      * Initializes the chart.

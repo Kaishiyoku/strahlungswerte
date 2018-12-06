@@ -33,6 +33,11 @@
     </div>
 
     <div>
+        {!! $hourlyMeasurementsChart->container() !!}
+        {!! $hourlyMeasurementsChart->script() !!}
+    </div>
+
+    <div>
         {!! $dailyMeasurementsChart->container() !!}
         {!! $dailyMeasurementsChart->script() !!}
     </div>

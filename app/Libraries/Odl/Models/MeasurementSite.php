@@ -21,12 +21,12 @@ class MeasurementSite
     /**
      * @var Collection
      */
-    private $hourlyPrecipitationProbabilities;
+    private $dailyMeasurements;
 
     /**
      * @var Collection
      */
-    private $dailyMeasurements;
+    private $hourlyPrecipitationProbabilities;
 
     /**
      * @param array $json
@@ -42,21 +42,27 @@ class MeasurementSite
 
         // hourly measurements
         $mw1hData = $json['mw1h'];
+        $hourlyPrecipitationProbabilities = collect();
+
+        foreach ($mw1hData['r'] as $key => $hourlyPrecipitationProbability) {
+            $date = new Carbon($mw1hData['tr'][$key]);
+            $value = $hourlyPrecipitationProbability ?: 0;
+
+            $hourlyPrecipitationProbabilities->push(new PrecipitationProbability($date, $value));
+        }
 
         foreach ($mw1hData['mw'] as $key => $hourlyMeasurement) {
             $value = $hourlyMeasurement ?: 0;
             $date = new Carbon($mw1hData['t'][$key]);
             $inspectionStatus = $mw1hData['ps'][$key];
 
-            $measurementSite->hourlyMeasurements->push(new HourlyMeasurement($date, $value, $inspectionStatus));
-        }
+            $precipitationProbability = $hourlyPrecipitationProbabilities->filter(function (PrecipitationProbability $item) use ($date) {
+                return $item->getDate()->eq($date);
+            })->first();
 
-        // hourly precipitation probabilities
-        foreach ($mw1hData['r'] as $key => $hourlyPrecipitationProbability) {
-            $value = $hourlyPrecipitationProbability ?: 0;
-            $date = new Carbon($mw1hData['tr'][$key]);
+            $precipitationProbabilityValue = $precipitationProbability ? $precipitationProbability->getValue() : null;
 
-            $measurementSite->hourlyPrecipitationProbabilities->push(new PrecipitationProbability($date, $value));
+            $measurementSite->hourlyMeasurements->push(new HourlyMeasurement($date, $value, $inspectionStatus, $precipitationProbabilityValue));
         }
 
         // daily measurements

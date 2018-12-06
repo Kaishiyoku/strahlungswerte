@@ -4,16 +4,13 @@ namespace App\Libraries\Odl\Models;
 
 class PrecipitationProbability extends Measurement
 {
-    protected $date;
-    protected $value;
-
     /**
-     * @param $dateTime
+     * @param $date
      * @param $value
      */
-    public function __construct($dateTime, $value)
+    public function __construct($date, $value)
     {
-        $this->date = $dateTime;
+        $this->date = $date;
         $this->value = $value;
     }
 

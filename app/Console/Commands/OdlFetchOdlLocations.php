@@ -35,7 +35,7 @@ class OdlFetchOdlLocations extends Command
         $numberOfNewValues = 0;
 
         foreach ($locations as $location) {
-            if (Location::find($location->uuid)->count() == 0) {
+            if (!Location::find($location->uuid)) {
                 $location->save();
 
                 $numberOfNewValues = $numberOfNewValues + 1;

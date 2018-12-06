@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\OdlFetchOdlLocations::class,
         Commands\OdlFetchDailyMeasurements::class,
+        Commands\OdlFetchHourlyMeasurements::class,
     ];
 
     /**
@@ -27,6 +28,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('odl:fetch_locations')->hourly();
         $schedule->command('odl:fetch_daily_measurements')->daily();
+        $schedule->command('odl:fetch_hourly_measurements')->hourly();
     }
 
     /**

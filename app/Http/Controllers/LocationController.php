@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Charts\DailyMeasurementsChart;
+use App\Charts\HourlyMeasurementsChart;
+use App\Libraries\Odl\Models\HourlyMeasurement;
+use App\Libraries\Odl\OdlFetcher;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -29,16 +32,35 @@ class LocationController extends Controller
      */
     public function show($slug)
     {
-        $minDate = Carbon::now()->subMonth();
+        $dailyMinDate = Carbon::now()->subMonths(6);
+        $hourlyMinDate = Carbon::now()->subWeek();
         $location = Location::find(getIdFromSlug($slug));
-        $dailyMeasurements = $location->dailyMeasurements()->orderBy('date')->where('date', '>=', $minDate);
+
+        $hourlyMeasurements = $location->hourlyMeasurements()->orderBy('date')->where('date', '>=', $hourlyMinDate);
+
+        $hourlyMeasurementsChart = new HourlyMeasurementsChart();
+        $hourlyMeasurementsChart->title('Stündliche Werte');
+        $hourlyMeasurementsChart->labels($hourlyMeasurements->pluck('date')->map(function ($item) {
+            return $item->format(l(DATETIME));
+        }));
+        $hourlyMeasurementsChart->dataset('Messung (µSv/h)', 'areaspline', $hourlyMeasurements->pluck('value'));
+        $hourlyMeasurementsChart->dataset('Niederschlagswahrscheinlichkeit', 'areaspline', $hourlyMeasurements->pluck('precipitation_probability'));
+
+        $dailyMeasurements = $location->dailyMeasurements()->orderBy('date')->where('date', '>=', $dailyMinDate);
 
         $dailyMeasurementsChart = new DailyMeasurementsChart();
+        $dailyMeasurementsChart->title('Tägliche Werte');
         $dailyMeasurementsChart->labels($dailyMeasurements->pluck('date')->map(function ($item) {
             return $item->format(l(DATE));
         }));
-        $dailyMeasurementsChart->dataset('Messung (µSv/h)', 'line', $dailyMeasurements->pluck('value'));
+        $dailyMeasurementsChart->dataset('Messung (µSv/h)', 'area', $dailyMeasurements->pluck('value')->map(function ($value) {
+            if ($value == 0) {
+                return null;
+            }
 
-        return view('location.show', compact('location', 'dailyMeasurementsChart'));
+            return $value;
+        }));
+
+        return view('location.show', compact('location', 'hourlyMeasurementsChart', 'dailyMeasurementsChart'));
     }
 }

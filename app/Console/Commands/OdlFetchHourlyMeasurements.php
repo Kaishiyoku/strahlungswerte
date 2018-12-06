@@ -2,26 +2,26 @@
 
 namespace App\Console\Commands;
 
-use App\Models\DailyMeasurement;
 use App\Libraries\Odl\OdlFetcher;
+use App\Models\HourlyMeasurement;
 use App\Models\Location;
 use Illuminate\Console\Command;
 
-class OdlFetchDailyMeasurements extends Command
+class OdlFetchHourlyMeasurements extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'odl:fetch_daily_measurements';
+    protected $signature = 'odl:fetch_hourly_measurements';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Fetches the Odl daily measurement data';
+    protected $description = 'Fetches the Odl hourly measurement data';
 
     /**
      * Execute the console command.
@@ -38,18 +38,20 @@ class OdlFetchDailyMeasurements extends Command
             $numberOfNewValues = 0;
             $measurementSite = $odlFetcher->getMeasurementSite($location->uuid);
 
-            $measurements = $measurementSite->getDailyMeasurements();
+            $measurements = $measurementSite->getHourlyMeasurements();
 
             foreach ($measurements as $measurement) {
                 // only add the value if it doesn't exist yet
-                $existingDailyMeasurements = $location->dailyMeasurements()->where('date', $measurement->getDate());
+                $existingHourlyMeasurements = $location->hourlyMeasurements()->where('date', $measurement->getDate());
 
-                if ($existingDailyMeasurements->count() == 0) {
-                    $dailyMeasurement = new DailyMeasurement();
-                    $dailyMeasurement->value = $measurement->getValue() == 0 ? null : $measurement->getValue();
-                    $dailyMeasurement->date = $measurement->getDate();
+                if ($existingHourlyMeasurements->count() == 0) {
+                    $hourlyMeasurement = new HourlyMeasurement();
+                    $hourlyMeasurement->value = $measurement->getValue() == 0 ? null : $measurement->getValue();
+                    $hourlyMeasurement->date = $measurement->getDate();
+                    $hourlyMeasurement->inspection_status = $measurement->getInspectionStatus();
+                    $hourlyMeasurement->precipitation_probability = $measurement->getPrecipitationProbabilityValue();
 
-                    $location->dailyMeasurements()->save($dailyMeasurement);
+                    $location->hourlyMeasurements()->save($hourlyMeasurement);
 
                     $numberOfNewValues = $numberOfNewValues + 1;
                 }

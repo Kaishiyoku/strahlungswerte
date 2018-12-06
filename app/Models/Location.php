@@ -36,6 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereUuid($value)
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\DailyMeasurement[] $dailyMeasurements
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\HourlyMeasurement[] $hourlyMeasurements
  */
 class Location extends Model
 {
@@ -107,5 +108,10 @@ class Location extends Model
     public function dailyMeasurements()
     {
         return $this->hasMany(DailyMeasurement::class);
+    }
+
+    public function hourlyMeasurements()
+    {
+        return $this->hasMany(HourlyMeasurement::class);
     }
 }
