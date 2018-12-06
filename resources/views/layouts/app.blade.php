@@ -19,7 +19,7 @@
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary z-m-b-25">
         <div class="container">
-            <a class="navbar-brand" href="{{ URL::route('home.index') }}">
+            <a class="navbar-brand" href="{{ URL::route('locations.index') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

@@ -1,4 +1,4 @@
 <?php
 
-Route::get('/', 'HomeController@index')->name('home.index');
-Route::get('/{slug}', 'HomeController@show')->name('home.show');
+Route::get('/', 'LocationController@index')->name('locations.index');
+Route::get('/{slug}', 'LocationController@show')->name('locations.show');
