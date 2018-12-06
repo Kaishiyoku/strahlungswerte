@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Libraries\Odl\OdlFetcher;
+use App\Models\Location;
 use Illuminate\Console\Command;
 
 class OdlFetchOdlLocations extends Command
@@ -31,8 +32,16 @@ class OdlFetchOdlLocations extends Command
         $odlFetcher = new OdlFetcher(env('ODL_BASE_URL'), env('ODL_USER'), env('ODL_PASSWORD'));
         $locations = $odlFetcher->fetchLocations();
 
+        $numberOfNewValues = 0;
+
         foreach ($locations as $location) {
-            $location->save();
+            if (Location::find($location->uuid)->count() == 0) {
+                $location->save();
+
+                $numberOfNewValues = $numberOfNewValues + 1;
+            }
         }
+
+        $this->info('Fetched and stored ' . $numberOfNewValues . ' locations');
     }
 }

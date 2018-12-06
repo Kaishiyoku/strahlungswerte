@@ -45,13 +45,13 @@ class OdlFetchDailyMeasurements extends Command
                 $existingDailyMeasurements = $location->dailyMeasurements()->where('date', $measurement->getDate());
 
                 if ($existingDailyMeasurements->count() == 0) {
-                    $numberOfNewValues = $numberOfNewValues + 1;
-
                     $dailyMeasurement = new DailyMeasurement();
                     $dailyMeasurement->value = $measurement->getValue();
                     $dailyMeasurement->date = $measurement->getDate();
 
                     $location->dailyMeasurements()->save($dailyMeasurement);
+
+                    $numberOfNewValues = $numberOfNewValues + 1;
                 }
             }
 
