@@ -1,5 +1,6 @@
 <?php
 
+const DATE = 'date';
 const DATETIME = 'datetime';
 
 if (! function_exists('l'))

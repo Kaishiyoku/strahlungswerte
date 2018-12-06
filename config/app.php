@@ -171,6 +171,7 @@ return [
         DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Kaishiyoku\CreateUser\CreateUserServiceProvider::class,
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -31,4 +31,9 @@
             </table>
         </div>
     </div>
+
+    <div>
+        {!! $dailyMeasurementsChart->container() !!}
+        {!! $dailyMeasurementsChart->script() !!}
+    </div>
 @endsection

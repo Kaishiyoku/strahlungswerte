@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\DailyMeasurementsChart;
 use App\Models\Location;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class LocationController extends Controller
 {
@@ -27,10 +29,16 @@ class LocationController extends Controller
      */
     public function show($slug)
     {
-        $uuid = getIdFromSlug($slug);
+        $minDate = Carbon::now()->subMonth();
+        $location = Location::find(getIdFromSlug($slug));
+        $dailyMeasurements = $location->dailyMeasurements()->orderBy('date')->where('date', '>=', $minDate);
 
-        $location = Location::find($uuid);
+        $dailyMeasurementsChart = new DailyMeasurementsChart();
+        $dailyMeasurementsChart->labels($dailyMeasurements->pluck('date')->map(function ($item) {
+            return $item->format(l(DATE));
+        }));
+        $dailyMeasurementsChart->dataset('Messung (µSv/h)', 'line', $dailyMeasurements->pluck('value'));
 
-        return view('location.show', compact('location'));
+        return view('location.show', compact('location', 'dailyMeasurementsChart'));
     }
 }
