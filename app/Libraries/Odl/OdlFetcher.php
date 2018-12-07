@@ -58,7 +58,7 @@ class OdlFetcher
     {
         $response = $this->httpClient->get($this->getUrlFor($uri));
 
-        return json_decode($response->getBody()->getContents(), true);
+        return json_decode($response->getBody()->getContents(), true) ?? [];
     }
 
     /**
@@ -78,7 +78,9 @@ class OdlFetcher
     {
         $locations = collect();
 
-        foreach ($this->fetchUrl('stamm.json') as $locationJson) {
+        $jsonData = $this->fetchUrl('stamm.json');
+
+        foreach ($jsonData as $locationJson) {
             $locations->push(Location::createFromJson($locationJson));
         }
 

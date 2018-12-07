@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c8857eaf3ba2aa339cf52ee1a2fda088",
+    "content-hash": "74c29a6d6a6d8d4b0a3353f1942772ca",
     "packages": [
         {
             "name": "balping/json-raw-encoder",
@@ -1199,6 +1199,56 @@
             ],
             "description": "Create menus for Laravel 5 with css-class highlighting support",
             "time": "2018-03-24T10:39:45+00:00"
+        },
+        {
+            "name": "khill/php-duration",
+            "version": "1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kevinkhill/php-duration.git",
+                "reference": "5efcb6d492030e012a869f328284a377ee35c993"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kevinkhill/php-duration/zipball/5efcb6d492030e012a869f328284a377ee35c993",
+                "reference": "5efcb6d492030e012a869f328284a377ee35c993",
+                "shasum": ""
+            },
+            "require-dev": {
+                "doctrine/instantiator": "1.0.4",
+                "phpunit/phpunit": "~4.8",
+                "satooshi/php-coveralls": "~1.0",
+                "symfony/config": "~2.0",
+                "symfony/console": "~2.0",
+                "symfony/filesystem": "~2.0",
+                "symfony/stopwatch": "~2.0",
+                "symfony/yaml": "~2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Khill\\Duration\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kevin Hill",
+                    "email": "kevinkhill@gmail.com",
+                    "role": "Creator"
+                }
+            ],
+            "description": "Converts between colon formatted time, human-readable time and seconds",
+            "keywords": [
+                "convert",
+                "duration",
+                "seconds",
+                "time"
+            ],
+            "time": "2018-07-05T12:10:14+00:00"
         },
         {
             "name": "laracasts/flash",
@@ -5137,16 +5187,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.4.5",
+            "version": "7.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "61d34e8dd6eb3555900f0f2a2fa9e7e570730102"
+                "reference": "520723129e2b3fc1dc4c0953e43c9d40e1ecb352"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/61d34e8dd6eb3555900f0f2a2fa9e7e570730102",
-                "reference": "61d34e8dd6eb3555900f0f2a2fa9e7e570730102",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/520723129e2b3fc1dc4c0953e43c9d40e1ecb352",
+                "reference": "520723129e2b3fc1dc4c0953e43c9d40e1ecb352",
                 "shasum": ""
             },
             "require": {
@@ -5191,7 +5241,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "7.4-dev"
+                    "dev-master": "7.5-dev"
                 }
             },
             "autoload": {
@@ -5217,7 +5267,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2018-12-03T05:01:24+00:00"
+            "time": "2018-12-07T07:08:12+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -6022,7 +6072,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.1.3"
+        "php": "^7.1.3",
+        "ext-json": "*"
     },
     "platform-dev": []
 }
