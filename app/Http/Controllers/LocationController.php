@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Charts\DailyMeasurementsChart;
 use App\Charts\HourlyMeasurementsChart;
-use App\Libraries\Odl\Models\HourlyMeasurement;
-use App\Libraries\Odl\OdlFetcher;
 use App\Models\Location;
-use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Mapper;
 
 class LocationController extends Controller
 {
@@ -60,6 +58,8 @@ class LocationController extends Controller
 
             return $value;
         }));
+
+        Mapper::map($location->latitude, $location->longitude);
 
         return view('location.show', compact('location', 'hourlyMeasurementsChart', 'dailyMeasurementsChart'));
     }

@@ -27,12 +27,24 @@
                         <td>@lang('validation.attributes.latitude'):</td>
                         <td>{{ $location->latitude }}</td>
                     </tr>
+                    <tr>
+                        <td>@lang('validation.attributes.status_id'):</td>
+                        <td>{{ formatStatus($location->status) }}</td>
+                    </tr>
+                    <tr>
+                        <td>@lang('validation.attributes.measurement_node_id'):</td>
+                        <td>{{ $location->measurementNode->name }}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
+
+        <div class="col-lg-6">
+            {!! Mapper::render() !!}
+        </div>
     </div>
 
-    <div>
+    <div class="mt-5">
         {!! $hourlyMeasurementsChart->container() !!}
         {!! $hourlyMeasurementsChart->script() !!}
     </div>

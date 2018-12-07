@@ -3,9 +3,9 @@
 const DATE = 'date';
 const DATETIME = 'datetime';
 
-if (! function_exists('l'))
-{
-    function l($type) {
+if (! function_exists('l')) {
+    function l($type)
+    {
         return __('common.date_formats.' . $type);
     }
 }
@@ -55,7 +55,8 @@ if (! function_exists('toSlug')) {
 }
 
 if (! function_exists('getOdlStatusEnumFromId')) {
-    function getOdlStatusEnumFromId($id) {
+    function getOdlStatusEnumFromId($id)
+    {
         $statusMappings = [
             0 => 'FAULTY',
             1 => 'OPERATIONAL',
@@ -68,7 +69,8 @@ if (! function_exists('getOdlStatusEnumFromId')) {
 }
 
 if (! function_exists('getKeyValuePairsFromStr')) {
-    function getKeyValuePairsFromStr($str) {
+    function getKeyValuePairsFromStr($str)
+    {
         if (empty($str)) {
             return collect();
         }
@@ -82,5 +84,12 @@ if (! function_exists('getKeyValuePairsFromStr')) {
         });
 
         return $list;
+    }
+}
+
+if (! function_exists('formatStatus')) {
+    function formatStatus(\App\Models\Status $status)
+    {
+        return __('common.statuses.' . $status->name);
     }
 }
