@@ -41,19 +41,31 @@ class OdlFetchLocations extends Command
             $locations = $odlFetcher->fetchLocations();
 
             $numberOfNewEntries = 0;
+            $numberOfUpdatedEntries = 0;
 
             foreach ($locations as $location) {
-                if (!Location::find($location->uuid)) {
+                $existingLocation = Location::find($location->uuid);
+
+                if ($existingLocation == null) {
                     $location->save();
 
                     $numberOfNewEntries = $numberOfNewEntries + 1;
+                } else {
+                    $existingLocation->height = $location->height;
+                    $existingLocation->longitude = $location->longitude;
+                    $existingLocation->latitude = $location->latitude;
+                    $existingLocation->last_measured_one_hour_value = $location->last_measured_one_hour_value;
+
+                    $existingLocation->save();
+
+                    $numberOfUpdatedEntries = $numberOfUpdatedEntries + 1;
                 }
             }
 
             $this->updateLog->is_successful = true;
             $this->updateLog->number_of_new_entries = $numberOfNewEntries;
 
-            $this->info('Fetched and stored ' . $numberOfNewEntries . ' locations');
+            $this->info('Fetched and stored ' . $numberOfNewEntries . ' and updated ' . $numberOfUpdatedEntries . ' locations');
         } catch (GuzzleException $e) {
             $this->addExceptionToUpdateLog($e);
         }
