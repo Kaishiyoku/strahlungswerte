@@ -177,6 +177,7 @@ return [
         'latitude'                      => 'Breitengrad',
         'status_id'                     => 'Status',
         'measurement_node_id'           => 'Messnetzknoten',
+        'postal_code'                   => 'PLZ',
 
     ],
 ];

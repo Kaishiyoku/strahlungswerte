@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Charts\DailyMeasurementsChart;
 use App\Charts\HourlyMeasurementsChart;
 use App\Models\Location;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Mapper;
 
@@ -15,9 +16,19 @@ class LocationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $locations = Location::orderBy('name')->paginate();
+        $searchTerm = $request->get('term');
+        $locations = Location::orderBy('name');
+
+        if ($searchTerm) {
+            $locations = $locations
+                ->where('name', 'like', "%$searchTerm%")
+                ->orWhere('postal_code', 'like', "%$searchTerm%")
+            ;
+        }
+
+        $locations = $locations->paginate();
 
         return view('location.index', compact('locations'));
     }

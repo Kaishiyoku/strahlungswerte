@@ -8,5 +8,6 @@ return [
     'show' => [
         'title' => ':postal_code :name'
     ],
+    'search' => 'Suchen',
 
 ];
