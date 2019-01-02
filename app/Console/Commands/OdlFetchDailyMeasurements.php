@@ -32,7 +32,7 @@ class OdlFetchDailyMeasurements extends Command
         $locations = Location::orderBy('name');
 
         $locations->get()->each(function ($location) {
-            ProcessDailyMeasurement::dispatch($location)->onQueue('odl');
+            ProcessDailyMeasurement::dispatch($location);
         });
     }
 }

@@ -32,7 +32,7 @@ class OdlFetchHourlyMeasurements extends Command
         $locations = Location::orderBy('name');
 
         $locations->get()->each(function ($location) {
-            ProcessHourlyMeasurement::dispatch($location)->onQueue('odl');
+            ProcessHourlyMeasurement::dispatch($location);
         });
     }
 }
