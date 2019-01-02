@@ -93,3 +93,17 @@ if (! function_exists('formatStatus')) {
         return __('common.statuses.' . $status->name);
     }
 }
+
+if (! function_exists('removeNulls')) {
+    function removeNulls(array $arr) {
+        return array_filter($arr, function ($item) {
+            return $item != null;
+        });
+    }
+}
+
+if (! function_exists('itemIf')) {
+    function itemIf($item, $isVisible, $default = null) {
+        return $isVisible ? $item : $default;
+    }
+}

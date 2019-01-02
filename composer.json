@@ -20,6 +20,7 @@
         "khill/php-duration": "1.0.6",
         "laracasts/flash": "3.0.2",
         "laravel/framework": "5.7.16",
+        "laravel/horizon": "^2.0",
         "laravel/tinker": "1.0.8",
         "laravelcollective/html": "5.7.1",
         "predis/predis": "^1.1",

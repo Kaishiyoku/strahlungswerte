@@ -15,6 +15,8 @@
 
     {{ Html::style('css/app.css') }}
 
+    {{ Html::script('js/app.js') }}
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
 </head>
 <body>
@@ -29,6 +31,10 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                {!! Menu::render() !!}
+
+                {!! Menu::render('user') !!}
+
                 @auth
                     @include('shared._logout_form')
                 @endauth
@@ -48,8 +54,6 @@
         @include('shared._footer')
     </div>
 </div>
-
-{{ Html::script('js/app.js') }}
 
 @yield('scripts')
 

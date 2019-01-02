@@ -4,6 +4,10 @@ return [
 
     'nav' => [
         'home' => 'Standorte',
+        'administration' => 'Administration',
+        'horizon' => 'Laravel Horizon',
+        'logout' => 'Logout',
+        'login' => 'Login',
     ],
     'date_formats' => [
         'date' => 'd.m.Y',

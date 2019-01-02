@@ -29,6 +29,11 @@ return [
                 return Hash::make($value);
             },
         ],
+        'is_administrator' => [
+            'validation_rules' => 'boolean',
+            'secret' => false,
+            'modifier_fn' => null,
+        ],
     ],
 
     'post_creation_fn' => function ($user) {

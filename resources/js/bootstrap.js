@@ -13,6 +13,7 @@ try {
 
     require('bootstrap');
     require('tablesorter/dist/js/jquery.tablesorter.combined');
+    window.Waves = require('node-waves');
 
     require('./additions');
 } catch (e) {}
