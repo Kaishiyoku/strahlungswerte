@@ -2,7 +2,7 @@
 
 namespace App\Charts;
 
-use ConsoleTVs\Charts\Classes\ChartJs\Chart;
+use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 use ConsoleTVs\Charts\Classes\DatasetClass;
 use Illuminate\Support\Facades\View;
 
