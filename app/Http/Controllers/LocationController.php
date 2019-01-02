@@ -36,33 +36,33 @@ class LocationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  string  $location
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
     public function show($slug)
     {
-        $dailyMinDate = Carbon::now()->subMonths(6);
+        $dailyMinDate = Carbon::now()->subMonths(3);
         $hourlyMinDate = Carbon::now()->subWeek();
         $location = Location::find(getIdFromSlug($slug));
 
         $hourlyMeasurements = $location->hourlyMeasurements()->orderBy('date')->where('date', '>=', $hourlyMinDate);
 
         $hourlyMeasurementsChart = new HourlyMeasurementsChart();
-        $hourlyMeasurementsChart->title('Stündliche Werte');
+        $hourlyMeasurementsChart->title(__('location.show.hourly_values'));
         $hourlyMeasurementsChart->labels($hourlyMeasurements->pluck('date')->map(function ($item) {
             return $item->format(l(DATETIME));
         }));
-        $hourlyMeasurementsChart->dataset('Messung (µSv/h)', 'areaspline', $hourlyMeasurements->pluck('value'));
-        $hourlyMeasurementsChart->dataset('Niederschlagswahrscheinlichkeit', 'areaspline', $hourlyMeasurements->pluck('precipitation_probability'));
+        $hourlyMeasurementsChart->dataset((__('location.show.measurement')), 'line', $hourlyMeasurements->pluck('value'));
+        $hourlyMeasurementsChart->dataset(__('location.show.precipitation_probability'), 'line', $hourlyMeasurements->pluck('precipitation_probability'));
 
         $dailyMeasurements = $location->dailyMeasurements()->orderBy('date')->where('date', '>=', $dailyMinDate);
 
         $dailyMeasurementsChart = new DailyMeasurementsChart();
-        $dailyMeasurementsChart->title('Tägliche Werte');
+        $dailyMeasurementsChart->title(__('location.show.daily_values'));
         $dailyMeasurementsChart->labels($dailyMeasurements->pluck('date')->map(function ($item) {
             return $item->format(l(DATE));
         }));
-        $dailyMeasurementsChart->dataset('Messung (µSv/h)', 'area', $dailyMeasurements->pluck('value')->map(function ($value) {
+        $dailyMeasurementsChart->dataset(__('location.show.measurement'), 'line', $dailyMeasurements->pluck('value')->map(function ($value) {
             if ($value == 0) {
                 return null;
             }

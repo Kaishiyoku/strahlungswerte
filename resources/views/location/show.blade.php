@@ -2,6 +2,10 @@
 
 @section('title', __('location.show.title', ['postal_code' => $location->postal_code, 'name' => $location->name]))
 
+@section('breadcrumbs')
+    {!! Breadcrumbs::render('locations.show', $location) !!}
+@endsection
+
 @section('content')
     <h1>
         {{ $location->postal_code }} {{ $location->name }}

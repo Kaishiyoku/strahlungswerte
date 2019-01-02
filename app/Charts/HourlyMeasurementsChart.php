@@ -2,9 +2,7 @@
 
 namespace App\Charts;
 
-use ConsoleTVs\Charts\Classes\Highcharts\Chart;
-
-class HourlyMeasurementsChart extends Chart
+class HourlyMeasurementsChart extends BaseChart
 {
     /**
      * Initializes the chart.
