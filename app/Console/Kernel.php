@@ -28,9 +28,9 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('horizon:snapshot')->everyFiveMinutes();
 
-        $schedule->command('odl:fetch_locations')->hourly();
-        $schedule->command('odl:fetch_daily_measurements')->daily();
-        $schedule->command('odl:fetch_hourly_measurements')->hourly();
+        $schedule->command('odl:fetch_locations')->hourlyAt(0);
+        $schedule->command('odl:fetch_daily_measurements')->dailyAt('02:00');
+        $schedule->command('odl:fetch_hourly_measurements')->hourlyAt(0);
     }
 
     /**
