@@ -41,8 +41,8 @@ class LocationController extends Controller
      */
     public function show($slug)
     {
-        $dailyMinDate = Carbon::now()->subMonths(3);
         $hourlyMinDate = Carbon::now()->subWeek();
+        $dailyMinDate = Carbon::now()->subMonths(3);
         $location = Location::find(getIdFromSlug($slug));
 
         $hourlyMeasurements = $location->hourlyMeasurements()->orderBy('date')->where('date', '>=', $hourlyMinDate);
