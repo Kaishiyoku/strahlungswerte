@@ -37,6 +37,8 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\DailyMeasurement[] $dailyMeasurements
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\HourlyMeasurement[] $hourlyMeasurements
+ * @property-read int|null $daily_measurements_count
+ * @property-read int|null $hourly_measurements_count
  */
 class Location extends Model
 {

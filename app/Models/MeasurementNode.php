@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MeasurementNode whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MeasurementNode whereName($value)
  * @mixin \Eloquent
+ * @property-read int|null $locations_count
  */
 class MeasurementNode extends Model
 {

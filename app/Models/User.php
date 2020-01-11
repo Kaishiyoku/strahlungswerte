@@ -32,6 +32,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @mixin \Eloquent
  * @property int $is_administrator
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereIsAdministrator($value)
+ * @property-read int|null $notifications_count
  */
 class User extends Authenticatable
 {

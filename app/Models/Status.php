@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Status whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Status whereName($value)
  * @mixin \Eloquent
+ * @property-read int|null $locations_count
  */
 class Status extends Model
 {
