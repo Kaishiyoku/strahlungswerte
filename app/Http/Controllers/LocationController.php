@@ -40,8 +40,17 @@ class LocationController extends Controller
      */
     public function show($slug)
     {
-        $hourlyMinDate = Carbon::now()->subWeek();
-        $dailyMinDate = Carbon::now()->subMonths(3);
+        $options = [
+            'fill' => true,
+            'lineTension' => 0.1,
+            'pointBorderWidth' => 0,
+            'pointHitRadius' => 3,
+            'pointRadius' => 0,
+
+        ];
+
+        $hourlyMinDate = Carbon::now()->subDays(3);
+        $dailyMinDate = Carbon::now()->subMonths(2);
         $location = Location::find(getIdFromSlug($slug));
 
         $hourlyMeasurements = $location->hourlyMeasurements()->orderBy('date')->where('date', '>=', $hourlyMinDate);
@@ -51,8 +60,8 @@ class LocationController extends Controller
         $hourlyMeasurementsChart->labels($hourlyMeasurements->pluck('date')->map(function ($item) {
             return $item->format(l(DATETIME));
         }));
-        $hourlyMeasurementsChart->dataset((__('location.show.measurement')), 'line', $hourlyMeasurements->pluck('value'));
-        $hourlyMeasurementsChart->dataset(__('location.show.precipitation_probability'), 'line', $hourlyMeasurements->pluck('precipitation_probability'));
+        $hourlyMeasurementsChart->dataset((__('location.show.measurement')), 'line', $hourlyMeasurements->pluck('value'))->options($options);
+        $hourlyMeasurementsChart->dataset(__('location.show.precipitation_probability'), 'line', $hourlyMeasurements->pluck('precipitation_probability'))->options($options);
 
         $dailyMeasurements = $location->dailyMeasurements()->orderBy('date')->where('date', '>=', $dailyMinDate);
 
@@ -67,7 +76,7 @@ class LocationController extends Controller
             }
 
             return $value;
-        }));
+        }))->options($options);
 
         return view('location.show', compact('location', 'hourlyMeasurementsChart', 'dailyMeasurementsChart'));
     }

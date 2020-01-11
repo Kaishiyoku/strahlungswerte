@@ -47,7 +47,7 @@
             @map([
                 'lat' => $location->latitude,
                 'lng' => $location->longitude,
-                'zoom' => 6,
+                'zoom' => 14,
                 'markers' => [
                     [
                         'title' => "{$location->postal_code} {$location->name}",
