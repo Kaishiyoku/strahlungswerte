@@ -53,24 +53,26 @@ class LocationController extends Controller
         $dailyMinDate = Carbon::now()->subMonths(2);
         $location = Location::find(getIdFromSlug($slug));
 
-        $hourlyMeasurements = $location->hourlyMeasurements()->orderBy('date')->where('date', '>=', $hourlyMinDate);
+        $hourlyMeasurements = $location->hourlyMeasurements()->where('date', '>=', $hourlyMinDate);
+        $hourlyMeasurementsForChart = (clone $hourlyMeasurements)->orderBy('date');
 
         $hourlyMeasurementsChart = new HourlyMeasurementsChart();
         $hourlyMeasurementsChart->title(__('location.show.hourly_values'));
-        $hourlyMeasurementsChart->labels($hourlyMeasurements->pluck('date')->map(function ($item) {
+        $hourlyMeasurementsChart->labels($hourlyMeasurementsForChart->pluck('date')->map(function ($item) {
             return $item->format(l(DATETIME));
         }));
-        $hourlyMeasurementsChart->dataset((__('location.show.measurement')), 'line', $hourlyMeasurements->pluck('value'))->options($options);
-        $hourlyMeasurementsChart->dataset(__('location.show.precipitation_probability'), 'line', $hourlyMeasurements->pluck('precipitation_probability'))->options($options);
+        $hourlyMeasurementsChart->dataset((__('location.show.measurement')), 'line', $hourlyMeasurementsForChart->pluck('value'))->options($options);
+        $hourlyMeasurementsChart->dataset(__('location.show.precipitation_probability'), 'line', $hourlyMeasurementsForChart->pluck('precipitation_probability'))->options($options);
 
-        $dailyMeasurements = $location->dailyMeasurements()->orderBy('date')->where('date', '>=', $dailyMinDate);
+        $dailyMeasurements = $location->dailyMeasurements()->where('date', '>=', $dailyMinDate);
+        $dailyMeasurementsForChart = (clone $dailyMeasurements)->orderBy('date');
 
         $dailyMeasurementsChart = new DailyMeasurementsChart();
         $dailyMeasurementsChart->title(__('location.show.daily_values'));
-        $dailyMeasurementsChart->labels($dailyMeasurements->pluck('date')->map(function ($item) {
+        $dailyMeasurementsChart->labels($dailyMeasurementsForChart->pluck('date')->map(function ($item) {
             return $item->format(l(DATE));
         }));
-        $dailyMeasurementsChart->dataset(__('location.show.measurement'), 'line', $dailyMeasurements->pluck('value')->map(function ($value) {
+        $dailyMeasurementsChart->dataset(__('location.show.measurement'), 'line', $dailyMeasurementsForChart->pluck('value')->map(function ($value) {
             if ($value == 0) {
                 return null;
             }
@@ -78,6 +80,6 @@ class LocationController extends Controller
             return $value;
         }))->options($options);
 
-        return view('location.show', compact('location', 'hourlyMeasurementsChart', 'dailyMeasurementsChart'));
+        return view('location.show', compact('location', 'hourlyMeasurementsChart', 'dailyMeasurementsChart', 'hourlyMeasurements', 'dailyMeasurements'));
     }
 }

@@ -178,6 +178,7 @@ return [
         'status_id'                     => 'Status',
         'measurement_node_id'           => 'Messnetzknoten',
         'postal_code'                   => 'PLZ',
+        'value'                         => 'Wert',
 
     ],
 ];
