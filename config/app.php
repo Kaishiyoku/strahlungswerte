@@ -172,7 +172,6 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         Kaishiyoku\CreateUser\CreateUserServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
-        Cornford\Googlmapper\MapperServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -241,7 +240,6 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Menu' => Kaishiyoku\Menu\Facades\Menu::class,
         'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
-        'Mapper' => Cornford\Googlmapper\Facades\MapperFacade::class,
 
     ],
 

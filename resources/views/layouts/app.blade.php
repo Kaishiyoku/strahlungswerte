@@ -17,7 +17,7 @@
 
     {{ Html::script('js/app.js') }}
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>
 </head>
 <body>
 <div id="app">
@@ -56,6 +56,10 @@
 </div>
 
 @yield('scripts')
+
+@mapstyles
+
+@mapscripts
 
 </body>
 </html>

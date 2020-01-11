@@ -7,7 +7,6 @@ use App\Charts\HourlyMeasurementsChart;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Mapper;
 
 class LocationController extends Controller
 {
@@ -69,8 +68,6 @@ class LocationController extends Controller
 
             return $value;
         }));
-
-        Mapper::map($location->latitude, $location->longitude);
 
         return view('location.show', compact('location', 'hourlyMeasurementsChart', 'dailyMeasurementsChart'));
     }

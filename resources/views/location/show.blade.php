@@ -44,7 +44,19 @@
         </div>
 
         <div class="col-lg-6">
-            {!! Mapper::render() !!}
+            @map([
+                'lat' => $location->latitude,
+                'lng' => $location->longitude,
+                'zoom' => 6,
+                'markers' => [
+                    [
+                        'title' => "{$location->postal_code} {$location->name}",
+                        'lat' => $location->latitude,
+                        'lng' => $location->longitude,
+                    ],
+                ],
+            ])
+
         </div>
     </div>
 
