@@ -12,7 +12,9 @@
 
         {{ Form::button(__('location.search'), ['type' => 'submit', 'class' => 'btn btn-primary mb-2']) }}
         &nbsp;
-        {!! Html::decode(Html::linkRoute('locations.index', '<i class="fas fa-times"></i>', [], ['class' => 'btn btn-danger mb-2'])) !!}
+        @if (!empty(request()->get('term')))
+            {!! Html::decode(Html::linkRoute('locations.index', '<i class="fas fa-times"></i>', [], ['class' => 'btn btn-danger mb-2'])) !!}
+        @endif
     {{ Form::close() }}
 
     <table class="table table-striped table-sm">

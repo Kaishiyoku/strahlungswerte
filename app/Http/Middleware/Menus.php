@@ -4,10 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
-use Kaishiyoku\LaravelMenu\LaravelMenu;
-use Kaishiyoku\Menu\Config\Config;
-use Kaishiyoku\Menu\Facades\Menu;
-use MikeAlmond\Color\Color;
 
 class Menus
 {

@@ -31,12 +31,12 @@ class DailyMeasurement extends Model
     public $timestamps = false;
 
     /**
-     * The attributes that should be mutated to dates.
+     * The attributes that should be cast.
      *
      * @var array
      */
-    protected $dates = [
-        'date'
+    protected $casts = [
+        'date' => 'date',
     ];
 
     /**

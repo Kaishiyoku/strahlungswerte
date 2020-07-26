@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\EntryType;
 use App\Providers\RouteServiceProvider;
+use App\User;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -50,7 +51,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -60,14 +61,28 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\Models\User
+     * @return \App\User
      */
     protected function create(array $data)
     {
-        return User::create([
+        return self::createDefaultEntryTypeFor([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    /**
+     * @param \App\Models\User $user
+     * @return User
+     */
+    public static function createDefaultEntryTypeFor(User $user)
+    {
+        $entryType = new EntryType();
+        $entryType->title = __('entry_type.default_title');
+
+        $user->entryTypes()->save($entryType);
+
+        return $user;
     }
 }

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\DailyMeasurementsChart;
-use App\Charts\HourlyMeasurementsChart;
+use App\Models\DailyMeasurement;
+use App\Models\HourlyMeasurement;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Kaishiyoku\LaravelRecharts\LaravelRecharts;
 
 class LocationController extends Controller
 {
@@ -40,14 +41,7 @@ class LocationController extends Controller
      */
     public function show($slug)
     {
-        $options = [
-            'fill' => true,
-            'lineTension' => 0.1,
-            'pointBorderWidth' => 0,
-            'pointHitRadius' => 3,
-            'pointRadius' => 0,
-
-        ];
+        $laravelRecharts = new LaravelRecharts();
 
         $hourlyMinDate = Carbon::now()->subDays(3);
         $dailyMinDate = Carbon::now()->subMonths(2);
@@ -56,29 +50,30 @@ class LocationController extends Controller
         $hourlyMeasurements = $location->hourlyMeasurements()->where('date', '>=', $hourlyMinDate);
         $hourlyMeasurementsForChart = (clone $hourlyMeasurements)->orderBy('date');
 
-        $hourlyMeasurementsChart = new HourlyMeasurementsChart();
-        $hourlyMeasurementsChart->title(__('location.show.hourly_values'));
-        $hourlyMeasurementsChart->labels($hourlyMeasurementsForChart->pluck('date')->map(function ($item) {
-            return $item->format(l(DATETIME));
-        }));
-        $hourlyMeasurementsChart->dataset((__('location.show.measurement')), 'line', $hourlyMeasurementsForChart->pluck('value'))->options($options);
-        $hourlyMeasurementsChart->dataset(__('location.show.precipitation_probability'), 'line', $hourlyMeasurementsForChart->pluck('precipitation_probability'))->options($options);
+        $hourlyMeasurementsChart = $laravelRecharts->makeChart(
+            [LaravelRecharts::element(__('location.show.hourly_values'), LaravelRecharts::TYPE_AREA, 'rgba(0, 123, 255, .75)')],
+            $hourlyMeasurementsForChart->get()->map(function (HourlyMeasurement $hourlyMeasurement) {
+                return [
+                    'name' => $hourlyMeasurement->date->format(__('common.date_formats.date_time')),
+                    __('location.show.hourly_values') => $hourlyMeasurement->value,
+                ];
+            })->toArray(),
+            300
+        );
 
         $dailyMeasurements = $location->dailyMeasurements()->where('date', '>=', $dailyMinDate);
         $dailyMeasurementsForChart = (clone $dailyMeasurements)->orderBy('date');
 
-        $dailyMeasurementsChart = new DailyMeasurementsChart();
-        $dailyMeasurementsChart->title(__('location.show.daily_values'));
-        $dailyMeasurementsChart->labels($dailyMeasurementsForChart->pluck('date')->map(function ($item) {
-            return $item->format(l(DATE));
-        }));
-        $dailyMeasurementsChart->dataset(__('location.show.measurement'), 'line', $dailyMeasurementsForChart->pluck('value')->map(function ($value) {
-            if ($value == 0) {
-                return null;
-            }
-
-            return $value;
-        }))->options($options);
+        $dailyMeasurementsChart = $laravelRecharts->makeChart(
+            [LaravelRecharts::element(__('location.show.daily_values'), LaravelRecharts::TYPE_AREA, 'rgba(102, 16, 242, .75)')],
+            $dailyMeasurementsForChart->get()->map(function (DailyMeasurement $dailyMeasurement) {
+                return [
+                    'name' => $dailyMeasurement->date->format(__('common.date_formats.date')),
+                    __('location.show.daily_values') => $dailyMeasurement->value,
+                ];
+            })->toArray(),
+            300
+        );
 
         return view('location.show', compact('location', 'hourlyMeasurementsChart', 'dailyMeasurementsChart', 'hourlyMeasurements', 'dailyMeasurements'));
     }

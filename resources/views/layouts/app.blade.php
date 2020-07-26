@@ -16,8 +16,6 @@
     {{ Html::style('css/app.css') }}
 
     {{ Html::script('js/app.js') }}
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>
 </head>
 <body>
 <div id="app">
@@ -34,10 +32,6 @@
                 {!! \LaravelMenu::render() !!}
 
                 {!! \LaravelMenu::render('user') !!}
-
-                @auth
-                    @include('shared._logout_form')
-                @endauth
             </div>
         </div>
     </nav>
@@ -55,23 +49,21 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    const logoutAnchor = document.querySelector('a[href$="{{ url()->route('logout') }}"]');
-    logoutAnchor.addEventListener('click', function (event) {
-        event.preventDefault();
-        document.querySelector('#logout-form').submit();
-    });
-</script>
+@auth
+    <script type="text/javascript">
+        const logoutAnchor = document.querySelector('a[href$="{{ url()->route('logout') }}"]');
+        logoutAnchor.addEventListener('click', function (event) {
+            event.preventDefault();
+            document.querySelector('#logout-form').submit();
+        });
+    </script>
 
-<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-    @csrf
-</form>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+@endauth
 
 @yield('scripts')
-
-@mapstyles
-
-@mapscripts
 
 </body>
 </html>

@@ -1,6 +1,8 @@
 <?php
 
-Route::group(['middleware' => 'menus'], function () {
+use Illuminate\Support\Facades\Route;
+
+Route::group([], function () {
     Route::get('/', 'LocationController@index')->name('locations.index');
     Route::get('/locations/{slug}', 'LocationController@show')->name('locations.show');
 

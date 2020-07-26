@@ -61,50 +61,59 @@
     </div>
 
     <div class="mt-5">
-        {!! $hourlyMeasurementsChart->container() !!}
-        {!! $hourlyMeasurementsChart->script() !!}
+        {!! $hourlyMeasurementsChart->assets() !!}
+        {!! $hourlyMeasurementsChart->render() !!}
     </div>
 
     <div class="mt-5">
-        {!! $dailyMeasurementsChart->container() !!}
-        {!! $dailyMeasurementsChart->script() !!}
+        {!! $dailyMeasurementsChart->render() !!}
     </div>
 
-    <h4 class="mt-5">{{ __('location.show.daily_values') }}</h4>
+    <div class="row">
+        <div class="col-md-6">
+            <h4 class="mt-5">{{ __('location.show.daily_values') }}</h4>
 
-    <table class="table table-sm table-striped">
-        <thead>
-            <tr>
-                <th>{{ __('validation.attributes.date') }}</th>
-                <th>{{ __('validation.attributes.value') }}</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($dailyMeasurements->orderBy('date', 'desc')->get() as $dailyMeasurement)
-                <tr>
-                    <td>{{ $dailyMeasurement->date->format(l('date')) }}</td>
-                    <td>{{ $dailyMeasurement->value }} µSv/h</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+            <table class="table table-sm table-striped">
+                <thead>
+                    <tr>
+                        <th>{{ __('validation.attributes.date') }}</th>
+                        <th class="text-right">{{ __('validation.attributes.value') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($dailyMeasurements->orderBy('date', 'desc')->get() as $dailyMeasurement)
+                        <tr>
+                            <td>{{ $dailyMeasurement->date->format(l('date')) }}</td>
+                            <td class="text-right">{{ $dailyMeasurement->value }} µSv/h</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
 
-    <h4 class="mt-5">{{ __('location.show.hourly_values') }}</h4>
+        <div class="col-md-6">
+            <h4 class="mt-5">{{ __('location.show.hourly_values') }}</h4>
 
-    <table class="table table-sm table-striped">
-        <thead>
-            <tr>
-                <th>{{ __('validation.attributes.date') }}</th>
-                <th>{{ __('validation.attributes.value') }}</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($hourlyMeasurements->orderBy('date', 'desc')->get() as $hourlyMeasurement)
-                <tr>
-                    <td>{{ $hourlyMeasurement->date->format(l('datetime')) }}</td>
-                    <td>{{ $hourlyMeasurement->value }} µSv/h</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+            <table class="table table-sm table-striped">
+                <thead>
+                    <tr>
+                        <th>{{ __('validation.attributes.date') }}</th>
+                        <th class="text-right">{{ __('validation.attributes.value') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($hourlyMeasurements->orderBy('date', 'desc')->get() as $hourlyMeasurement)
+                        <tr>
+                            <td>{{ $hourlyMeasurement->date->format(l('datetime')) }}</td>
+                            <td class="text-right">{{ $hourlyMeasurement->value }} µSv/h</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @mapstyles
+
+    @mapscripts
 @endsection
