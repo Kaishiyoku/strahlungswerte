@@ -54,7 +54,7 @@ class LocationController extends Controller
             [LaravelRecharts::element(__('location.show.hourly_values'), LaravelRecharts::TYPE_AREA, 'rgba(0, 123, 255, .75)')],
             $hourlyMeasurementsForChart->get()->map(function (HourlyMeasurement $hourlyMeasurement) {
                 return [
-                    'name' => $hourlyMeasurement->date->format(__('common.date_formats.date_time')),
+                    'name' => $hourlyMeasurement->date->format(__('common.date_formats.datetime')),
                     __('location.show.hourly_values') => $hourlyMeasurement->value,
                 ];
             })->toArray(),
