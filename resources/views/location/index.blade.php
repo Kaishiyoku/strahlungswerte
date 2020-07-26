@@ -35,8 +35,8 @@
                     <td>{{ $location->postal_code }}</td>
                     <td>{{ Html::linkRoute('locations.show', $location->name, toSlug($location->uuid, $location->name)) }}</td>
                     <td>{{ formatStatus($location->status) }}</td>
-                    <td>{{ $location->last_measured_one_hour_value }}</td>
-                    <td>{{ $location->height }}</td>
+                    <td>{{ $location->last_measured_one_hour_value }}µSv/h</td>
+                    <td>{{ $location->height }}m</td>
                     <td>{{ $location->longitude }}</td>
                     <td>{{ $location->latitude }}</td>
                 </tr>

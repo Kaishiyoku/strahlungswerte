@@ -21,7 +21,7 @@
                     </tr>
                     <tr>
                         <td>@lang('validation.attributes.last_measured_one_hour_value'):</td>
-                        <td>{{ $location->last_measured_one_hour_value }} µSv/h</td>
+                        <td>{{ $location->last_measured_one_hour_value }}µSv/h</td>
                     </tr>
                     <tr>
                         <td>@lang('validation.attributes.longitude'):</td>
