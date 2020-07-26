@@ -31,9 +31,9 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                {!! Menu::render() !!}
+                {!! \LaravelMenu::render() !!}
 
-                {!! Menu::render('user') !!}
+                {!! \LaravelMenu::render('user') !!}
 
                 @auth
                     @include('shared._logout_form')
@@ -54,6 +54,18 @@
         @include('shared._footer')
     </div>
 </div>
+
+<script type="text/javascript">
+    const logoutAnchor = document.querySelector('a[href$="{{ url()->route('logout') }}"]');
+    logoutAnchor.addEventListener('click', function (event) {
+        event.preventDefault();
+        document.querySelector('#logout-form').submit();
+    });
+</script>
+
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    @csrf
+</form>
 
 @yield('scripts')
 

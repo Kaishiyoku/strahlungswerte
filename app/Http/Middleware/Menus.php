@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use Kaishiyoku\LaravelMenu\LaravelMenu;
 use Kaishiyoku\Menu\Config\Config;
 use Kaishiyoku\Menu\Facades\Menu;
 use MikeAlmond\Color\Color;
@@ -36,33 +37,24 @@ class Menus
      */
     public function handle($request, Closure $next)
     {
-        Menu::setConfig(Config::forBootstrap4());
-
         $isLoggedIn = $this->auth->check();
         $isAdministrator = $isLoggedIn && $this->auth->user()->is_administrator;
 
-        $administrationLinks = removeNulls(itemIf([
-            Menu::dropdownHeader(__('common.nav.administration')),
-            Menu::link('/horizon', '<i class="fas fa-compass"></i> ' . __('common.nav.horizon')),
-        ], $isAdministrator, []));
-
-        Menu::registerDefault([
-            Menu::linkRoute('locations.index', '<i class="fas fa-globe-europe"></i> ' . __('common.nav.home'), [], [], ['locations.show']),
-        ], ['class' => 'navbar-nav mr-auto']);
+        \LaravelMenu::register()
+            ->addClassNames(['mr-auto'])
+            ->link('locations.index,locations.show', '<i class="fas fa-globe-europe"></i> ' . __('common.nav.home'));
 
         if ($isLoggedIn) {
-            Menu::register('user', [
-                Menu::dropdown(array_merge([
-
-                ], $administrationLinks, [
-                    Menu::dropdownDivider(),
-                    Menu::linkRoute('logout', '<i class="fas fa-sign-out-alt"></i> ' . __('common.nav.logout'), [], ['data-click' => '#logout-form']),
-                ]), '<i class="fas fa-user"></i> ' . $this->auth->user()->name . ' ', null, [], ['class' => 'dropdown-menu-right'])
-            ], ['class' => 'navbar-nav']);
+            \LaravelMenu::register('user')
+                ->dropdownIf($isAdministrator, '<i class="fas fa-user"></i> ' . $this->auth->user()->name, \LaravelMenu::dropdownContainer()
+                    ->header(__('common.nav.administration'))
+                    ->link('horizon.index', '<i class="fas fa-compass"></i> ' . __('common.nav.horizon'))
+                )
+                ->link('logout', '<i class="fas fa-sign-out-alt"></i> ' . __('common.nav.logout'))
+            ;
         } else {
-            Menu::register('user', [
-                Menu::linkRoute('login', '<i class="fas fa-sign-in-alt"></i> ' . __('common.nav.login')),
-            ], ['class' => 'navbar-nav']);
+            \LaravelMenu::register('user')
+                ->link('login', '<i class="fas fa-sign-in-alt"></i> ' . __('common.nav.login'));
         }
 
         return $next($request);

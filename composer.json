@@ -16,7 +16,7 @@
         "gonoware/laravel-maps": "^1.2",
         "guzzlehttp/guzzle": "6.5.2",
         "kaishiyoku/laravel-cli-create-user": "2.3.2",
-        "kaishiyoku/laravel-menu": "3.0.1",
+        "kaishiyoku/laravel-menu": "4.4.5",
         "khill/php-duration": "1.0.6",
         "laracasts/flash": "3.0.3",
         "laravel/framework": "6.10.1",
