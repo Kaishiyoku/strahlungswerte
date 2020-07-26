@@ -41,6 +41,8 @@
                     </tr>
                 </tbody>
             </table>
+
+            @include('shared._odl_copyright_notice')
         </div>
 
         <div class="col-lg-6">

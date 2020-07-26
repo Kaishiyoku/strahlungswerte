@@ -45,4 +45,6 @@
     </table>
 
     {{ $locations->links() }}
+
+    @include('shared._odl_copyright_notice')
 @endsection
