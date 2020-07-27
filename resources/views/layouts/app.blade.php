@@ -19,7 +19,7 @@
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary z-m-b-25">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
         <div class="container">
             <a class="navbar-brand" href="{{ URL::route('locations.index') }}">
                 {{ config('app.name', 'Laravel') }}
@@ -44,7 +44,7 @@
         @yield('content')
     </div>
 
-    <div class="container">
+    <div class="container mt-5 mb-3">
         @include('shared._footer')
     </div>
 </div>

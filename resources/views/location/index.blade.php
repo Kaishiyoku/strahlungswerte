@@ -17,7 +17,7 @@
         @endif
     {{ Form::close() }}
 
-    <table class="table table-striped table-sm">
+    <table class="table table-striped table-sm mt-2">
         <thead>
             <tr>
                 <th>@lang('validation.attributes.postal_code')</th>

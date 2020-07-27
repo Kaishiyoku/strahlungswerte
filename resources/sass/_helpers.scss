@@ -13,52 +13,6 @@
   box-shadow: $shadow;
 }
 
-
-//////////////////////////////
-// margin / padding offsets //
-//////////////////////////////
-$directionShortcodes: l r t b;
-
-@function getDirectionByShortcode($shortcode) {
-  $direction: "";
-
-  @if $shortcode == "l" {
-    $direction: "left";
-  } @else if $shortcode == "r" {
-    $direction: "right";
-  } @else if $shortcode == "t" {
-    $direction: "top";
-  } @else if $shortcode == "b" {
-    $direction: "bottom";
-  }
-
-  @return $direction;
-}
-
-@for $i from 1 through 20 {
-  .z-m-#{$i*5} {
-    margin: $i*5px;
-  }
-
-  .z-p-#{$i*5} {
-    padding: $i*5px;
-  }
-
-  .z-w-#{$i*5} {
-    width: $i*5px;
-  }
-
-  @each $directionShortcode in $directionShortcodes {
-    .z-m-#{$directionShortcode}-#{$i*5}{
-      margin-#{getDirectionByShortcode($directionShortcode)}: $i*5px;
-    }
-
-    .z-p-#{$directionShortcode}-#{$i*5}{
-      padding-#{getDirectionByShortcode($directionShortcode)}: $i*5px;
-    }
-  }
-}
-
 ///////////////////////
 // debugging classes //
 ///////////////////////

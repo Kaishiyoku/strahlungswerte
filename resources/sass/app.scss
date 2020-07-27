@@ -1,11 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Nunito", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$breadcrumb-bg: #f8f9fa;
+
+@import '~bootstrap';
 @import 'helpers';
-@import 'bootstrap';
-@import "../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome";
-@import "../../node_modules/@fortawesome/fontawesome-free/scss/regular";
-@import "../../node_modules/@fortawesome/fontawesome-free/scss/solid";
-@import "../../node_modules/@fortawesome/fontawesome-free/scss/brands";
 @import 'bootstrap/additions';
-@import 'waves';
 @import 'bootstrap/tablesorter';
+@import 'waves';
+
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/regular";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import "~@fortawesome/fontawesome-free/scss/brands";
