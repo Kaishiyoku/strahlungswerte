@@ -5,7 +5,6 @@ namespace App\Console;
 use App\Models\UpdateLog;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
-use Khill\Duration\Duration;
 
 trait HasCustomCommandExtensions
 {
