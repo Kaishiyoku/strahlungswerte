@@ -4,6 +4,8 @@ namespace App\Libraries\Odl;
 
 use App\Libraries\Odl\Models\MeasurementSite;
 use App\Models\Location;
+use App\Models\Statistic;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 
 class OdlFetcher
@@ -95,11 +97,27 @@ class OdlFetcher
      * @return MeasurementSite
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getMeasurementSite($uuid, $withCosmicRate = false)
+    public function fetchMeasurementSite($uuid, $withCosmicRate = false)
     {
         $data = $this->fetchUrl($uuid . ($withCosmicRate ? 'ct' : '') . '.json');
 
         return MeasurementSite::fromJson($data);
+    }
+
+    public function fetchStatistic()
+    {
+        $data = $this->fetchUrl('stat.json');
+
+        $statistic = new Statistic();
+        $statistic->date = Carbon::parse($data['mwavg']['t']);
+        $statistic->number_of_operational_locations = $data['betriebsbereit'];
+        $statistic->average_value = $data['mwavg']['mw'];
+        $statistic->min_location_uuid = $data['mwmin']['kenn'];
+        $statistic->min_value = $data['mwmin']['mw'];
+        $statistic->max_location_uuid = $data['mwmax']['kenn'];
+        $statistic->max_value = $data['mwmax']['mw'];
+
+        return $statistic;
     }
 
     /**

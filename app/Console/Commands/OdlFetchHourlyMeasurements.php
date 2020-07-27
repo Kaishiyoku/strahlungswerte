@@ -20,7 +20,7 @@ class OdlFetchHourlyMeasurements extends Command
      *
      * @var string
      */
-    protected $description = 'Fetches the Odl hourly measurement data';
+    protected $description = 'Fetches the ODL hourly measurement data';
 
     /**
      * Execute the console command.

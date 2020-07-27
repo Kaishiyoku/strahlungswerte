@@ -52,7 +52,7 @@ class ProcessDailyMeasurement implements ShouldQueue
         $numberOfNewEntries = 0;
 
         try {
-            $measurementSite = $odlFetcher->getMeasurementSite($this->location->uuid);
+            $measurementSite = $odlFetcher->fetchMeasurementSite($this->location->uuid);
 
             $measurements = $measurementSite->getDailyMeasurements();
 

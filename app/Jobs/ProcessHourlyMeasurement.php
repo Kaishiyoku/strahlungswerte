@@ -56,7 +56,7 @@ class ProcessHourlyMeasurement implements ShouldQueue
 
         try {
             $numberOfNewEntries = 0;
-            $measurementSite = $odlFetcher->getMeasurementSite($this->location->uuid);
+            $measurementSite = $odlFetcher->fetchMeasurementSite($this->location->uuid);
 
             $measurements = $measurementSite->getHourlyMeasurements();
 

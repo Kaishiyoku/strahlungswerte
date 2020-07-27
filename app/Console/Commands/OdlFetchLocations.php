@@ -25,7 +25,7 @@ class OdlFetchLocations extends Command
      *
      * @var string
      */
-    protected $description = 'Fetches the Odl location data';
+    protected $description = 'Fetches the ODL location data';
 
     /**
      * Execute the console command.
