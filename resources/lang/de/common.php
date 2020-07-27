@@ -9,6 +9,7 @@ return [
         'logout' => 'Logout',
         'login' => 'Login',
         'statistics' => 'Statistiken',
+        'update_logs' => 'Update-Logs',
     ],
     'date_formats' => [
         'date' => 'd.m.Y',
@@ -19,6 +20,12 @@ return [
         'operational' => 'in Betrieb',
         'test_mode' => 'Testbetrieb',
         'maintenance' => 'Wartung',
+    ],
+    'lists' => [
+        'boolean' => [
+            1 => 'Ja',
+            0 => 'Nein',
+        ],
     ],
 
 ];

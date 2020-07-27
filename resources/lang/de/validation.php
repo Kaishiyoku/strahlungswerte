@@ -185,6 +185,12 @@ return [
         'min_value'                         => 'Kleinster Tagesmittelwert',
         'max_location_uuid'                 => 'Messstelle mit größten Tagesmittelwert',
         'max_value'                         => 'Größter Tagesmittelwert',
+        'created_at'                        => 'Erstellt am',
+        'is_successful'                     => 'Erfolgreich',
+        'command_name'                      => 'Befehl',
+        'number_of_new_entries'             => '# Neue Einträge',
+        'duration_in_seconds'               => 'Dauer (Sekunden)',
+        'json_content'                      => 'Weitere Informationen',
 
     ],
 ];

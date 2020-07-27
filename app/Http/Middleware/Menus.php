@@ -45,6 +45,7 @@ class Menus
             \LaravelMenu::register('user')
                 ->dropdownIf($isAdministrator, '<i class="fas fa-user"></i> ' . $this->auth->user()->name, \LaravelMenu::dropdownContainer()
                     ->header(__('common.nav.administration'))
+                    ->link('update_logs.index,update_logs.show', '<i class="fas fa-file-alt"></i> ' . __('common.nav.update_logs'))
                     ->link('horizon.index', '<i class="fas fa-compass"></i> ' . __('common.nav.horizon'))
                 )
                 ->link('logout', '<i class="fas fa-sign-out-alt"></i> ' . __('common.nav.logout'))
