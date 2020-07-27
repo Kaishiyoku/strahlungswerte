@@ -46,6 +46,9 @@ class OdlFetchStatistic extends Command
             if ($existingStatistic->count() === 0) {
                 $statistic->save();
 
+                $this->updateLog->is_successful = true;
+                $this->updateLog->number_of_new_entries = 1;
+
                 Log::channel('queue')->info('Fetched and stored statistic for ' . $statistic->date->toDateString());
             }
         } catch (Throwable $e) {
