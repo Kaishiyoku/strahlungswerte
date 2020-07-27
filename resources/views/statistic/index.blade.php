@@ -3,32 +3,34 @@
 @section('title', __('statistic.index.title'))
 
 @section('content')
-    <table class="table table-striped table-sm">
-        <thead>
-            <tr>
-                <th>@lang('validation.attributes.date')</th>
-                <th>@lang('validation.attributes.number_of_operational_locations')</th>
-                <th>@lang('validation.attributes.average_value')</th>
-                <th>@lang('validation.attributes.min_location_uuid')</th>
-                <th>@lang('validation.attributes.min_value')</th>
-                <th>@lang('validation.attributes.max_location_uuid')</th>
-                <th>@lang('validation.attributes.max_value')</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($statistics as $statistic)
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
                 <tr>
-                    <td>{{ $statistic->date->format(__('common.date_formats.date')) }}</td>
-                    <td>{{ $statistic->number_of_operational_locations }}</td>
-                    <td>{{ $statistic->average_value }}µSv/h</td>
-                    <td>{{ Html::linkRoute('locations.show', $statistic->minLocation->name, toSlug($statistic->minLocation->uuid, $statistic->minLocation->name)) }}</td>
-                    <td>{{ $statistic->min_value }}µSv/h</td>
-                    <td>{{ Html::linkRoute('locations.show', $statistic->maxLocation->name, toSlug($statistic->maxLocation->uuid, $statistic->maxLocation->name)) }}</td>
-                    <td>{{ $statistic->max_value }}µSv/h</td>
+                    <th>@lang('validation.attributes.date')</th>
+                    <th>@lang('validation.attributes.number_of_operational_locations')</th>
+                    <th>@lang('validation.attributes.average_value')</th>
+                    <th>@lang('validation.attributes.min_location_uuid')</th>
+                    <th>@lang('validation.attributes.min_value')</th>
+                    <th>@lang('validation.attributes.max_location_uuid')</th>
+                    <th>@lang('validation.attributes.max_value')</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach ($statistics as $statistic)
+                    <tr>
+                        <td>{{ $statistic->date->format(__('common.date_formats.date')) }}</td>
+                        <td>{{ $statistic->number_of_operational_locations }}</td>
+                        <td>{{ $statistic->average_value }}µSv/h</td>
+                        <td>{{ Html::linkRoute('locations.show', $statistic->minLocation->name, toSlug($statistic->minLocation->uuid, $statistic->minLocation->name)) }}</td>
+                        <td>{{ $statistic->min_value }}µSv/h</td>
+                        <td>{{ Html::linkRoute('locations.show', $statistic->maxLocation->name, toSlug($statistic->maxLocation->uuid, $statistic->maxLocation->name)) }}</td>
+                        <td>{{ $statistic->max_value }}µSv/h</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 
     {{ $statistics->links() }}
 
