@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 /**
  * App\Models\Statistic
@@ -70,5 +72,23 @@ class Statistic extends Model
     public function maxLocation()
     {
         return $this->belongsTo(Location::class, 'max_location_uuid');
+    }
+
+    /**
+     * @param array $json
+     * @return Statistic
+     */
+    public static function createFromJson($json)
+    {
+        $statistic = new Statistic();
+        $statistic->date = Carbon::parse(Arr::get($json, 'mwavg.t'));
+        $statistic->number_of_operational_locations = Arr::get($json, 'betriebsbereit');
+        $statistic->average_value = Arr::get($json, 'mwavg.mw');
+        $statistic->min_location_uuid = Arr::get($json, 'mwmin.kenn');
+        $statistic->min_value = Arr::get($json, 'mwmin.mw');
+        $statistic->max_location_uuid = Arr::get($json, 'mwmax.kenn');
+        $statistic->max_value = Arr::get($json, 'mwmax.mw');
+
+        return $statistic;
     }
 }

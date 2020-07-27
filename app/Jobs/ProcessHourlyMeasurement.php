@@ -6,13 +6,13 @@ use App\Console\HasCustomCommandExtensions;
 use App\Libraries\Odl\OdlFetcher;
 use App\Models\HourlyMeasurement;
 use App\Models\Location;
-use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class ProcessHourlyMeasurement implements ShouldQueue
 {
@@ -81,7 +81,7 @@ class ProcessHourlyMeasurement implements ShouldQueue
             $this->updateLog->number_of_new_entries = $numberOfNewEntries;
 
             Log::channel('queue')->info('Fetched and stored ' . $numberOfNewEntries . ' values for the location "' . $this->location->postal_code . ' ' . $this->location->name . '"');
-        } catch (GuzzleException $e) {
+        } catch (Throwable $e) {
             $this->addExceptionToUpdateLog($e);
         }
 

@@ -30,8 +30,8 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('odl:fetch_locations')->hourlyAt(0);
         $schedule->command('odl:fetch_statistic')->dailyAt('17:00');
-        $schedule->command('odl:fetch_daily_measurements')->dailyAt('02:00');
-        $schedule->command('odl:fetch_hourly_measurements')->hourlyAt(0);
+        $schedule->command('odl:fetch_daily_measurements')->dailyAt('17:30');
+        $schedule->command('odl:fetch_hourly_measurements')->hourlyAt(40);
     }
 
     /**

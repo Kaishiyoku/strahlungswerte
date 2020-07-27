@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Console\HasCustomCommandExtensions;
 use App\Libraries\Odl\OdlFetcher;
 use App\Models\Statistic;
-use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Throwable;
@@ -52,5 +51,7 @@ class OdlFetchStatistic extends Command
         } catch (Throwable $e) {
             $this->addExceptionToUpdateLog($e);
         }
+
+        $this->end();
     }
 }

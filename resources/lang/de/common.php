@@ -8,6 +8,7 @@ return [
         'horizon' => 'Laravel Horizon',
         'logout' => 'Logout',
         'login' => 'Login',
+        'statistics' => 'Statistiken',
     ],
     'date_formats' => [
         'date' => 'd.m.Y',

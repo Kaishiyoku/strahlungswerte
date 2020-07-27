@@ -44,6 +44,15 @@ class UpdateLog extends Model
      */
     protected $hidden = [];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_successful' => 'boolean',
+    ];
+
     public function setUpdatedAt($value)
     {
         //

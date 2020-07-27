@@ -38,7 +38,8 @@ class Menus
 
         \LaravelMenu::register()
             ->addClassNames(['mr-auto'])
-            ->link('locations.index,locations.show', '<i class="fas fa-globe-europe"></i> ' . __('common.nav.home'));
+            ->link('locations.index,locations.show', '<i class="fas fa-globe-europe"></i> ' . __('common.nav.home'))
+            ->link('statistics.index', '<i class="fas fa-chart-line"></i> ' . __('common.nav.statistics'));
 
         if ($isLoggedIn) {
             \LaravelMenu::register('user')

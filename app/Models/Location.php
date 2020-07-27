@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 /**
  * App\Models\Location
@@ -84,15 +85,15 @@ class Location extends Model
     public static function createFromJson($json)
     {
         $location = new Location();
-        $location->uuid = $json['kenn'];
-        $location->name = $json['ort'];
-        $location->measurement_node_id = $json['kid'];
-        $location->status_id = $json['status'];
-        $location->height = $json['hoehe'];
-        $location->longitude = $json['lon'];
-        $location->last_measured_one_hour_value = array_key_exists('mw', $json) ? $json['mw'] : null;
-        $location->latitude = $json['lat'];
-        $location->postal_code = $json['plz'];
+        $location->uuid = Arr::get($json, 'kenn');
+        $location->name = Arr::get($json, 'ort');
+        $location->measurement_node_id = Arr::get($json, 'kid');
+        $location->status_id = Arr::get($json, 'status');
+        $location->height = Arr::get($json, 'hoehe');
+        $location->longitude = Arr::get($json, 'lon');
+        $location->last_measured_one_hour_value = Arr::get($json, 'mw');
+        $location->latitude = Arr::get($json, 'lat');
+        $location->postal_code = Arr::get($json, 'plz');
 
         return $location;
     }

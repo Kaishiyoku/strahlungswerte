@@ -4,6 +4,7 @@ namespace App\Libraries\Odl\Models;
 
 use App\Models\Location;
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 class MeasurementSite
@@ -35,30 +36,31 @@ class MeasurementSite
     public static function fromJson($json)
     {
         $measurementSite = new MeasurementSite();
-        $measurementSite->location = Location::createFromJson($json['stamm']);
+        $measurementSite->location = Location::createFromJson(Arr::get($json, 'stamm'));
         $measurementSite->hourlyMeasurements = collect();
         $measurementSite->hourlyPrecipitationProbabilities = collect();
         $measurementSite->dailyMeasurements = collect();
 
         // hourly measurements
-        $mw1hData = $json['mw1h'];
         $hourlyPrecipitationProbabilities = collect();
 
-        foreach ($mw1hData['r'] as $key => $hourlyPrecipitationProbability) {
-            $date = new Carbon($mw1hData['tr'][$key]);
+        foreach (Arr::get($json, 'mw1h.r') as $key => $hourlyPrecipitationProbability) {
+            $date = Carbon::parse(Arr::get($json, 'mw1h.tr.' . $key));
             $value = $hourlyPrecipitationProbability ?: 0;
 
             $hourlyPrecipitationProbabilities->push(new PrecipitationProbability($date, $value));
         }
 
-        foreach ($mw1hData['mw'] as $key => $hourlyMeasurement) {
+        foreach (Arr::get($json, 'mw1h.mw') as $key => $hourlyMeasurement) {
             $value = $hourlyMeasurement ?: 0;
-            $date = new Carbon($mw1hData['t'][$key]);
-            $inspectionStatus = $mw1hData['ps'][$key];
+            $date = Carbon::parse(Arr::get($json, 'mw1h.t.' . $key));
+            $inspectionStatus = Arr::get($json, 'mw1h.ps.' . $key);
 
-            $precipitationProbability = $hourlyPrecipitationProbabilities->filter(function (PrecipitationProbability $item) use ($date) {
-                return $item->getDate()->eq($date);
-            })->first();
+            $precipitationProbability = $hourlyPrecipitationProbabilities
+                ->filter(function (PrecipitationProbability $item) use ($date) {
+                    return $item->getDate()->eq($date);
+                })
+                ->first();
 
             $precipitationProbabilityValue = $precipitationProbability ? $precipitationProbability->getValue() : null;
 
@@ -66,11 +68,9 @@ class MeasurementSite
         }
 
         // daily measurements
-        $mw24hData = $json['mw24h'];
-
-        foreach ($mw24hData['mw'] as $key => $dailyMeasurement) {
+        foreach (Arr::get($json, 'mw24h.mw') as $key => $dailyMeasurement) {
             $value = $dailyMeasurement ?: 0;
-            $date = new Carbon($mw24hData['t'][$key]);
+            $date = Carbon::parse(Arr::get($json, 'mw24h.t.' . $key));
 
             $measurementSite->dailyMeasurements->push(new DailyMeasurement($date, $value));
         }

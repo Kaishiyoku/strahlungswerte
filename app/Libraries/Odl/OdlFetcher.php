@@ -5,7 +5,6 @@ namespace App\Libraries\Odl;
 use App\Libraries\Odl\Models\MeasurementSite;
 use App\Models\Location;
 use App\Models\Statistic;
-use Carbon\Carbon;
 use GuzzleHttp\Client;
 
 class OdlFetcher
@@ -80,15 +79,13 @@ class OdlFetcher
     {
         $locations = collect();
 
-        $jsonData = $this->fetchUrl('stamm.json');
+        $jsonData = collect($this->fetchUrl('stamm.json'));
 
-        foreach ($jsonData as $locationJson) {
-            $locations->push(Location::createFromJson($locationJson));
-        }
+        $this->locations = $jsonData->map(function ($data) {
+            return Location::createFromJson($data);
+        });
 
-        $this->locations = $locations;
-
-        return $locations;
+        return $this->locations;
     }
 
     /**
@@ -104,20 +101,15 @@ class OdlFetcher
         return MeasurementSite::fromJson($data);
     }
 
+    /**
+     * @return Statistic
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function fetchStatistic()
     {
         $data = $this->fetchUrl('stat.json');
 
-        $statistic = new Statistic();
-        $statistic->date = Carbon::parse($data['mwavg']['t']);
-        $statistic->number_of_operational_locations = $data['betriebsbereit'];
-        $statistic->average_value = $data['mwavg']['mw'];
-        $statistic->min_location_uuid = $data['mwmin']['kenn'];
-        $statistic->min_value = $data['mwmin']['mw'];
-        $statistic->max_location_uuid = $data['mwmax']['kenn'];
-        $statistic->max_value = $data['mwmax']['mw'];
-
-        return $statistic;
+        return Statistic::createFromJson($data);
     }
 
     /**

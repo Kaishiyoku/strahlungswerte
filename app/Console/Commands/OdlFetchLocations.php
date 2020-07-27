@@ -5,9 +5,9 @@ namespace App\Console\Commands;
 use App\Console\HasCustomCommandExtensions;
 use App\Libraries\Odl\OdlFetcher;
 use App\Models\Location;
-use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class OdlFetchLocations extends Command
 {
@@ -67,7 +67,7 @@ class OdlFetchLocations extends Command
             $this->updateLog->number_of_new_entries = $numberOfNewEntries;
 
             Log::channel('queue')->info('Fetched and stored ' . $numberOfNewEntries . ' and updated ' . $numberOfUpdatedEntries . ' locations');
-        } catch (GuzzleException $e) {
+        } catch (Throwable $e) {
             $this->addExceptionToUpdateLog($e);
         }
 
