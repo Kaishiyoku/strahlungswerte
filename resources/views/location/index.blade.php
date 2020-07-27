@@ -4,17 +4,19 @@
 
 @section('content')
     {{ Form::open(['route' => 'locations.index', 'method' => 'get', 'class' => 'form-inline']) }}
-        <div class="form-group mx-sm-3 mb-2">
-            {{ Form::label('term', __('validation.attributes.name'), ['class' => 'sr-only']) }}
-
+        <div class="input-group">
             {{ Form::text('term', request()->get('term'), ['class' => 'form-control', 'placeholder' => __('validation.attributes.name')]) }}
-        </div>
 
-        {{ Form::button(__('location.search'), ['type' => 'submit', 'class' => 'btn btn-primary mb-2']) }}
-        &nbsp;
-        @if (!empty(request()->get('term')))
-            {!! Html::decode(Html::linkRoute('locations.index', '<i class="fas fa-times"></i>', [], ['class' => 'btn btn-danger mb-2'])) !!}
-        @endif
+            <div class="input-group-append">
+                {{ Form::button(__('location.search'), ['type' => 'submit', 'class' => 'btn btn-primary mb-2']) }}
+            </div>
+
+            @if (!empty(request()->get('term')))
+                <div class="input-group-append">
+                    {!! Html::decode(Html::linkRoute('locations.index', '<i class="fas fa-times"></i>', [], ['class' => 'btn btn-danger mb-2'])) !!}
+                </div>
+            @endif
+        </div>
     {{ Form::close() }}
 
     <table class="table table-striped table-sm mt-2">
