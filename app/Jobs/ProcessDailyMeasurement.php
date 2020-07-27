@@ -74,7 +74,7 @@ class ProcessDailyMeasurement implements ShouldQueue
             $this->updateLog->is_successful = true;
             $this->updateLog->number_of_new_entries = $numberOfNewEntries;
 
-            Log::info('Fetched and stored ' . $numberOfNewEntries . ' values for the location "' . $this->location->postal_code . ' ' . $this->location->name . '"');
+            Log::channel('queue')->info('Fetched and stored ' . $numberOfNewEntries . ' values for the location "' . $this->location->postal_code . ' ' . $this->location->name . '"');
         } catch (GuzzleException $e) {
             $this->addExceptionToUpdateLog($e);
         }

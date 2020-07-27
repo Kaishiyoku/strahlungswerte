@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Models\UpdateLog;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 use Khill\Duration\Duration;
 
 trait HasCustomCommandExtensions
@@ -52,6 +53,6 @@ trait HasCustomCommandExtensions
             'trace' => app()->isLocal() ? $e->getTraceAsString() : null,
         ]);
 
-        $this->error($e->getMessage() . "\n" . $e->getTraceAsString());
+        Log::channel('queue')->error($e->getMessage() . "\n" . $e->getTraceAsString());
     }
 }
