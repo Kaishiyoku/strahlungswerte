@@ -42,6 +42,7 @@ class OdlFetchStatistic extends Command
             $statistic = $odlFetcher->fetchStatistic();
 
             $existingStatistic = Statistic::where('date', $statistic->date);
+            $numberOfNewEntries = $existingStatistic->count() === 0 ? 1 : 0;
 
             if ($existingStatistic->count() === 0) {
                 $statistic->save();
@@ -50,7 +51,7 @@ class OdlFetchStatistic extends Command
             }
 
             $this->updateLog->is_successful = true;
-            $this->updateLog->number_of_new_entries = $existingStatistic->count() === 0 ? 1 : 0;
+            $this->updateLog->number_of_new_entries = $numberOfNewEntries;
         } catch (Throwable $e) {
             $this->addExceptionToUpdateLog($e);
         }
