@@ -51,11 +51,15 @@ class LocationController extends Controller
         $hourlyMeasurementsForChart = (clone $hourlyMeasurements)->orderBy('date');
 
         $hourlyMeasurementsChart = $laravelRecharts->makeChart(
-            [LaravelRecharts::element(__('location.show.hourly_values'), LaravelRecharts::TYPE_AREA, 'rgba(0, 123, 255, .75)')],
+            [
+                LaravelRecharts::element(__('location.show.hourly_values'), LaravelRecharts::TYPE_AREA, 'rgba(0, 123, 255, .75)'),
+                LaravelRecharts::element(__('location.show.precipitation_probability'), LaravelRecharts::TYPE_AREA, 'rgba(232, 62, 140, .75)'),
+            ],
             $hourlyMeasurementsForChart->get()->map(function (HourlyMeasurement $hourlyMeasurement) {
                 return [
                     'name' => $hourlyMeasurement->date->format(__('common.date_formats.datetime')),
                     __('location.show.hourly_values') => $hourlyMeasurement->value,
+                    __('location.show.precipitation_probability') => $hourlyMeasurement->precipitation_probability,
                 ];
             })->toArray(),
             300
