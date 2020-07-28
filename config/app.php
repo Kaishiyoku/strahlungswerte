@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         Kaishiyoku\LaravelRecharts\LaravelRechartsServiceProvider::class,
+        \App\Providers\GoogleDriveServiceProvider::class,
 
         /*
          * Application Service Providers...
