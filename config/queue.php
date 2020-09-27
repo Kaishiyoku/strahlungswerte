@@ -81,7 +81,7 @@ return [
     */
 
     'failed' => [
-        'driver' => env('QUEUE_FAILED_DRIVER', 'database'),
+        'driver' => env('QUEUE_FAILED_DRIVER', 'database-uuids'),
         'table' => 'failed_jobs',
     ],
 

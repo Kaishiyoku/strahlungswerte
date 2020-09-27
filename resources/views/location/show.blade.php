@@ -46,7 +46,7 @@
         </div>
 
         <div class="col-lg-6">
-            @map([
+            {{--@map([
                 'lat' => $location->latitude,
                 'lng' => $location->longitude,
                 'zoom' => 14,
@@ -57,8 +57,7 @@
                         'lng' => $location->longitude,
                     ],
                 ],
-            ])
-
+            ])--}}
         </div>
     </div>
 

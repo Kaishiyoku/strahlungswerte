@@ -3,8 +3,7 @@ php:
   enabled:
     - length_ordered_imports
   disabled:
-    - alpha_ordered_imports
-    - unused_use
+    - no_unused_imports
   finder:
     not-name:
       - index.php
