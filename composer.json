@@ -7,9 +7,8 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.3",
         "ext-json": "*",
-        "davejamesmiller/laravel-breadcrumbs": "5.3.2",
         "doctrine/dbal": "2.11.1",
         "fideloper/proxy": "4.4.0",
         "fruitcake/laravel-cors": "2.0.2",
@@ -27,13 +26,15 @@
         "laravelcollective/html": "6.2.0",
         "nao-pon/flysystem-google-drive": "1.1.13",
         "predis/predis": "1.1.6",
-        "spatie/laravel-backup": "6.11.2"
+        "spatie/laravel-backup": "6.11.2",
+        "tabuna/breadcrumbs": "^2.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "3.5.1",
         "barryvdh/laravel-ide-helper": "2.8.1",
         "facade/ignition": "2.3.7",
         "fzaninotto/faker": "1.9.1",
+        "laravel-frontend-presets/tailwindcss": "^4.3",
         "mockery/mockery": "1.4.2",
         "nunomaduro/collision": "5.0.2",
         "phpunit/phpunit": "^9.0"

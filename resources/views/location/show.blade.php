@@ -2,9 +2,7 @@
 
 @section('title', __('location.show.title', ['postal_code' => $location->postal_code, 'name' => $location->name]))
 
-@section('breadcrumbs')
-    {!! Breadcrumbs::render('locations.show', $location) !!}
-@endsection
+@include('shared._breadcrumbs', ['params' => $location])
 
 @section('content')
     <h1>
@@ -114,7 +112,7 @@
         </div>
     </div>
 
-    @mapstyles
+{{--    @mapstyles--}}
 
-    @mapscripts
+{{--    @mapscripts--}}
 @endsection

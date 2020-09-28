@@ -167,6 +167,7 @@ return [
          */
         Kaishiyoku\LaravelRecharts\LaravelRechartsServiceProvider::class,
         \App\Providers\GoogleDriveServiceProvider::class,
+        \App\Providers\BreadcrumbsServiceProvider::class,
 
         /*
          * Application Service Providers...
