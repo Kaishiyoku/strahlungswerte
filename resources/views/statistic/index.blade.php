@@ -3,8 +3,8 @@
 @section('title', __('statistic.index.title'))
 
 @section('content')
-    <div class="table-responsive">
-        <table class="table table-striped table-sm">
+    <div class="card">
+        <table class="table">
             <thead>
                 <tr>
                     <th>@lang('validation.attributes.date')</th>
@@ -32,7 +32,9 @@
         </table>
     </div>
 
-    {{ $statistics->links() }}
+    <div class="mt-4">
+        {{ $statistics->links() }}
+    </div>
 
     @include('shared._odl_copyright_notice')
 @endsection

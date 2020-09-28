@@ -1,15 +1,61 @@
 @extends('layouts.app')
 
-@section('title', __('login.title'))
-
 @section('content')
-    @include('shared._login')
-@endsection
+    <div class="flex flex-wrap justify-center">
+        <div class="w-full max-w-sm">
+            <div class="flex flex-col break-words rounded overflow-hidden shadow-lg border border-gray-200 bg-white mt-8">
+                <form class="w-full p-6" method="POST" action="{{ route('login') }}">
+                    @csrf
 
-@section('scripts')
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#email').focus();
-        });
-    </script>
+                    <div class="mb-4">
+                        <label for="email" class="label-default">
+                            {{ __('validation.attributes.email') }}:
+                        </label>
+
+                        <input id="email" type="email" class="input-default @error('email') has-error @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="{{ __('validation.attributes.email') }}" autofocus>
+
+                        @error('email')
+                            <p class="validation-error">
+                                {{ $message }}
+                            </p>
+                        @enderror
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="password" class="label-default">
+                            {{ __('validation.attributes.password') }}:
+                        </label>
+
+                        <input id="password" type="password" class="input-default @error('password') has-error @enderror" name="password" required placeholder="{{ __('validation.attributes.password') }}">
+
+                        @error('password')
+                            <p class="validation-error">
+                                {{ $message }}
+                            </p>
+                        @enderror
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="inline-flex items-center text-sm text-gray-700" for="remember">
+                            <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                            <span class="ml-2">{{ __('login.remember_me') }}</span>
+                        </label>
+                    </div>
+
+                    <div class="flex flex-wrap items-center">
+                        <button type="submit" class="btn-default">
+                            {{ __('login.submit') }}
+                        </button>
+
+                        @if (Route::has('password.request'))
+                            <a class="text-sm text-purple-500 hover:text-purple-700 whitespace-no-wrap no-underline ml-auto" href="{{ route('password.request') }}">
+                                {{ __('login.forgot_password') }}
+                            </a>
+                        @endif
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
 @endsection

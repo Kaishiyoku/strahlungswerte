@@ -3,10 +3,10 @@
 @section('title', __('update_log.index.title'))
 
 @section('content')
-    <h1>{{ __('update_log.index.title') }}</h1>
+    <h1 class="text-4xl pb-4">{{ __('update_log.index.title') }}</h1>
 
-    <div class="table-responsive">
-        <table class="table table-striped table-sm">
+    <div class="card">
+        <table class="table">
             <thead>
                 <tr>
                     <th>@lang('validation.attributes.created_at')</th>
@@ -32,5 +32,7 @@
         </table>
     </div>
 
-    {{ $updateLogs->links() }}
+    <div class="mt-4">
+        {{ $updateLogs->links() }}
+    </div>
 @endsection

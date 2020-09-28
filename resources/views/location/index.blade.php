@@ -4,12 +4,10 @@
 
 @section('content')
     {{ Form::open(['route' => 'locations.index', 'method' => 'get', 'class' => 'form-inline']) }}
-        <div class="input-group">
-            {{ Form::text('term', request()->get('term'), ['class' => 'form-control', 'placeholder' => __('validation.attributes.name')]) }}
+        <div class="flex">
+            {{ Form::text('term', request()->get('term'), ['class' => 'input-with-btn', 'placeholder' => __('validation.attributes.name')]) }}
 
-            <div class="input-group-append">
-                {{ Form::button(__('location.search'), ['type' => 'submit', 'class' => 'btn btn-primary mb-2']) }}
-            </div>
+            {{ Form::button(__('location.search'), ['type' => 'submit', 'class' => 'btn-with-input']) }}
 
             @if (!empty(request()->get('term')))
                 <div class="input-group-append">
@@ -19,8 +17,8 @@
         </div>
     {{ Form::close() }}
 
-    <div class="table-responsive">
-        <table class="table table-striped table-sm mt-2">
+    <div class="card mt-4">
+        <table class="table">
             <thead>
                 <tr>
                     <th>@lang('validation.attributes.postal_code')</th>
@@ -48,7 +46,9 @@
         </table>
     </div>
 
-    {{ $locations->links() }}
+    <div class="mt-4">
+        {{ $locations->links() }}
+    </div>
 
     @include('shared._odl_copyright_notice')
 @endsection

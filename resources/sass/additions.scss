@@ -1,0 +1,17 @@
+@import "../../node_modules/tippy.js/dist/tippy.css";
+@import "../../node_modules/tippy.js/themes/light-border.css";
+@import "../../node_modules/tippy.js/animations/shift-away-subtle.css";
+
+.tippy-box {
+    &[data-theme="dropdown"] {
+        background-color: transparent;
+
+        .tippy-svg-arrow {
+            display: none;
+        }
+
+        .tippy-content {
+            padding: 0;
+        }
+    }
+}

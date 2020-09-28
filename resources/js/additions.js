@@ -1,36 +1,6 @@
+import tippy from 'tippy.js';
+
 $(document).ready(function () {
-    Waves.attach('.btn-primary', ['waves-light']);
-    Waves.attach('.btn-secondary', ['waves-light']);
-    Waves.attach('.btn-success', ['waves-light']);
-    Waves.attach('.btn-danger', ['waves-light']);
-    Waves.attach('.btn-warning', ['waves-light']);
-    Waves.attach('.btn-info', ['waves-light']);
-    Waves.attach('.btn-light', ['waves-dark']);
-    Waves.attach('.btn-dark', ['waves-light']);
-
-    Waves.attach('.btn-outline-primary', ['waves-light']);
-    Waves.attach('.btn-outline-secondary', ['waves-light']);
-    Waves.attach('.btn-outline-success', ['waves-light']);
-    Waves.attach('.btn-outline-danger', ['waves-light']);
-    Waves.attach('.btn-outline-warning', ['waves-light']);
-    Waves.attach('.btn-outline-info', ['waves-light']);
-    Waves.attach('.btn-outline-light', ['waves-dark']);
-    Waves.attach('.btn-outline-dark', ['waves-light']);
-
-    Waves.attach('.dropdown-item.active', ['waves-light']);
-    Waves.attach('.dropdown-item', ['waves-dark']);
-    Waves.attach('.nav-item.active > .nav-link', ['waves-light']);
-    Waves.attach('.nav-item > .nav-link', ['waves-light']);
-    Waves.attach('a.card-header', ['waves-light']);
-
-    Waves.attach('a.page-link', ['waves-dark']);
-
-    Waves.init();
-
-    $('[data-type="submit"]').on('click', function () {
-        $(this).closest('form').submit();
-    });
-
     $('[data-confirm]').on('click', function () {
         let confirmationText = $(this).attr('data-confirm');
 
@@ -53,8 +23,6 @@ $(document).ready(function () {
         });
     });
 
-    $('[data-toggle="tooltip"]').tooltip();
-
     $('[data-provide="tablesorter"]').each(function () {
         $(this).tablesorter({
             theme: 'bootstrap-custom',
@@ -63,5 +31,22 @@ $(document).ready(function () {
                 columns: ['primary', 'secondary', 'tertiary']
             }
         });
+    });
+
+    tippy('[data-provide-dropdown]', {
+        theme: 'dropdown',
+        allowHTML: true,
+        interactive: true,
+        arrow: 'false',
+        trigger: 'click',
+        placement: 'bottom-start',
+        offset: [0, -5],
+        animation: 'shift-away-subtle',
+        content(reference) {
+            let dropdown = document.querySelector(reference.getAttribute('data-dropdown-target'));
+            dropdown.classList.remove('hidden');
+
+            return dropdown;
+        },
     });
 });

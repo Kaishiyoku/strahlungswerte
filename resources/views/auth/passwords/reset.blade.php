@@ -1,76 +1,71 @@
- @extends('layouts.app')
-
-@section('title', __('password.form_confirm.title'))
+@extends('layouts.app')
 
 @section('content')
-    <div class="row justify-content-md-center">
-        <div class="col col-lg-8">
-            <div class="card border-primary">
-                <h4 class="card-header text-white bg-primary">
-                    @lang('passwords.form_confirm.title')
-                </h4>
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+<main class="sm:container sm:mx-auto sm:max-w-lg sm:mt-10">
+    <div class="flex">
+        <div class="w-full">
+            <section class="flex flex-col break-words bg-white sm:border-1 sm:rounded-md sm:shadow-sm sm:shadow-lg">
 
-                    {{ Form::open(['url' => '/password/reset', 'method' => 'post', 'role' => 'form']) }}
-                        {{ Form::hidden('token', $token) }}
+                <header class="font-semibold bg-gray-200 text-gray-700 py-5 px-6 sm:py-6 sm:px-8 sm:rounded-t-md">
+                    {{ __('Reset Password') }}
+                </header>
 
-                        <div class="form-group row">
-                            {{ Form::label('email', __('validation.attributes.email'), ['class' => 'col-lg-4 col-form-label']) }}
+                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST" action="{{ route('password.update') }}">
+                    @csrf
 
-                            <div class="col-lg-6">
-                                {{ Form::email('email', old('email'), ['class' => 'form-control' . ($errors->has('email') ? ' is-invalid' : ''), 'required' => true]) }}
+                    <input type="hidden" name="token" value="{{ $token }}">
 
-                                @if ($errors->has('email'))
-                                    <div class="invalid-feedback">
-                                        {{ $errors->first('email') }}
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
+                    <div class="flex flex-wrap">
+                        <label for="email" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+                            {{ __('E-Mail Address') }}:
+                        </label>
 
-                        <div class="form-group row">
-                            {{ Form::label('password', __('validation.attributes.password'), ['class' => 'col-lg-4 col-form-label']) }}
+                        <input id="email" type="email"
+                            class="form-input w-full @error('email') border-red-500 @enderror" name="email"
+                            value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
 
-                            <div class="col-lg-6">
-                                {{ Form::password('password', ['class' => 'form-control' . ($errors->has('password') ? ' is-invalid' : ''), 'required' => true]) }}
+                        @error('email')
+                        <p class="text-red-500 text-xs italic mt-4">
+                            {{ $message }}
+                        </p>
+                        @enderror
+                    </div>
 
-                                @if ($errors->has('password'))
-                                    <div class="invalid-feedback">
-                                        {{ $errors->first('password') }}
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
+                    <div class="flex flex-wrap">
+                        <label for="password" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+                            {{ __('Password') }}:
+                        </label>
 
-                        <div class="form-group row">
-                            {{ Form::label('password_confirmation', __('validation.attributes.password_confirmation'), ['class' => 'col-lg-4 col-form-label']) }}
+                        <input id="password" type="password"
+                            class="form-input w-full @error('password') border-red-500 @enderror" name="password"
+                            required autocomplete="new-password">
 
-                            <div class="col-lg-6">
-                                {{ Form::password('password_confirmation', ['class' => 'form-control' . ($errors->has('password_confirmation') ? ' is-invalid' : ''), 'required' => true]) }}
+                        @error('password')
+                        <p class="text-red-500 text-xs italic mt-4">
+                            {{ $message }}
+                        </p>
+                        @enderror
+                    </div>
 
-                                @if ($errors->has('password_confirmation'))
-                                    <div class="invalid-feedback">
-                                        {{ $errors->first('password_confirmation') }}
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
+                    <div class="flex flex-wrap">
+                        <label for="password-confirm" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+                            {{ __('Confirm Password') }}:
+                        </label>
 
-                        <div class="form-group row">
-                            <div class="col-lg-8 ml-md-auto">
-                                <button type="submit" class="btn btn-primary">
-                                    @lang('passwords.form_confirm.submit')
-                                </button>
-                            </div>
-                        </div>
-                    {{ Form::close() }}
-                </div>
-            </div>
+                        <input id="password-confirm" type="password" class="form-input w-full"
+                            name="password_confirmation" required autocomplete="new-password">
+                    </div>
+
+                    <div class="flex flex-wrap pb-8 sm:pb-10">
+                        <button type="submit"
+                        class="w-full select-none font-bold whitespace-no-wrap p-3 rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700 sm:py-4">
+                            {{ __('Reset Password') }}
+                        </button>
+                    </div>
+                </form>
+
+            </section>
         </div>
     </div>
+</main>
 @endsection

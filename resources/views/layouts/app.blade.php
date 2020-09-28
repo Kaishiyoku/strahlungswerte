@@ -1,69 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>
-        {{ config('app.name', 'Laravel') }}
-        -
-        @yield('title')
-    </title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-    {{ Html::style('css/app.css') }}
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
 
-    {{ Html::script('js/app.js') }}
+    <!-- Styles -->
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/additions.css') }}" rel="stylesheet">
 </head>
-<body>
-<div id="app">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="{{ URL::route('locations.index') }}">
-                {{ config('app.name', 'Laravel') }}
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+<body class="bg-gray-100 h-screen antialiased font-sans">
+    <div id="app">
+        <header class="bg-blue-600 mb-8">
+            <div class="container px-4 lg:px-20 mx-auto">
+                <div class="flex flex-wrap justify-between items-center">
+                    <a href="{{ url('/') }}" class="text-xl text-gray-100 no-underline hover:no-underline hover:text-white pr-4">
+                        {{ config('app.name', 'Laravel') }}
+                    </a>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                {!! \LaravelMenu::render() !!}
+                    {!! \LaravelMenu::render() !!}
 
-                {!! \LaravelMenu::render('user') !!}
+                    {!! \LaravelMenu::render('user') !!}
+                </div>
             </div>
+        </header>
+
+        <div class="container px-4 lg:px-20 mx-auto">
+            @include('flash::message')
+
+            @yield('breadcrumbs')
+
+            @yield('content')
+
+            @include('shared._footer')
         </div>
-    </nav>
-
-    <div class="container">
-        @include('flash::message')
-
-        @yield('breadcrumbs')
-
-        @yield('content')
     </div>
 
-    <div class="container mt-5 mb-3">
-        @include('shared._footer')
-    </div>
-</div>
+    @auth
+        <script type="text/javascript">
+            const logoutAnchor = document.querySelector('a[href$="{{ url()->route('logout') }}"]');
+            logoutAnchor.addEventListener('click', function (event) {
+                event.preventDefault();
+                document.querySelector('#logout-form').submit();
+            });
+        </script>
 
-@auth
-    <script type="text/javascript">
-        const logoutAnchor = document.querySelector('a[href$="{{ url()->route('logout') }}"]');
-        logoutAnchor.addEventListener('click', function (event) {
-            event.preventDefault();
-            document.querySelector('#logout-form').submit();
-        });
-    </script>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+    @endauth
 
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-        @csrf
-    </form>
-@endauth
-
-@yield('scripts')
-
+    @yield('scripts')
 </body>
 </html>
