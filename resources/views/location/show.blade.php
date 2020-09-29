@@ -43,7 +43,9 @@
         </div>
 
         <div class="card mb-8 flex justify-center">
-            <img src="{{ getStaticMapUrlForLocation($location) }}" alt="map" class="w-full"/>
+            <a href="{{ getGoogleMapsUrlForLocation($location) }}">
+                <img src="{{ getStaticMapUrlForLocation($location) }}" alt="map" class="w-full"/>
+            </a>
         </div>
     </div>
 

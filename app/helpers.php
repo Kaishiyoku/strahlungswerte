@@ -124,6 +124,16 @@ if (!function_exists('getStaticMapUrlForLocation')) {
     }
 }
 
+if (!function_exists('getGoogleMapsUrlForLocation')) {
+    function getGoogleMapsUrlForLocation(Location $location): string
+    {
+        $baseUrl = 'https://www.google.com/maps/search/?api=1&query=';
+        $coordinatesStr = $location->latitude . ',' . $location->longitude;
+
+        return $baseUrl . $coordinatesStr;
+    }
+}
+
 if (!function_exists('formatDecimal')) {
     function formatDecimal($value, int $decimals = 2): string
     {
