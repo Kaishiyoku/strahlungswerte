@@ -20,7 +20,7 @@
     <div id="app">
         <header class="bg-blue-600 mb-8">
             <div class="container px-4 lg:px-20 mx-auto">
-                <div class="flex flex-wrap justify-between items-center">
+                <div class="flex items-center">
                     <a href="{{ url('/') }}" class="text-xl text-gray-100 no-underline hover:no-underline hover:text-white pr-4">
                         {{ config('app.name', 'Laravel') }}
                     </a>

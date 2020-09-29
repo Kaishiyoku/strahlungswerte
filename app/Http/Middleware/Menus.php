@@ -37,7 +37,7 @@ class Menus
         $isAdministrator = $isLoggedIn && $this->auth->user()->is_administrator;
 
         \LaravelMenu::register()
-            ->addClassNames(['mr-auto'])
+            ->addClassNames('flex-grow')
             ->link('locations.index,locations.show', '<i class="fas fa-globe-europe"></i> ' . __('common.nav.home'))
             ->link('statistics.index', '<i class="fas fa-chart-line"></i> ' . __('common.nav.statistics'));
 

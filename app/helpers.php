@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Location;
+
 const DATE = 'date';
 const DATETIME = 'datetime';
 
@@ -103,7 +105,19 @@ if (! function_exists('removeNulls')) {
 }
 
 if (! function_exists('itemIf')) {
-    function itemIf($item, $isVisible, $default = null) {
+    function itemIf($item, $isVisible, $default = null)
+    {
         return $isVisible ? $item : $default;
+    }
+}
+
+if (! function_exists('getStaticMapUrlForLocation')) {
+    function getStaticMapUrlForLocation(Location $location): string
+    {
+        // https://yandex.com/dev/maps/staticapi/doc/1.x/dg/concepts/localization-docpage/
+        $baseUrl = 'https://static-maps.yandex.ru/1.x/?lang=en_RU&spn=0.01,0.01&l=map';
+        $coordinatesStr = $location->longitude . ',' . $location->latitude;
+
+        return "{$baseUrl}&ll={$coordinatesStr}&pt={$coordinatesStr},pm2ntl";
     }
 }

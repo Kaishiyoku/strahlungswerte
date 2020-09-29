@@ -6,7 +6,7 @@
     <h1 class="text-4xl pb-4">{{ __('update_log.index.title') }}</h1>
 
     <div class="card">
-        <table class="table">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>@lang('validation.attributes.created_at')</th>
