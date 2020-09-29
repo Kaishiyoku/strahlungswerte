@@ -79,6 +79,16 @@ class Location extends Model
     protected $hidden = [];
 
     /**
+     * Get the value of the model's route key.
+     *
+     * @return mixed
+     */
+    public function getRouteKey()
+    {
+        return toSlug($this->uuid, $this->name);
+    }
+
+    /**
      * @param array $json
      * @return Location
      */

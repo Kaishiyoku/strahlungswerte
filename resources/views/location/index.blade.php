@@ -28,7 +28,7 @@
                 @foreach ($locations as $location)
                     <tr>
                         <td>{{ $location->postal_code }}</td>
-                        <td>{{ html()->a(route('locations.show', toSlug($location->uuid, $location->name)), $location->name) }}</td>
+                        <td>{{ html()->a(route('locations.show', $location), $location->name) }}</td>
                         <td>{{ formatStatus($location->status) }}</td>
                         <td class="text-right">
                             @if ($location->status->name === 'operational')

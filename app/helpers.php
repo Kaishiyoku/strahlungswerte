@@ -34,7 +34,7 @@ if (!function_exists('formatBoolean')) {
 }
 
 if (!function_exists('getIdFromSlug')) {
-    function getIdFromSlug($slug)
+    function getIdFromSlug(string $slug): ?int
     {
         if (!strpos($slug, '-')) {
             return null;
@@ -51,9 +51,9 @@ if (!function_exists('getIdFromSlug')) {
 }
 
 if (!function_exists('toSlug')) {
-    function toSlug($id, $title)
+    function toSlug($id, string $title): string
     {
-        return $id . '-' . \Illuminate\Support\Str::slug($title);
+        return $id . '-' . Str::slug($title);
     }
 }
 

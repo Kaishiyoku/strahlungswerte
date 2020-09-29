@@ -36,16 +36,15 @@ class LocationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  string  $slug
+     * @param  \App\Models\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show(Location $location)
     {
         $laravelRecharts = new LaravelRecharts();
 
         $hourlyMinDate = Carbon::now()->subDays(3);
         $dailyMinDate = Carbon::now()->subMonths(2);
-        $location = Location::find(getIdFromSlug($slug));
 
         $hourlyMeasurements = $location->hourlyMeasurements()->where('date', '>=', $hourlyMinDate);
         $hourlyMeasurementsForChart = (clone $hourlyMeasurements)->orderBy('date');

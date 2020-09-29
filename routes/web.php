@@ -6,7 +6,7 @@ use App\Http\Controllers\UpdateLogController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LocationController::class, 'index'])->name('locations.index');
-Route::get('/locations/{slug}', [LocationController::class, 'show'])->name('locations.show');
+Route::get('/locations/{location}', [LocationController::class, 'show'])->name('locations.show');
 Route::get('/statistics', [StatisticController::class, 'index'])->name('statistics.index');
 
 /* *****************
