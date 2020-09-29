@@ -3,19 +3,13 @@
 @section('title', __('location.index.title'))
 
 @section('content')
-    {{ Form::open(['route' => 'locations.index', 'method' => 'get', 'class' => 'form-inline']) }}
+    {{ html()->form('GET', route('locations.index'))->open() }}
         <div class="flex">
-            {{ Form::text('term', request()->get('term'), ['class' => 'input-with-btn', 'placeholder' => __('validation.attributes.name')]) }}
+            {{ html()->text('term', request()->get('term'))->attributes(['class' => 'input-with-btn', 'placeholder' => __('validation.attributes.name')]) }}
 
-            {{ Form::button(__('location.search'), ['type' => 'submit', 'class' => 'btn-with-input']) }}
-
-            @if (!empty(request()->get('term')))
-                <div class="input-group-append">
-                    {!! Html::decode(Html::linkRoute('locations.index', '<i class="fas fa-times"></i>', [], ['class' => 'btn btn-danger mb-2'])) !!}
-                </div>
-            @endif
+            {{ html()->button(__('location.search'), 'submit')->class('btn-with-input') }}
         </div>
-    {{ Form::close() }}
+    {{ html()->form()->close() }}
 
     <div class="card mt-4">
         <table class="table table-hover">
@@ -34,7 +28,7 @@
                 @foreach ($locations as $location)
                     <tr>
                         <td>{{ $location->postal_code }}</td>
-                        <td>{{ Html::linkRoute('locations.show', $location->name, toSlug($location->uuid, $location->name)) }}</td>
+                        <td>{{ html()->a(route('locations.show', toSlug($location->uuid, $location->name)), $location->name) }}</td>
                         <td>{{ formatStatus($location->status) }}</td>
                         <td class="text-right">
                             @if ($location->status->name === 'operational')

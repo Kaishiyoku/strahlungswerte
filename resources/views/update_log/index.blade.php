@@ -25,7 +25,7 @@
                         <td>{{ $updateLog->command_name }}</td>
                         <td>{{ $updateLog->number_of_new_entries }}</td>
                         <td>{{ $updateLog->duration_in_seconds }}</td>
-                        <td>{{ Html::linkRoute('update_logs.show', __('update_log.index.details'), [$updateLog]) }}</td>
+                        <td>{{ html()->a(route('update_logs.show', $updateLog), __('update_log.index.details')) }}</td>
                     </tr>
                 @endforeach
             </tbody>

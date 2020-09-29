@@ -24,10 +24,10 @@
         "laravel/horizon": "5.1.0",
         "laravel/tinker": "2.4.2",
         "laravel/ui": "3.0.0",
-        "laravelcollective/html": "6.2.0",
         "nao-pon/flysystem-google-drive": "1.1.13",
         "predis/predis": "1.1.6",
         "spatie/laravel-backup": "6.11.2",
+        "spatie/laravel-html": "^2.27",
         "tabuna/breadcrumbs": "^2.1"
     },
     "require-dev": {

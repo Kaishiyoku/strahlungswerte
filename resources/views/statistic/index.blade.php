@@ -22,9 +22,9 @@
                         <td>{{ $statistic->date->format(__('common.date_formats.date')) }}</td>
                         <td class="text-right">{{ $statistic->number_of_operational_locations }}</td>
                         <td class="text-right">{{ formatDecimal($statistic->average_value) }}µSv/h</td>
-                        <td>{{ Html::linkRoute('locations.show', $statistic->minLocation->name, toSlug($statistic->minLocation->uuid, $statistic->minLocation->name)) }}</td>
+                        <td>{{ html()->a(route('locations.show', toSlug($statistic->minLocation->uuid, $statistic->minLocation->name)), $statistic->minLocation->name) }}</td>
                         <td class="text-right">{{ formatDecimal($statistic->min_value) }}µSv/h</td>
-                        <td>{{ Html::linkRoute('locations.show', $statistic->maxLocation->name, toSlug($statistic->maxLocation->uuid, $statistic->maxLocation->name)) }}</td>
+                        <td>{{ html()->a(route('locations.show', toSlug($statistic->maxLocation->uuid, $statistic->maxLocation->name)), $statistic->maxLocation->name) }}</td>
                         <td class="text-right">{{ formatDecimal($statistic->max_value) }}µSv/h</td>
                     </tr>
                 @endforeach
