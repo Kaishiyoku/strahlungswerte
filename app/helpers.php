@@ -1,25 +1,26 @@
 <?php
 
 use App\Models\Location;
+use h4kuna\Number\NumberFormatState;
 
 const DATE = 'date';
 const DATETIME = 'datetime';
 
-if (! function_exists('l')) {
+if (!function_exists('l')) {
     function l($type)
     {
         return __('common.date_formats.' . $type);
     }
 }
 
-if (! function_exists('getYearsFrom')) {
+if (!function_exists('getYearsFrom')) {
     function getYearsFrom($year)
     {
         return $year < date('Y') ? $year . '-' . date('Y') : date('Y');
     }
 }
 
-if (! function_exists('formatBoolean')) {
+if (!function_exists('formatBoolean')) {
     function formatBoolean($bool)
     {
         if ($bool == true || $bool == 1) {
@@ -32,7 +33,7 @@ if (! function_exists('formatBoolean')) {
     }
 }
 
-if (! function_exists('getIdFromSlug')) {
+if (!function_exists('getIdFromSlug')) {
     function getIdFromSlug($slug)
     {
         if (!strpos($slug, '-')) {
@@ -49,14 +50,14 @@ if (! function_exists('getIdFromSlug')) {
     }
 }
 
-if (! function_exists('toSlug')) {
+if (!function_exists('toSlug')) {
     function toSlug($id, $title)
     {
         return $id . '-' . \Illuminate\Support\Str::slug($title);
     }
 }
 
-if (! function_exists('getOdlStatusEnumFromId')) {
+if (!function_exists('getOdlStatusEnumFromId')) {
     function getOdlStatusEnumFromId($id)
     {
         $statusMappings = [
@@ -70,7 +71,7 @@ if (! function_exists('getOdlStatusEnumFromId')) {
     }
 }
 
-if (! function_exists('getKeyValuePairsFromStr')) {
+if (!function_exists('getKeyValuePairsFromStr')) {
     function getKeyValuePairsFromStr($str)
     {
         if (empty($str)) {
@@ -89,29 +90,30 @@ if (! function_exists('getKeyValuePairsFromStr')) {
     }
 }
 
-if (! function_exists('formatStatus')) {
+if (!function_exists('formatStatus')) {
     function formatStatus(\App\Models\Status $status)
     {
         return __('common.statuses.' . $status->name);
     }
 }
 
-if (! function_exists('removeNulls')) {
-    function removeNulls(array $arr) {
+if (!function_exists('removeNulls')) {
+    function removeNulls(array $arr)
+    {
         return array_filter($arr, function ($item) {
             return $item != null;
         });
     }
 }
 
-if (! function_exists('itemIf')) {
+if (!function_exists('itemIf')) {
     function itemIf($item, $isVisible, $default = null)
     {
         return $isVisible ? $item : $default;
     }
 }
 
-if (! function_exists('getStaticMapUrlForLocation')) {
+if (!function_exists('getStaticMapUrlForLocation')) {
     function getStaticMapUrlForLocation(Location $location): string
     {
         // https://yandex.com/dev/maps/staticapi/doc/1.x/dg/concepts/localization-docpage/
@@ -119,5 +121,14 @@ if (! function_exists('getStaticMapUrlForLocation')) {
         $coordinatesStr = $location->longitude . ',' . $location->latitude;
 
         return "{$baseUrl}&ll={$coordinatesStr}&pt={$coordinatesStr},pm2ntl";
+    }
+}
+
+if (!function_exists('formatDecimal')) {
+    function formatDecimal($value, int $decimals = 2): string
+    {
+        $numberFormat = new NumberFormatState(2);
+
+        return $numberFormat->format($value);
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e4b97a94143901b8b781a64a3ec12a4b",
+    "content-hash": "5007362a699c7f62196bd24b1e5508cf",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1498,6 +1498,96 @@
             "time": "2019-07-01T23:21:34+00:00"
         },
         {
+            "name": "h4kuna/data-type",
+            "version": "v2.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/h4kuna/data-type.git",
+                "reference": "3daf343ca2aa6a659d6b193592deb1128adc9c89"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/h4kuna/data-type/zipball/3daf343ca2aa6a659d6b193592deb1128adc9c89",
+                "reference": "3daf343ca2aa6a659d6b193592deb1128adc9c89",
+                "shasum": ""
+            },
+            "require": {
+                "nette/utils": ">=2.2",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "salamium/testinium": "^0.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "h4kuna\\DataType\\": "src/"
+                },
+                "files": [
+                    "src/exceptions.php",
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Milan Matějček",
+                    "email": "milan.matejcek@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Basic data type, int, float, string, set, gps",
+            "homepage": "https://github.com/h4kuna/data-type",
+            "time": "2018-11-09T10:33:57+00:00"
+        },
+        {
+            "name": "h4kuna/number-format",
+            "version": "v3.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/h4kuna/number-format.git",
+                "reference": "1cd673322965143c2bab9ed070ed7cf6c0b21fb0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/h4kuna/number-format/zipball/1cd673322965143c2bab9ed070ed7cf6c0b21fb0",
+                "reference": "1cd673322965143c2bab9ed070ed7cf6c0b21fb0",
+                "shasum": ""
+            },
+            "require": {
+                "h4kuna/data-type": "^2.1.0",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "nette/utils": "^2.0",
+                "phpstan/phpstan": "^0.11.1",
+                "salamium/testinium": "~0.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "h4kuna\\Number\\": "src\\"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Milan Matějček",
+                    "email": "milan.matejcek@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Object wrapper above number_format",
+            "homepage": "https://github.com/h4kuna/number-format",
+            "time": "2019-02-06T10:03:55+00:00"
+        },
+        {
             "name": "kaishiyoku/laravel-cli-create-user",
             "version": "2.4.1",
             "source": {
@@ -2783,6 +2873,84 @@
                 }
             ],
             "time": "2020-09-23T08:17:37+00:00"
+        },
+        {
+            "name": "nette/utils",
+            "version": "v3.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nette/utils.git",
+                "reference": "c09937fbb24987b2a41c6022ebe84f4f1b8eec0f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nette/utils/zipball/c09937fbb24987b2a41c6022ebe84f4f1b8eec0f",
+                "reference": "c09937fbb24987b2a41c6022ebe84f4f1b8eec0f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "nette/tester": "~2.0",
+                "phpstan/phpstan": "^0.12",
+                "tracy/tracy": "^2.3"
+            },
+            "suggest": {
+                "ext-gd": "to use Image",
+                "ext-iconv": "to use Strings::webalize(), toAscii(), chr() and reverse()",
+                "ext-intl": "to use Strings::webalize(), toAscii(), normalize() and compare()",
+                "ext-json": "to use Nette\\Utils\\Json",
+                "ext-mbstring": "to use Strings::lower() etc...",
+                "ext-tokenizer": "to use Nette\\Utils\\Reflection::getUseStatements()",
+                "ext-xml": "to use Strings::length() etc. when mbstring is not available"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0-only",
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "https://davidgrudl.com"
+                },
+                {
+                    "name": "Nette Community",
+                    "homepage": "https://nette.org/contributors"
+                }
+            ],
+            "description": "🛠 Nette Utils: lightweight utilities for string & array manipulation, image handling, safe JSON encoding/decoding, validation, slug or strong password generating etc.",
+            "homepage": "https://nette.org",
+            "keywords": [
+                "array",
+                "core",
+                "datetime",
+                "images",
+                "json",
+                "nette",
+                "paginator",
+                "password",
+                "slugify",
+                "string",
+                "unicode",
+                "utf-8",
+                "utility",
+                "validation"
+            ],
+            "time": "2020-08-07T10:34:21+00:00"
         },
         {
             "name": "nikic/php-parser",

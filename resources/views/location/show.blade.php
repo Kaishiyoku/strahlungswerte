@@ -18,17 +18,17 @@
 
             <div class="md:flex py-2 border-b border-gray-200">
                 <div class="md:inline-block md:w-2/6">{{ __('validation.attributes.last_measured_one_hour_value') }}:</div>
-                <div class="md:inline-block md:w-4/6">{{ $location->last_measured_one_hour_value }}µSv/h</div>
+                <div class="md:inline-block md:w-4/6">{{ formatDecimal($location->last_measured_one_hour_value) }}µSv/h</div>
             </div>
 
             <div class="md:flex py-2 border-b border-gray-200">
                 <div class="md:inline-block md:w-2/6">{{ __('validation.attributes.longitude') }}:</div>
-                <div class="md:inline-block md:w-4/6">{{ $location->longitude }}</div>
+                <div class="md:inline-block md:w-4/6">{{ formatDecimal($location->longitude) }}</div>
             </div>
 
             <div class="md:flex py-2 border-b border-gray-200">
                 <div class="md:inline-block md:w-2/6">{{ __('validation.attributes.latitude') }}:</div>
-                <div class="md:inline-block md:w-4/6">{{ $location->latitude }}</div>
+                <div class="md:inline-block md:w-4/6">{{ formatDecimal($location->latitude) }}</div>
             </div>
 
             <div class="md:flex py-2 border-b border-gray-200">
@@ -72,7 +72,7 @@
                 @foreach ($dailyMeasurements->orderBy('date', 'desc')->get() as $dailyMeasurement)
                     <tr>
                         <td>{{ $dailyMeasurement->date->format(l('date')) }}</td>
-                        <td class="text-right">{{ $dailyMeasurement->value }} µSv/h</td>
+                        <td class="text-right">{{ formatDecimal($dailyMeasurement->value) }} µSv/h</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -93,7 +93,7 @@
                 @foreach ($hourlyMeasurements->orderBy('date', 'desc')->get() as $hourlyMeasurement)
                     <tr>
                         <td>{{ $hourlyMeasurement->date->format(l('datetime')) }}</td>
-                        <td class="text-right">{{ $hourlyMeasurement->value }} µSv/h</td>
+                        <td class="text-right">{{ formatDecimal($hourlyMeasurement->value) }} µSv/h</td>
                     </tr>
                 @endforeach
             </tbody>

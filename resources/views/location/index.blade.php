@@ -24,10 +24,10 @@
                     <th>@lang('validation.attributes.postal_code')</th>
                     <th>@lang('validation.attributes.name')</th>
                     <th>@lang('validation.attributes.status_id')</th>
-                    <th>@lang('validation.attributes.last_measured_one_hour_value')</th>
-                    <th>@lang('validation.attributes.height')</th>
-                    <th>@lang('validation.attributes.longitude')</th>
-                    <th>@lang('validation.attributes.latitude')</th>
+                    <th class="text-right">@lang('validation.attributes.last_measured_one_hour_value')</th>
+                    <th class="text-right">@lang('validation.attributes.height')</th>
+                    <th class="text-right">@lang('validation.attributes.longitude')</th>
+                    <th class="text-right">@lang('validation.attributes.latitude')</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,10 +36,16 @@
                         <td>{{ $location->postal_code }}</td>
                         <td>{{ Html::linkRoute('locations.show', $location->name, toSlug($location->uuid, $location->name)) }}</td>
                         <td>{{ formatStatus($location->status) }}</td>
-                        <td>{{ $location->last_measured_one_hour_value }}µSv/h</td>
-                        <td>{{ $location->height }}m</td>
-                        <td>{{ $location->longitude }}</td>
-                        <td>{{ $location->latitude }}</td>
+                        <td class="text-right">
+                            @if ($location->status->name === 'operational')
+                                {{ formatDecimal($location->last_measured_one_hour_value) }}µSv/h
+                            @else
+                                /
+                            @endif
+                        </td>
+                        <td class="text-right">{{ $location->height }}m</td>
+                        <td class="text-right">{{ formatDecimal($location->longitude) }}</td>
+                        <td class="text-right">{{ formatDecimal($location->latitude) }}</td>
                     </tr>
                 @endforeach
             </tbody>

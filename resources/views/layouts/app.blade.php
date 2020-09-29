@@ -19,9 +19,8 @@
 <body class="bg-gray-100 h-screen antialiased font-sans">
     <div id="app">
         <header class="bg-blue-600 mb-8">
-            <div class="container px-4 lg:px-20 mx-auto">
-                <div class="flex items-center">
-                    <a href="{{ url('/') }}" class="text-xl text-gray-100 no-underline hover:no-underline hover:text-white pr-4">
+            <div class="container px-4 lg:px-20 mx-auto"><div class="flex flex-wrap items-center">
+                    <a href="{{ url('/') }}" class="w-full md:w-auto text-xl text-gray-100 no-underline hover:no-underline hover:text-white pr-4 pt-4 md:pt-0">
                         {{ config('app.name', 'Laravel') }}
                     </a>
 
