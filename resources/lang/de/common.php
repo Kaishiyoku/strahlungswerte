@@ -21,6 +21,7 @@ return [
         'test_mode' => 'Testbetrieb',
         'maintenance' => 'Wartung',
     ],
+    'search_term' => 'Suchbegriff',
     'lists' => [
         'boolean' => [
             1 => 'Ja',

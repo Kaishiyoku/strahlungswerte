@@ -5,9 +5,9 @@
 @section('content')
     {{ html()->form('GET', route('locations.index'))->open() }}
         <div class="flex">
-            {{ html()->text('term', request()->get('term'))->attributes(['class' => 'input-with-btn', 'placeholder' => __('validation.attributes.name')]) }}
+            {{ html()->text('term', request()->get('term'))->attributes(['class' => 'input-with-btn shadow', 'placeholder' => __('common.search_term')]) }}
 
-            {{ html()->button(__('location.search'), 'submit')->class('btn-with-input') }}
+            {{ html()->button(__('location.search'), 'submit')->class('btn-with-input shadow') }}
         </div>
     {{ html()->form()->close() }}
 
