@@ -1,1 +1,1 @@
-<div class="flex-grow"></div>
+<div class="flex-grow sm:inline"></div>
