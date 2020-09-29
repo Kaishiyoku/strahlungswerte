@@ -18,7 +18,7 @@
     {{ Form::close() }}
 
     <div class="card mt-4">
-        <table class="table">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>@lang('validation.attributes.postal_code')</th>
