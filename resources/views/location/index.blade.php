@@ -5,9 +5,9 @@
 @section('content')
     {{ html()->form('GET', route('locations.index'))->open() }}
         <div class="flex">
-            {{ html()->text('term', request()->get('term'))->attributes(['class' => 'input-with-btn shadow', 'placeholder' => __('common.search_term')]) }}
+            {{ html()->text('term', request()->get('term'))->attributes(['class' => 'input input-with-btn', 'placeholder' => __('common.search_term')]) }}
 
-            {{ html()->button(__('location.search'), 'submit')->class('btn-with-input shadow') }}
+            {{ html()->button(__('location.search'), 'submit')->class('btn btn-with-input btn-primary') }}
         </div>
     {{ html()->form()->close() }}
 
@@ -28,7 +28,7 @@
                 @foreach ($locations as $location)
                     <tr>
                         <td>{{ $location->postal_code }}</td>
-                        <td>{{ html()->a(route('locations.show', $location), $location->name) }}</td>
+                        <td>{{ html()->a(route('locations.show', $location), $location->name)->class('link') }}</td>
                         <td>{{ formatStatus($location->status) }}</td>
                         <td class="text-right">
                             @if ($location->status->name === 'operational')

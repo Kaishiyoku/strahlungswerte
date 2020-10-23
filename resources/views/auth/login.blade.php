@@ -8,42 +8,42 @@
                     @csrf
 
                     <div class="mb-4">
-                        <label for="email" class="label-default">
+                        <label for="email" class="label">
                             {{ __('validation.attributes.email') }}:
                         </label>
 
-                        <input id="email" type="email" class="input-default @error('email') has-error @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="{{ __('validation.attributes.email') }}" autofocus>
+                        <input id="email" type="email" class="input @error('email') has-error @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="{{ __('validation.attributes.email') }}" autofocus>
 
                         @error('email')
-                            <p class="validation-error">
+                            <p class="invalid-feedback">
                                 {{ $message }}
                             </p>
                         @enderror
                     </div>
 
                     <div class="mb-4">
-                        <label for="password" class="label-default">
-                            {{ __('validation.attributes.password') }}:
+                        <label for="password" class="label">
+                            {{ __('validation.attributes.password') }}
                         </label>
 
-                        <input id="password" type="password" class="input-default @error('password') has-error @enderror" name="password" required placeholder="{{ __('validation.attributes.password') }}">
+                        <input id="password" type="password" class="input @error('password') has-error @enderror" name="password" required placeholder="{{ __('validation.attributes.password') }}">
 
                         @error('password')
-                            <p class="validation-error">
+                            <p class="invalid-feedback">
                                 {{ $message }}
                             </p>
                         @enderror
                     </div>
 
                     <div class="mb-4">
-                        <label class="inline-flex items-center text-sm text-gray-700" for="remember">
-                            <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                            <span class="ml-2">{{ __('login.remember_me') }}</span>
+                        <label for="remember" class="label-checkbox">
+                            <input type="checkbox" name="remember" id="remember" class="checkbox" {{ old('remember') ? 'checked' : '' }}>
+                            <span>{{ __('login.remember_me') }}</span>
                         </label>
                     </div>
 
                     <div class="flex flex-wrap items-center">
-                        <button type="submit" class="btn-default">
+                        <button type="submit" class="btn btn-primary">
                             {{ __('login.submit') }}
                         </button>
 
