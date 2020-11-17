@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\ProcessDailyMeasurement;
+use App\Jobs\StoreDailyMeasurement;
 use App\Models\Location;
 use Illuminate\Console\Command;
 
@@ -32,7 +32,7 @@ class OdlFetchDailyMeasurements extends Command
         $locations = Location::orderBy('name');
 
         $locations->get()->each(function ($location) {
-            ProcessDailyMeasurement::dispatch($location);
+            StoreDailyMeasurement::dispatch($location);
         });
     }
 }

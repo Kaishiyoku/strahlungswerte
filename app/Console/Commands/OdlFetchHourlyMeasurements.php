@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\ProcessHourlyMeasurement;
+use App\Jobs\StoreHourlyMeasurement;
 use App\Models\Location;
 use Illuminate\Console\Command;
 
@@ -32,7 +32,7 @@ class OdlFetchHourlyMeasurements extends Command
         $locations = Location::orderBy('name');
 
         $locations->get()->each(function ($location) {
-            ProcessHourlyMeasurement::dispatch($location);
+            StoreHourlyMeasurement::dispatch($location);
         });
     }
 }
