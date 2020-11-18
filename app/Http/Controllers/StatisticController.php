@@ -14,7 +14,7 @@ class StatisticController extends Controller
      */
     public function index()
     {
-        $statistics = Statistic::paginate();
+        $statistics = Statistic::orderBy('date', 'desc')->paginate();
 
         return view('statistic.index', compact('statistics'));
     }
