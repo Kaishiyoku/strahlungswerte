@@ -19,27 +19,27 @@ use Illuminate\Support\Arr;
  * @property float|null $last_measured_one_hour_value
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\DailyMeasurement[] $dailyMeasurements
+ * @property-read int|null $daily_measurements_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\HourlyMeasurement[] $hourlyMeasurements
+ * @property-read int|null $hourly_measurements_count
  * @property-read \App\Models\MeasurementNode $measurementNode
  * @property-read \App\Models\Status $status
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereHeight($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereLastMeasuredOneHourValue($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereLatitude($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereLongitude($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereMeasurementNodeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location wherePostalCode($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereStatusId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereUuid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Location newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Location newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Location query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Location whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Location whereHeight($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Location whereLastMeasuredOneHourValue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Location whereLatitude($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Location whereLongitude($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Location whereMeasurementNodeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Location whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Location wherePostalCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Location whereStatusId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Location whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Location whereUuid($value)
  * @mixin \Eloquent
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\DailyMeasurement[] $dailyMeasurements
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\HourlyMeasurement[] $hourlyMeasurements
- * @property-read int|null $daily_measurements_count
- * @property-read int|null $hourly_measurements_count
  */
 class Location extends Model
 {

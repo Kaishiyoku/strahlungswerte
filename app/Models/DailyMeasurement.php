@@ -12,13 +12,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property float|null $value
  * @property \Illuminate\Support\Carbon $date
  * @property-read \App\Models\Location $location
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DailyMeasurement newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DailyMeasurement newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DailyMeasurement query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DailyMeasurement whereDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DailyMeasurement whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DailyMeasurement whereLocationUuid($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DailyMeasurement whereValue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DailyMeasurement newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|DailyMeasurement newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|DailyMeasurement query()
+ * @method static \Illuminate\Database\Eloquent\Builder|DailyMeasurement whereDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DailyMeasurement whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DailyMeasurement whereLocationUuid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DailyMeasurement whereValue($value)
  * @mixin \Eloquent
  */
 class DailyMeasurement extends Model

@@ -19,17 +19,17 @@ use Illuminate\Support\Arr;
  * @property float|null $max_value
  * @property-read \App\Models\Location $maxLocation
  * @property-read \App\Models\Location $minLocation
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Statistic newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Statistic newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Statistic query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Statistic whereAverageValue($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Statistic whereDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Statistic whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Statistic whereMaxLocationUuid($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Statistic whereMaxValue($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Statistic whereMinLocationUuid($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Statistic whereMinValue($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Statistic whereNumberOfOperationalLocations($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Statistic newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Statistic newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Statistic query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereAverageValue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereMaxLocationUuid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereMaxValue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereMinLocationUuid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereMinValue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereNumberOfOperationalLocations($value)
  * @mixin \Eloquent
  */
 class Statistic extends Model

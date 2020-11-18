@@ -10,13 +10,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $name
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Location[] $locations
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MeasurementNode newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MeasurementNode newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MeasurementNode query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MeasurementNode whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MeasurementNode whereName($value)
- * @mixin \Eloquent
  * @property-read int|null $locations_count
+ * @method static \Illuminate\Database\Eloquent\Builder|MeasurementNode newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|MeasurementNode newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|MeasurementNode query()
+ * @method static \Illuminate\Database\Eloquent\Builder|MeasurementNode whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|MeasurementNode whereName($value)
+ * @mixin \Eloquent
  */
 class MeasurementNode extends Model
 {

@@ -14,15 +14,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property float|null $precipitation_probability
  * @property \Illuminate\Support\Carbon $date
  * @property-read \App\Models\Location $location
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\HourlyMeasurement newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\HourlyMeasurement newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\HourlyMeasurement query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\HourlyMeasurement whereDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\HourlyMeasurement whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\HourlyMeasurement whereInspectionStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\HourlyMeasurement whereLocationUuid($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\HourlyMeasurement wherePrecipitationProbability($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\HourlyMeasurement whereValue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HourlyMeasurement newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|HourlyMeasurement newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|HourlyMeasurement query()
+ * @method static \Illuminate\Database\Eloquent\Builder|HourlyMeasurement whereDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HourlyMeasurement whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HourlyMeasurement whereInspectionStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HourlyMeasurement whereLocationUuid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HourlyMeasurement wherePrecipitationProbability($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HourlyMeasurement whereValue($value)
  * @mixin \Eloquent
  */
 class HourlyMeasurement extends Model
