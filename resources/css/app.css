@@ -167,7 +167,7 @@ select.input {
     @apply inline-block cursor-pointer shadow border transition-all duration-200;
 }
 .btn:not(.btn-sm):not(.btn-with-input) {
-    @apply py-2 px-4 font-bold;
+    @apply py-2 px-4;
 }
 .btn:not(.btn-with-input) {
     @apply rounded;
@@ -185,7 +185,7 @@ select.input {
 }
 
 .btn-with-input {
-    @apply pt-2 pb-1 px-4 font-bold rounded-r;
+    @apply pt-1 pb-1 px-4 rounded-r;
 }
 
 .btn-primary {
