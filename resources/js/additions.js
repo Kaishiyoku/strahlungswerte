@@ -1,6 +1,11 @@
 import tippy from 'tippy.js';
+import toggleDarkMode from "./toggleDarkMode";
 
 $(document).ready(function () {
+    $('[data-toggle="dark-mode"]').on('click', function (event) {
+        toggleDarkMode();
+    });
+
     $('[data-confirm]').on('click', function () {
         let confirmationText = $(this).attr('data-confirm');
 

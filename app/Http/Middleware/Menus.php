@@ -41,6 +41,13 @@ class Menus
             ->link('locations.index,locations.show', '<i class="fas fa-globe-europe"></i> ' . __('common.nav.home'))
             ->link('statistics.index', '<i class="fas fa-chart-line"></i> ' . __('common.nav.statistics'));
 
+        $darkModeTogglerIcon = '<i class="fas fa-adjust"></i>';
+        if (getDarkModeClass() === 'dark') {
+            $darkModeTogglerIcon = '<i class="fas fa-moon"></i>';
+        } else if (getDarkModeClass() === 'light') {
+            $darkModeTogglerIcon = '<i class="fas fa-sun"></i>';
+        }
+
         if ($isLoggedIn) {
             \LaravelMenu::register('user')
                 ->dropdownIf($isAdministrator, '<i class="fas fa-user"></i> ' . '<span class="hidden sm:inline">' . $this->auth->user()->name . '</span>', \LaravelMenu::dropdownContainer()
@@ -49,10 +56,11 @@ class Menus
                     ->link('horizon.index', '<i class="fas fa-compass"></i> ' . __('common.nav.horizon'))
                 )
                 ->link('logout', '<i class="fas fa-sign-out-alt"></i> ' . __('common.nav.logout'))
-            ;
+                ->content('<a class="navbar-link" data-toggle="dark-mode">' . $darkModeTogglerIcon . '</a>');
         } else {
             \LaravelMenu::register('user')
-                ->link('login', '<i class="fas fa-sign-in-alt"></i> ' . __('common.nav.login'));
+                ->link('login', '<i class="fas fa-sign-in-alt"></i> ' . __('common.nav.login'))
+                ->content('<a class="navbar-link" data-toggle="dark-mode">' . $darkModeTogglerIcon . '</a>');
         }
 
         return $next($request);

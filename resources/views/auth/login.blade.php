@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex flex-wrap justify-center">
         <div class="w-full max-w-sm">
-            <div class="flex flex-col break-words rounded overflow-hidden shadow-lg border border-gray-200 bg-white mt-8">
+            <div class="flex flex-col break-words rounded overflow-hidden shadow-lg border border-gray-200 bg-white mt-8 dark:bg-gray-950 dark:border-gray-800">
                 <form class="w-full p-6" method="POST" action="{{ route('login') }}">
                     @csrf
 

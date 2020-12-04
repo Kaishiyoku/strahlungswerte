@@ -1,5 +1,4 @@
 window._ = require('lodash');
-import tippy from 'tippy.js';
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support

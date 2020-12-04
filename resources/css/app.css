@@ -37,11 +37,11 @@ h3 {
 }
 
 .text-muted {
-    @apply text-gray-600;
+    @apply text-gray-600 dark:text-gray-500;
 }
 
 .link {
-    @apply text-blue-600 cursor-pointer;
+    @apply cursor-pointer text-blue-600 dark:text-blue-400;
 }
 .link:hover {
     @apply underline;
@@ -50,7 +50,7 @@ h3 {
 /* Dropdown
 ---------------------------------------------------------------------------- */
 .dropdown {
-    @apply rounded-md bg-white shadow-xl py-1 overflow-auto;
+    @apply rounded-md bg-white shadow-xl py-1 overflow-auto dark:bg-black;
 }
 
 .dropdown-item {
@@ -86,10 +86,13 @@ select.input {
     padding-bottom: .3rem;
 }
 .input {
-    @apply px-3 shadow border w-full text-gray-700 leading-tight transition-all duration-200;
+    @apply px-3 outline-none shadow border w-full text-gray-700 leading-tight transition-all duration-200 dark:bg-black dark:border-gray-800 dark:text-gray-300;
 }
 .input:focus {
-    @apply outline-none shadow-outline-blue-600;
+    @apply shadow-outline-blue-600;
+}
+.input::placeholder {
+    @apply dark:text-gray-700;
 }
 
 .input:not(.input-with-btn) {
@@ -121,7 +124,7 @@ select.input {
     @apply inline-flex items-center mt-3;
 }
 .checkbox {
-    @apply block h-5 w-5 bg-white appearance-none border border-gray-500 rounded outline-none transition-all duration-200 mr-2;
+    @apply block h-5 w-5 bg-white appearance-none border border-gray-500 rounded outline-none transition-all duration-200 mr-2 dark:bg-black dark:border-gray-700;
 }
 .checkbox:checked {
     @apply bg-blue-600 border-blue-600;
@@ -144,7 +147,7 @@ select.input {
 /* Breadcrumbs
 ---------------------------------------------------------------------------- */
 .breadcrumb {
-    @apply bg-gray-200 my-4 py-2 px-4 rounded;
+    @apply bg-gray-200 my-4 py-2 px-4 rounded dark:bg-gray-950;
 }
 .breadcrumb-item {
     @apply inline-block text-gray-600;
@@ -155,7 +158,7 @@ select.input {
     content: '/';
 }
 .breadcrumb-item > a {
-    @apply link;
+    @apply cursor-pointer text-blue-600 dark:text-blue-400;
 }
 .breadcrumb-item > a:hover {
     @apply underline;
@@ -164,16 +167,13 @@ select.input {
 /* Buttons
 ---------------------------------------------------------------------------- */
 .btn {
-    @apply inline-block cursor-pointer shadow border transition-all duration-200;
+    @apply inline-block cursor-pointer outline-none shadow border transition-all duration-200;
 }
 .btn:not(.btn-sm):not(.btn-with-input) {
     @apply py-2 px-4;
 }
 .btn:not(.btn-with-input) {
     @apply rounded;
-}
-.btn:focus {
-    @apply outline-none;
 }
 
 .btn:disabled {
@@ -192,7 +192,7 @@ select.input {
     @apply bg-blue-600 border-blue-700 text-white;
 }
 .btn-primary:hover:not(:disabled) {
-    @apply bg-black border-black;
+    @apply bg-black border-black dark:bg-white dark:border-white dark:text-black;
 }
 .btn-primary:focus:not(:disabled) {
     @apply shadow-outline-blue-600;
@@ -231,7 +231,7 @@ select.input {
 /* Cards
 ---------------------------------------------------------------------------- */
 .card {
-    @apply rounded overflow-hidden shadow-lg bg-white border border-gray-200;
+    @apply rounded overflow-hidden shadow-lg bg-white border border-gray-200 dark:bg-gray-950 dark:border-gray-800;
 }
 
 /* List items
@@ -253,19 +253,19 @@ select.input {
     @apply w-full text-left;
 }
 .table th {
-    @apply bg-gray-100 font-bold text-xs text-gray-800 uppercase border-b-2 border-gray-200 tracking-wide align-middle;
+    @apply bg-gray-100 font-bold text-xs text-gray-800 uppercase border-b-2 border-gray-200 tracking-wide align-middle dark:bg-gray-800 dark:border-gray-800 dark:text-gray-300;
 }
 .table:not(.table-sm) th {
     @apply py-3 px-3;
 }
 .table td {
-    @apply border-b border-gray-200 align-middle;
+    @apply border-b border-gray-200 align-middle dark:border-gray-800;
 }
 .table:not(.table-sm) td {
     @apply py-4 px-3;
 }
 .table-hover tr:hover {
-    @apply bg-gray-200 transition-colors duration-150 ease-out;
+    @apply bg-gray-200 transition-colors duration-150 ease-out dark:bg-gray-900;
 }
 .table-sm th {
     @apply py-2 px-3;
@@ -280,16 +280,16 @@ select.input {
     @apply p-4 my-4 border-l-4 rounded break-words;
 }
 .alert-info {
-    @apply bg-blue-100 text-blue-800 border-blue-400;
+    @apply bg-blue-100 text-blue-800 border-blue-400 dark:bg-blue-900 dark:border-blue-700 dark:text-blue-500;
 }
 .alert-success {
-    @apply bg-green-100 text-green-800 border-green-400;
+    @apply bg-green-100 text-green-800 border-green-400 dark:bg-green-900 dark:border-green-700 dark:text-green-500;
 }
 .alert-warning {
-    @apply bg-yellow-100 text-yellow-800 border-yellow-400;
+    @apply bg-yellow-100 text-yellow-800 border-yellow-400 dark:bg-yellow-900 dark:border-yellow-700 dark:text-yellow-500;
 }
 .alert-danger {
-    @apply bg-red-100 text-red-800 border-red-400;
+    @apply bg-red-100 text-red-800 border-red-400 dark:bg-red-900 dark:border-red-700 dark:text-red-500;
 }
 
 /* Other

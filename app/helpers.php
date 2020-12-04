@@ -2,6 +2,7 @@
 
 use App\Models\Location;
 use h4kuna\Number\NumberFormatState;
+use Illuminate\Http\Request;
 
 const DATE = 'date';
 const DATETIME = 'datetime';
@@ -140,5 +141,22 @@ if (!function_exists('formatDecimal')) {
         $numberFormat = new NumberFormatState(2);
 
         return $numberFormat->format($value);
+    }
+}
+
+if (!function_exists('getDarkModeCacheKeyForUser')) {
+    function getDarkModeCacheKeyForUser(Request $request): string
+    {
+        $clientIp = $request->getClientIp();
+        $userAgent = $request->header('user-agent');
+
+        return 'dark-mode-' . sha1($clientIp . '/' . $userAgent);
+    }
+}
+
+if (!function_exists('getDarkModeClass')) {
+    function getDarkModeClass(): ?string
+    {
+        return Cache::get(getDarkModeCacheKeyForUser(\request()));
     }
 }

@@ -11,17 +11,17 @@
     </h1>
 
     <div class="card p-4">
-        <div class="md:flex py-2 border-b border-gray-200">
+        <div class="md:flex py-2 border-b border-gray-200 dark:border-gray-800">
             <div class="md:inline-block md:w-1/4">{{ __('validation.attributes.is_successful') }}:</div>
             <div class="md:inline-block md:w-3/4">{{ formatBoolean($updateLog->is_successful) }}</div>
         </div>
 
-        <div class="md:flex py-2 border-b border-gray-200">
+        <div class="md:flex py-2 border-b border-gray-200 dark:border-gray-800">
             <div class="inline-block w-1/4">{{ __('validation.attributes.command_name') }}:</div>
             <div class="inline-block w-3/4">{{ $updateLog->command_name }}</div>
         </div>
 
-        <div class="md:flex py-2 border-b border-gray-200">
+        <div class="md:flex py-2 border-b border-gray-200 dark:border-gray-800">
             <div class="inline-block w-1/4">{{ __('validation.attributes.number_of_new_entries') }}:</div>
             <div class="inline-block w-3/4">{{ $updateLog->number_of_new_entries }}</div>
         </div>

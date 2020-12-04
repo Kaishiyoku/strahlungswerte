@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="{{ getDarkModeClass() }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,8 +18,14 @@
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link href="{{ mix('css/additions.css') }}" rel="stylesheet">
+
+    <script type="text/javascript">
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.querySelector('html').classList.add('dark');
+        }
+    </script>
 </head>
-<body class="bg-gray-100 h-screen antialiased font-sans">
+<body class="bg-gray-100 h-screen antialiased font-sans dark:bg-gray-900 dark:text-gray-300 transition-all transition-duration-1000 ease-in">
     <div id="app">
         <header class="bg-blue-600 mb-8">
             <div class="container px-4 lg:px-20 mx-auto"><div class="flex flex-wrap items-center">

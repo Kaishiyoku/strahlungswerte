@@ -3,6 +3,7 @@ module.exports = {
         './resources/views/**/*.blade.php',
         './resources/css/**/*.css',
     ],
+    darkMode: 'class',
     theme: {
         extend: {
             fontFamily: {
@@ -21,12 +22,14 @@ module.exports = {
                     700: '#696969',
                     800: '#474747',
                     900: '#2b2b2b',
+                    950: '#1a1a1a',
                 },
             },
             shadowOutline: {
                 'shadow': '0 0 0 .2rem',
                 'alpha': '.4',
             },
+            backgroundOpacity: ['dark'],
         },
     },
     variants: {},

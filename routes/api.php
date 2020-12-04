@@ -17,3 +17,20 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::put('/update_dark_mode_status', function (Request $request) {
+    $cacheKey = getDarkModeCacheKeyForUser($request);
+
+    $currentMode = Cache::get($cacheKey);
+
+    $newMode = null;
+    if (!$currentMode) {
+        $newMode = 'dark';
+    } else if ($currentMode === 'dark') {
+        $newMode = 'light';
+    }
+
+    Cache::set($cacheKey, $newMode);
+
+    return response()->json(['mode' => $newMode]);
+});
