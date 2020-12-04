@@ -15,21 +15,25 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>@lang('validation.attributes.postal_code')</th>
+                    <th class="hidden md:table-cell">@lang('validation.attributes.postal_code')</th>
                     <th>@lang('validation.attributes.name')</th>
-                    <th>@lang('validation.attributes.status_id')</th>
+                    <th class="hidden md:table-cell">@lang('validation.attributes.status_id')</th>
                     <th class="text-right">@lang('validation.attributes.last_measured_one_hour_value')</th>
-                    <th class="text-right">@lang('validation.attributes.height')</th>
-                    <th class="text-right">@lang('validation.attributes.longitude')</th>
-                    <th class="text-right">@lang('validation.attributes.latitude')</th>
+                    <th class="hidden md:table-cell text-right">@lang('validation.attributes.height')</th>
+                    <th class="hidden md:table-cell text-right">@lang('validation.attributes.longitude')</th>
+                    <th class="hidden md:table-cell text-right">@lang('validation.attributes.latitude')</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($locations as $location)
                     <tr>
-                        <td>{{ $location->postal_code }}</td>
-                        <td>{{ html()->a(route('locations.show', $location), $location->name)->class('link') }}</td>
-                        <td>{{ formatStatus($location->status) }}</td>
+                        <td class="hidden md:table-cell">{{ $location->postal_code }}</td>
+                        <td>
+                            <div class="md:hidden">{{ $location->postal_code }}</div>
+                            <div>{{ html()->a(route('locations.show', $location), $location->name)->class('link') }}</div>
+                            <div class="md:hidden mt-2 text-sm text-muted">{{ formatStatus($location->status) }}</div>
+                        </td>
+                        <td class="hidden md:table-cell">{{ formatStatus($location->status) }}</td>
                         <td class="text-right">
                             @if ($location->status->name === 'operational')
                                 {{ formatDecimal($location->last_measured_one_hour_value) }}µSv/h
@@ -37,9 +41,9 @@
                                 /
                             @endif
                         </td>
-                        <td class="text-right">{{ $location->height }}m</td>
-                        <td class="text-right">{{ formatDecimal($location->longitude) }}</td>
-                        <td class="text-right">{{ formatDecimal($location->latitude) }}</td>
+                        <td class="hidden md:table-cell text-right">{{ $location->height }}m</td>
+                        <td class="hidden md:table-cell text-right">{{ formatDecimal($location->longitude) }}</td>
+                        <td class="hidden md:table-cell text-right">{{ formatDecimal($location->latitude) }}</td>
                     </tr>
                 @endforeach
             </tbody>
