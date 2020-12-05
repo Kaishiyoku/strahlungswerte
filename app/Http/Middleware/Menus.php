@@ -37,7 +37,6 @@ class Menus
         $isAdministrator = $isLoggedIn && $this->auth->user()->is_administrator;
 
         \LaravelMenu::register()
-            ->addClassNames('flex-grow')
             ->link('locations.index,locations.show', '<i class="fas fa-globe-europe"></i> ' . __('common.nav.home'))
             ->link('statistics.index', '<i class="fas fa-chart-line"></i> ' . __('common.nav.statistics'));
 
@@ -50,7 +49,7 @@ class Menus
 
         if ($isLoggedIn) {
             \LaravelMenu::register('user')
-                ->dropdownIf($isAdministrator, '<i class="fas fa-user"></i> ' . '<span class="hidden sm:inline">' . $this->auth->user()->name . '</span>', \LaravelMenu::dropdownContainer()
+                ->dropdownIf($isAdministrator, '<i class="fas fa-user"></i> ' . $this->auth->user()->name, \LaravelMenu::dropdownContainer()
                     ->header(__('common.nav.administration'))
                     ->link('update_logs.index,update_logs.show', '<i class="fas fa-file-alt"></i> ' . __('common.nav.update_logs'))
                     ->link('horizon.index', '<i class="fas fa-compass"></i> ' . __('common.nav.horizon'))

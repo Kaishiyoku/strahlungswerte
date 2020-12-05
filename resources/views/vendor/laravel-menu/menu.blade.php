@@ -1,3 +1,3 @@
-<div class="{{ classNames('flex flex-wrap', $classNames) }}">
+<div class="{{ classNames('lg:flex lg:flex-wrap', $classNames) }}">
     {!! $content !!}
 </div>

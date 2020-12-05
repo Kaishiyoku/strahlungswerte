@@ -7,7 +7,7 @@
 /* Navbar
 ---------------------------------------------------------------------------- */
 .navbar-link {
-    @apply cursor-pointer transition-all duration-200 px-4 py-4 text-white text-opacity-50;
+    @apply cursor-pointer block transition-all duration-200 px-4 py-4 text-white text-opacity-50;
 }
 .navbar-link:hover {
     @apply text-white bg-blue-900 bg-opacity-25;

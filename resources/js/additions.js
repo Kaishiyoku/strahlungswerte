@@ -1,5 +1,6 @@
 import tippy from 'tippy.js';
 import toggleDarkMode from "./toggleDarkMode";
+import navbarCollapser from "./navbarCollapser";
 
 $(document).ready(function () {
     $('[data-toggle="dark-mode"]').on('click', function (event) {
@@ -54,4 +55,6 @@ $(document).ready(function () {
             return dropdown;
         },
     });
+
+    navbarCollapser();
 });
