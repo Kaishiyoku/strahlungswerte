@@ -2,42 +2,27 @@ import tippy from 'tippy.js';
 import toggleDarkMode from "./toggleDarkMode";
 import navbarCollapser from "./navbarCollapser";
 import setDarkModeTogglerIcon from "./setDarkModeTogglerIcon";
+import onDomReady from "./onDomReady";
 
-$(document).ready(function () {
+onDomReady(() => {
     setDarkModeTogglerIcon();
 
-    $('[data-toggle="dark-mode"]').on('click', function (event) {
-        toggleDarkMode();
-    });
-
-    $('[data-confirm]').on('click', function () {
-        let confirmationText = $(this).attr('data-confirm');
-
-        if (_.isEmpty(confirmationText) || confirmationText == 1) {
-            confirmationText = 'Sind Sie sicher?';
-        }
-
-        if (!confirm(confirmationText)) {
-            return false;
-        }
-    });
-
-    $('[data-click]').each(function () {
-        let $this = $(this);
-
-        $this.on('click', function (event) {
-            event.preventDefault();
-
-            $($this.attr('data-click')).submit();
+    document.querySelectorAll('[data-toggle="dark-mode"]').forEach((element) => {
+        element.addEventListener('click', (event) => {
+            toggleDarkMode();
         });
     });
 
-    $('[data-provide="tablesorter"]').each(function () {
-        $(this).tablesorter({
-            theme: 'bootstrap-custom',
-            widgets: ['columns'],
-            widgetOptions: {
-                columns: ['primary', 'secondary', 'tertiary']
+    document.querySelectorAll('[data-confirm]').forEach((element) => {
+        element.addEventListener('click', function () {
+            let confirmationText = element.getAttribute('data-confirm');
+
+            if (_.isEmpty(confirmationText) || confirmationText == 1) {
+                confirmationText = 'Sind Sie sicher?';
+            }
+
+            if (!confirm(confirmationText)) {
+                return false;
             }
         });
     });

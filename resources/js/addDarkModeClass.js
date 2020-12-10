@@ -1,5 +1,5 @@
 function addDarkModeClass() {
-    $('html').addClass('dark')
+    document.querySelector('html').classList.add('dark');
 }
 
 export default addDarkModeClass;

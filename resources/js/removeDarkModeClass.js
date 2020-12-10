@@ -1,5 +1,5 @@
 function removeDarkModeClass() {
-    $('html').removeClass('dark')
+    document.querySelector('html').classList.remove('dark');
 }
 
 export default removeDarkModeClass;
