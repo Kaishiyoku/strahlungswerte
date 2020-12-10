@@ -1,30 +1,28 @@
 import addDarkModeClass from "./addDarkModeClass";
 import removeDarkModeClass from "./removeDarkModeClass";
+import setDarkModeTogglerIcon from "./setDarkModeTogglerIcon";
 
 function toggleDarkMode() {
-    axios.put('/api/update_dark_mode_status').then(({data}) => {
-        const {mode} = data;
+    const mode = localStorage.getItem('theme');
 
-        if (!mode) {
-            localStorage.removeItem('theme');
-            $('[data-toggle="dark-mode"]').html('<i class="fas fa-adjust"></i>');
+    if (!mode) {
+        localStorage.setItem('theme', 'dark');
 
-            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                localStorage.setItem('theme', 'dark');
-                addDarkModeClass();
-            }
-        } else if (mode === 'dark') {
+        addDarkModeClass();
+    } else if (mode === 'dark') {
+        localStorage.setItem('theme', 'light');
+
+        removeDarkModeClass();
+    } else if (mode === 'light') {
+        localStorage.removeItem('theme');
+
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
             localStorage.setItem('theme', 'dark');
-            $('[data-toggle="dark-mode"]').html('<i class="fas fa-moon"></i>');
-
             addDarkModeClass();
-        } else if (mode === 'light') {
-            localStorage.setItem('theme', 'light');
-            $('[data-toggle="dark-mode"]').html('<i class="fas fa-sun"></i>');
-
-            removeDarkModeClass();
         }
-    });
+    }
+
+    setDarkModeTogglerIcon();
 }
 
 export default toggleDarkMode;

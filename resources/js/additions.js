@@ -1,8 +1,11 @@
 import tippy from 'tippy.js';
 import toggleDarkMode from "./toggleDarkMode";
 import navbarCollapser from "./navbarCollapser";
+import setDarkModeTogglerIcon from "./setDarkModeTogglerIcon";
 
 $(document).ready(function () {
+    setDarkModeTogglerIcon();
+
     $('[data-toggle="dark-mode"]').on('click', function (event) {
         toggleDarkMode();
     });
