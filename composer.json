@@ -19,7 +19,7 @@
         "kaishiyoku/laravel-recharts": "0.9.0",
         "khill/php-duration": "1.0.6",
         "laracasts/flash": "3.2",
-        "laravel/framework": "8.17.2",
+        "laravel/framework": "8.24.0",
         "laravel/helpers": "1.4.0",
         "laravel/horizon": "5.6.0",
         "laravel/tinker": "2.5.0",
