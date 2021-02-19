@@ -50,14 +50,14 @@ h3 {
 /* Dropdown
 ---------------------------------------------------------------------------- */
 .dropdown {
-    @apply rounded-md bg-white shadow-xl py-1 overflow-auto dark:bg-black;
+    @apply rounded-md bg-white shadow-xl py-1 overflow-auto dark:bg-gray-900;
 }
 
 .dropdown-item {
-    @apply text-left px-4 py-2 leading-5 text-gray-700 cursor-pointer transition-all duration-200;
+    @apply text-left px-4 py-2 leading-5 text-gray-700 cursor-pointer transition-all duration-200 dark:text-gray-500;
 }
 .dropdown-item:hover {
-    @apply bg-gray-200 text-gray-900;
+    @apply bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-gray-300;
 }
 .dropdown-item:focus {
     @apply outline-none bg-gray-100 text-gray-900;
@@ -71,7 +71,7 @@ h3 {
 }
 
 .dropdown-header {
-    @apply px-4 py-2 font-bold text-xs text-gray-800 uppercase tracking-wide;
+    @apply px-4 py-2 font-bold text-xs text-gray-800 dark:text-gray-500 uppercase tracking-wide;
 }
 
 /* Forms & input
@@ -86,13 +86,10 @@ select.input {
     padding-bottom: .3rem;
 }
 .input {
-    @apply px-3 outline-none shadow border w-full text-gray-700 leading-tight transition-all duration-200 dark:bg-black dark:border-gray-800 dark:text-gray-300;
+    @apply px-3 outline-none shadow border w-full text-gray-700 leading-tight transition-all duration-200 placeholder-gray-400 dark:placeholder-gray-500 dark:bg-black dark:border-gray-800 dark:text-gray-300;
 }
 .input:focus {
-    @apply ring-4 ring-blue-600;
-}
-.input::placeholder {
-    @apply dark:text-gray-700;
+    @apply ring-4 ring-opacity-50 ring-blue-600;
 }
 
 .input:not(.input-with-btn) {
@@ -111,7 +108,7 @@ select.input {
 }
 
 .label {
-    @apply block text-gray-700 text-sm font-bold mb-2;
+    @apply block text-gray-700 text-sm font-bold mb-2 dark:text-gray-500;
 }
 
 .label-required:after {
@@ -141,7 +138,7 @@ select.input {
     content: "\f00c";
 }
 .checkbox:focus {
-    @apply ring-4 ring-blue-600;
+    @apply ring-4 ring-opacity-50 ring-blue-600;
 }
 
 /* Breadcrumbs
@@ -150,7 +147,7 @@ select.input {
     @apply bg-gray-200 my-4 py-2 px-4 rounded dark:bg-gray-800;
 }
 .breadcrumb-item {
-    @apply inline-block text-gray-600;
+    @apply inline-block text-gray-600 dark:text-gray-500;
 }
 .breadcrumb-item:not(:first-child):before {
     @apply text-gray-400 pr-1;
@@ -167,13 +164,16 @@ select.input {
 /* Buttons
 ---------------------------------------------------------------------------- */
 .btn {
-    @apply inline-block cursor-pointer outline-none shadow border transition-all duration-200;
+    @apply inline-block cursor-pointer shadow border transition-all duration-200;
 }
 .btn:not(.btn-sm):not(.btn-with-input) {
     @apply py-2 px-4;
 }
 .btn:not(.btn-with-input) {
     @apply rounded;
+}
+.btn:focus {
+    @apply outline-none;
 }
 
 .btn:disabled {
@@ -195,7 +195,7 @@ select.input {
     @apply bg-black border-black dark:bg-white dark:border-white dark:text-black;
 }
 .btn-primary:focus:not(:disabled) {
-    @apply ring-4 ring-blue-600;
+    @apply ring-4 ring-opacity-50 ring-blue-600;
 }
 
 .btn-black {
@@ -205,7 +205,7 @@ select.input {
     @apply bg-black border-black;
 }
 .btn-black:focus:not(:disabled) {
-    @apply ring-4 ring-gray-800;
+    @apply ring-4 ring-opacity-50 ring-gray-800;
 }
 
 .btn-outline-primary {
@@ -215,7 +215,7 @@ select.input {
     @apply text-white bg-blue-600;
 }
 .btn-outline-primary:focus:not(:disabled) {
-    @apply ring-4 ring-blue-600;
+    @apply ring-4 ring-opacity-50 ring-blue-600;
 }
 
 .btn-outline-black {
@@ -225,7 +225,7 @@ select.input {
     @apply text-white bg-black;
 }
 .btn-outline-black:focus:not(:disabled) {
-    @apply ring-4 ring-black;
+    @apply ring-4 ring-opacity-50 ring-black;
 }
 
 /* Cards

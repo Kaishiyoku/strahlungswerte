@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
     purge: [
         './resources/views/**/*.blade.php',
@@ -10,7 +12,7 @@ module.exports = {
                 sans: ['Nunito', 'sans-serif'],
             },
             colors: {
-                //
+                gray: colors.gray,
             },
             backgroundOpacity: ['dark'],
         },
