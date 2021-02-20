@@ -1,8 +1,8 @@
 <?php
 
+use App\Libraries\Odl\OdlFetcher;
 use App\Models\Location;
 use h4kuna\Number\NumberFormatState;
-use Illuminate\Http\Request;
 
 const DATE = 'date';
 const DATETIME = 'datetime';
@@ -141,5 +141,12 @@ if (!function_exists('formatDecimal')) {
         $numberFormat = new NumberFormatState(2);
 
         return $numberFormat->format($value);
+    }
+}
+
+if (!function_exists('getOdlFetcher')) {
+    function getOdlFetcher(): OdlFetcher
+    {
+        return new OdlFetcher(env('ODL_BASE_URL'), env('ODL_USER'), env('ODL_PASSWORD'));
     }
 }

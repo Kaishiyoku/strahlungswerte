@@ -77,8 +77,6 @@ class OdlFetcher
      */
     public function fetchLocations()
     {
-        $locations = collect();
-
         $jsonData = collect($this->fetchUrl('stamm.json'));
 
         $this->locations = $jsonData->map(function ($data) {

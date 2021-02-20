@@ -36,7 +36,7 @@ class OdlFetchStatistic extends Command
     {
         $this->start();
 
-        $odlFetcher = new OdlFetcher(env('ODL_BASE_URL'), env('ODL_USER'), env('ODL_PASSWORD'));
+        $odlFetcher = getOdlFetcher();
 
         try {
             $statistic = $odlFetcher->fetchStatistic();

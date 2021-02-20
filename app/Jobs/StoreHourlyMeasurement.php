@@ -52,7 +52,7 @@ class StoreHourlyMeasurement implements ShouldQueue
     {
         $this->start();
 
-        $odlFetcher = new OdlFetcher(env('ODL_BASE_URL'), env('ODL_USER'), env('ODL_PASSWORD'));
+        $odlFetcher = getOdlFetcher();
 
         try {
             $numberOfNewEntries = 0;
