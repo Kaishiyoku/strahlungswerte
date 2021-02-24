@@ -27,17 +27,24 @@ class ArchiveDataContainer
     private $measurementSiteFilePaths;
 
     /**
+     * @var bool
+     */
+    private $withCosmicAndTerrestrialRate;
+
+    /**
      * @param string $directoryName
      * @param string $locationFilePath
      * @param string $statisticsFilePath
      * @param Collection $measurementSiteFilePaths
+     * @param bool $withCosmicAndTerrestrialRate
      */
-    public function __construct(string $directoryName, string $locationFilePath, string $statisticsFilePath, Collection $measurementSiteFilePaths)
+    public function __construct(string $directoryName, string $locationFilePath, string $statisticsFilePath, Collection $measurementSiteFilePaths, bool $withCosmicAndTerrestrialRate = false)
     {
         $this->directoryName = $directoryName;
         $this->locationFilePath = $locationFilePath;
         $this->statisticsFilePath = $statisticsFilePath;
         $this->measurementSiteFilePaths = $measurementSiteFilePaths;
+        $this->withCosmicAndTerrestrialRate = $withCosmicAndTerrestrialRate;
     }
 
     /**
@@ -70,5 +77,13 @@ class ArchiveDataContainer
     public function getMeasurementSiteFilePaths(): Collection
     {
         return $this->measurementSiteFilePaths;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isWithCosmicAndTerrestrialRate(): bool
+    {
+        return $this->withCosmicAndTerrestrialRate;
     }
 }

@@ -59,9 +59,9 @@ class StoreDailyMeasurement implements ShouldQueue
 
             foreach ($measurementSite->getDailyMeasurements() as $measurement) {
                 // only add the value if it doesn't exist yet
-                $existingDailyMeasurements = $this->location->dailyMeasurements()->where('date', $measurement->getDate());
+                $existingDailyMeasurements = $this->location->dailyMeasurements()->whereDate('date', $measurement->getDate());
 
-                if ($existingDailyMeasurements->count() == 0) {
+                if ($existingDailyMeasurements->count() === 0) {
                     $dailyMeasurement = new DailyMeasurement();
                     $dailyMeasurement->value = $measurement->getValue() == 0 ? null : $measurement->getValue();
                     $dailyMeasurement->date = $measurement->getDate();
@@ -72,7 +72,7 @@ class StoreDailyMeasurement implements ShouldQueue
                 }
             }
 
-            Log::channel('odl')->info("Fetched and stored {$numberOfNewEntries} values for the location \"{$this->location->postal_code} {$this->location->name}\"");
+            Log::channel('odl')->info("{$numberOfNewEntries} new daily values for the location \"{$this->location->postal_code} {$this->location->name}\"");
         } catch (Throwable $e) {
             Log::channel('odl')->error("{$e->getMessage()}\n{$e->getTraceAsString()}");
         }

@@ -24,6 +24,8 @@ class OdlUpdate extends Command
      * Execute the console command.
      *
      * @return mixed
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function handle()
     {

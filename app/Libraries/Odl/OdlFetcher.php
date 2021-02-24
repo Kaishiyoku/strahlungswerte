@@ -52,27 +52,34 @@ class OdlFetcher
         $locations = collect(json_decode($odlArchivesStorage->get($archiveDataContainer->getLocationFilePath()), true))->map(function ($data) {
             return Location::createFromJson($data);
         });
+
         $statistic = Statistic::createFromJson(json_decode($odlArchivesStorage->get($archiveDataContainer->getStatisticsFilePath()), true));
 
         $this->updateLocations($locations);
         $this->updateStatistic($statistic);
-        $this->updateMeasurements($archiveDataContainer->getMeasurementSiteFilePaths());
+        $this->updateMeasurements($archiveDataContainer->getMeasurementSiteFilePaths(), $archiveDataContainer->isWithCosmicAndTerrestrialRate());
     }
 
     /**
+     * @param bool $withCosmicAndTerrestrialRate
      * @return ArchiveDataContainer
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function downloadArchiveData()
+    public function downloadArchiveData($withCosmicAndTerrestrialRate = false)
     {
         $odlArchivesStorage = Storage::disk('odl_archives');
 
-        $response = $this->getJsonCtArchive();
+        $response = $this->getJsonArchive();
+
         $lastModified = Carbon::parse($response->getHeaderLine('Last-Modified'));
-        $directoryName = "json-ct_{$lastModified->format('Y-m-d_H_i_s')}";
+        $directoryName = $this->getArchiveDirectoryName($lastModified, $withCosmicAndTerrestrialRate);
         $fileName = "{$directoryName}.tgz";
 
-        if (!$odlArchivesStorage->exists($fileName)) {
+        if ($odlArchivesStorage->exists($fileName)) {
+            Log::channel('odl')->info("Archive {$fileName} already exists.");
+        } else {
+            Log::channel('odl')->info("Archive {$fileName} doesn't exist yet and will be stored.");
+
             $odlArchivesStorage->put($fileName, $response->getBody()->getContents());
         }
 
@@ -98,7 +105,7 @@ class OdlFetcher
             })
             ->first();
 
-        return new ArchiveDataContainer($directoryName, $locationFilePath, $statisticsFilePath, $measurementSiteFilePaths);
+        return new ArchiveDataContainer($directoryName, $locationFilePath, $statisticsFilePath, $measurementSiteFilePaths, $withCosmicAndTerrestrialRate);
     }
 
     /**
@@ -129,31 +136,10 @@ class OdlFetcher
                 }
             }
 
-            Log::channel('odl')->info("Fetched and stored {$numberOfNewEntries} and updated {$numberOfUpdatedEntries} locations");
+            Log::channel('odl')->info("{$numberOfNewEntries} new  and {$numberOfUpdatedEntries} updated locations");
         } catch (Throwable $e) {
             Log::channel('odl')->error("{$e->getMessage()}\n{$e->getTraceAsString()}");
         }
-    }
-
-    /**
-     * @param Collection $measurementSiteFilePaths
-     */
-    private function updateMeasurements(Collection $measurementSiteFilePaths)
-    {
-        Location::orderBy('name')->get()->each(function ($location) use ($measurementSiteFilePaths) {
-            $measurementSiteFilePath = $measurementSiteFilePaths
-                ->filter(function ($path) use ($location) {
-                    return Str::endsWith($path, $location->uuid . 'ct.json');
-                })
-                ->first();
-
-            if ($measurementSiteFilePath) {
-                StoreDailyMeasurement::dispatch($location, $measurementSiteFilePath);
-                StoreHourlyMeasurement::dispatch($location, $measurementSiteFilePath);
-            } else {
-                Log::channel('odl')->warning("No JSON file found for location with UUID {$location->uuid}");
-            }
-        });
     }
 
     /**
@@ -167,7 +153,7 @@ class OdlFetcher
             if ($existingStatistic->count() === 0) {
                 $statistic->save();
 
-                Log::channel('odl')->info("Fetched and stored statistic for {$statistic->date->toDateString()}");
+                Log::channel('odl')->info("Stored statistic for {$statistic->date->toDateString()}");
             }
         } catch (Throwable $e) {
             Log::channel('odl')->error("{$e->getMessage()}\n{$e->getTraceAsString()}");
@@ -175,11 +161,50 @@ class OdlFetcher
     }
 
     /**
+     * @param Collection $measurementSiteFilePaths
+     * @param bool $withCosmicAndTerrestrialRate
+     */
+    private function updateMeasurements(Collection $measurementSiteFilePaths, bool $withCosmicAndTerrestrialRate = false)
+    {
+        $fileNameSuffix = $withCosmicAndTerrestrialRate ? 'ct' : '';
+
+        Location::orderBy('name')->get()->each(function ($location) use ($measurementSiteFilePaths, $fileNameSuffix) {
+            $measurementSiteFilePath = $measurementSiteFilePaths
+                ->filter(function ($path) use ($location, $fileNameSuffix) {
+                    return Str::endsWith($path, "{$location->uuid}{$fileNameSuffix}.json");
+                })
+                ->first();
+
+            if ($measurementSiteFilePath) {
+                StoreDailyMeasurement::dispatch($location, $measurementSiteFilePath);
+                StoreHourlyMeasurement::dispatch($location, $measurementSiteFilePath);
+            } else {
+                Log::channel('odl')->warning("No JSON file found for location with UUID {$location->uuid}");
+            }
+        });
+    }
+
+    /**
+     * @param bool $withCosmicAndTerrestrialRate
      * @return ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    private function getJsonCtArchive(): ResponseInterface
+    private function getJsonArchive($withCosmicAndTerrestrialRate = false): ResponseInterface
     {
-        return $this->httpClient->get($this->baseUrl . '/json-ct.tgz');
+        $archiveFileName = $withCosmicAndTerrestrialRate ? 'json-ct.tgz' : 'json.tgz';
+
+        return $this->httpClient->get("{$this->baseUrl}/{$archiveFileName}");
+    }
+
+    /**
+     * @param Carbon $lastModified
+     * @param bool $withCosmicAndTerrestrialRate
+     * @return string
+     */
+    private function getArchiveDirectoryName($lastModified, $withCosmicAndTerrestrialRate = false)
+    {
+        $baseFileName = $withCosmicAndTerrestrialRate ? 'json' : 'json-ct';
+
+        return "{$baseFileName}_{$lastModified->format('Y-m-d_H_i_s')}";
     }
 }

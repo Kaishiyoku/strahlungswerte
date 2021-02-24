@@ -58,9 +58,9 @@ class StoreHourlyMeasurement implements ShouldQueue
 
             foreach ($measurementSite->getHourlyMeasurements() as $measurement) {
                 // only add the value if it doesn't exist yet
-                $existingHourlyMeasurements = $this->location->hourlyMeasurements()->where('date', $measurement->getDate());
+                $existingHourlyMeasurements = $this->location->hourlyMeasurements()->where('date', $measurement->getDate()->seconds(0));
 
-                if ($existingHourlyMeasurements->count() == 0) {
+                if ($existingHourlyMeasurements->count() === 0) {
                     $hourlyMeasurement = new HourlyMeasurement();
                     $hourlyMeasurement->value = $measurement->getValue() == 0 ? null : $measurement->getValue();
                     $hourlyMeasurement->date = $measurement->getDate();
@@ -73,7 +73,7 @@ class StoreHourlyMeasurement implements ShouldQueue
                 }
             }
 
-            Log::channel('odl')->info("Fetched and stored {$numberOfNewEntries} values for the location \"{$this->location->postal_code} {$this->location->name}\"");
+            Log::channel('odl')->info("{$numberOfNewEntries} new hourly values for the location \"{$this->location->postal_code} {$this->location->name}\"");
         } catch (Throwable $e) {
             Log::channel('odl')->error("{$e->getMessage()}\n{$e->getTraceAsString()}");
         }
