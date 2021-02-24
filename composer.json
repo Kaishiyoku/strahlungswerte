@@ -25,6 +25,7 @@
         "laravel/tinker": "^2.6.0",
         "laravel/ui": "^3.2.0",
         "nao-pon/flysystem-google-drive": "^1.1.13",
+        "nelexa/zip": "^3.3",
         "predis/predis": "^1.1.13",
         "spatie/laravel-backup": "^6.14.4",
         "spatie/laravel-html": "^2.29.0",

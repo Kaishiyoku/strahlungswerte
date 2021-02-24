@@ -9,7 +9,6 @@ return [
         'logout' => 'Logout',
         'login' => 'Login',
         'statistics' => 'Statistiken',
-        'update_logs' => 'Update-Logs',
     ],
     'date_formats' => [
         'date' => 'd.m.Y',

@@ -13,9 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\OdlFetchLocations::class,
-        Commands\OdlFetchDailyMeasurements::class,
-        Commands\OdlFetchHourlyMeasurements::class,
+        //
     ];
 
     /**
@@ -32,10 +30,11 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('horizon:snapshot')->everyFiveMinutes();
 
-        $schedule->command('odl:fetch_locations')->weeklyOn(1, '04:00'); // every week on Monday at 04:00
-        $schedule->command('odl:fetch_statistic')->dailyAt('17:00');
-        $schedule->command('odl:fetch_daily_measurements')->dailyAt('17:30');
-        $schedule->command('odl:fetch_hourly_measurements')->everyThreeHours();
+        $schedule->command('odl:update')->twiceDaily(5, 17);
+//        $schedule->command('odl:fetch_locations')->weeklyOn(1, '04:00'); // every week on Monday at 04:00
+//        $schedule->command('odl:fetch_statistic')->dailyAt('17:00');
+//        $schedule->command('odl:fetch_daily_measurements')->dailyAt('17:30');
+//        $schedule->command('odl:fetch_hourly_measurements')->everyThreeHours();
     }
 
     /**

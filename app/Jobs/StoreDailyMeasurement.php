@@ -2,8 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Console\HasCustomCommandExtensions;
-use App\Libraries\Odl\OdlFetcher;
+use App\Libraries\Odl\Models\MeasurementSite;
 use App\Models\DailyMeasurement;
 use App\Models\Location;
 use Illuminate\Bus\Queueable;
@@ -12,16 +11,22 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 class StoreDailyMeasurement implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, HasCustomCommandExtensions;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * @var Location
      */
     protected $location;
+
+    /**
+     * @var string
+     */
+    protected $filePath;
 
     /**
      * @var string
@@ -32,10 +37,12 @@ class StoreDailyMeasurement implements ShouldQueue
      * Create a new job instance.
      *
      * @param Location $location
+     * @param string $filePath
      */
-    public function __construct(Location $location)
+    public function __construct(Location $location, string $filePath)
     {
         $this->location = $location;
+        $this->filePath = $filePath;
     }
 
     /**
@@ -45,18 +52,12 @@ class StoreDailyMeasurement implements ShouldQueue
      */
     public function handle()
     {
-        $this->start();
-
-        $odlFetcher = getOdlFetcher();
-
         $numberOfNewEntries = 0;
 
         try {
-            $measurementSite = $odlFetcher->fetchMeasurementSite($this->location->uuid);
+            $measurementSite = MeasurementSite::fromJson(json_decode(Storage::disk('odl_archives')->get($this->filePath), true));
 
-            $measurements = $measurementSite->getDailyMeasurements();
-
-            foreach ($measurements as $measurement) {
+            foreach ($measurementSite->getDailyMeasurements() as $measurement) {
                 // only add the value if it doesn't exist yet
                 $existingDailyMeasurements = $this->location->dailyMeasurements()->where('date', $measurement->getDate());
 
@@ -71,14 +72,9 @@ class StoreDailyMeasurement implements ShouldQueue
                 }
             }
 
-            $this->updateLog->is_successful = true;
-            $this->updateLog->number_of_new_entries = $numberOfNewEntries;
-
-            Log::channel('queue')->info('Fetched and stored ' . $numberOfNewEntries . ' values for the location "' . $this->location->postal_code . ' ' . $this->location->name . '"');
+            Log::channel('odl')->info("Fetched and stored {$numberOfNewEntries} values for the location \"{$this->location->postal_code} {$this->location->name}\"");
         } catch (Throwable $e) {
-            $this->addExceptionToUpdateLog($e);
+            Log::channel('odl')->error("{$e->getMessage()}\n{$e->getTraceAsString()}");
         }
-
-        $this->end();
     }
 }

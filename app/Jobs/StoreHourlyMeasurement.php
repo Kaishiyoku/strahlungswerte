@@ -2,8 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Console\HasCustomCommandExtensions;
-use App\Libraries\Odl\OdlFetcher;
+use App\Libraries\Odl\Models\MeasurementSite;
 use App\Models\HourlyMeasurement;
 use App\Models\Location;
 use Illuminate\Bus\Queueable;
@@ -12,11 +11,12 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 class StoreHourlyMeasurement implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, HasCustomCommandExtensions;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * @var Location
@@ -24,9 +24,9 @@ class StoreHourlyMeasurement implements ShouldQueue
     protected $location;
 
     /**
-     * @var OdlFetcher
+     * @var string
      */
-    protected $odlFetcher;
+    protected $filePath;
 
     /**
      * @var string
@@ -38,9 +38,10 @@ class StoreHourlyMeasurement implements ShouldQueue
      *
      * @param Location $location
      */
-    public function __construct(Location $location)
+    public function __construct(Location $location, string $filePath)
     {
         $this->location = $location;
+        $this->filePath = $filePath;
     }
 
     /**
@@ -50,17 +51,12 @@ class StoreHourlyMeasurement implements ShouldQueue
      */
     public function handle()
     {
-        $this->start();
-
-        $odlFetcher = getOdlFetcher();
-
         try {
             $numberOfNewEntries = 0;
-            $measurementSite = $odlFetcher->fetchMeasurementSite($this->location->uuid);
 
-            $measurements = $measurementSite->getHourlyMeasurements();
+            $measurementSite = MeasurementSite::fromJson(json_decode(Storage::disk('odl_archives')->get($this->filePath), true));
 
-            foreach ($measurements as $measurement) {
+            foreach ($measurementSite->getHourlyMeasurements() as $measurement) {
                 // only add the value if it doesn't exist yet
                 $existingHourlyMeasurements = $this->location->hourlyMeasurements()->where('date', $measurement->getDate());
 
@@ -77,14 +73,9 @@ class StoreHourlyMeasurement implements ShouldQueue
                 }
             }
 
-            $this->updateLog->is_successful = true;
-            $this->updateLog->number_of_new_entries = $numberOfNewEntries;
-
-            Log::channel('queue')->info('Fetched and stored ' . $numberOfNewEntries . ' values for the location "' . $this->location->postal_code . ' ' . $this->location->name . '"');
+            Log::channel('odl')->info("Fetched and stored {$numberOfNewEntries} values for the location \"{$this->location->postal_code} {$this->location->name}\"");
         } catch (Throwable $e) {
-            $this->addExceptionToUpdateLog($e);
+            Log::channel('odl')->error("{$e->getMessage()}\n{$e->getTraceAsString()}");
         }
-
-        $this->end();
     }
 }

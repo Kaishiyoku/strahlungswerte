@@ -48,6 +48,11 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'odl_archives' => [
+            'driver' => 'local',
+            'root' => storage_path('app/odl_archives'),
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
