@@ -271,7 +271,7 @@ select.input {
     @apply py-4 px-3;
 }
 .table-hover tr:hover {
-    @apply bg-gray-200 transition-colors duration-150 ease-out dark:bg-gray-900;
+    @apply bg-gray-100 transition-colors duration-150 ease-out dark:bg-gray-900;
 }
 .table-sm th {
     @apply py-2 px-3;
