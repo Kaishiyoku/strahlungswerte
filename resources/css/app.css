@@ -170,7 +170,7 @@ select.input {
 /* Buttons
 ---------------------------------------------------------------------------- */
 .btn {
-    @apply text-left shadow-md border bg-white transition-all duration-200 px-4 py-2;
+    @apply text-left shadow-md border bg-white transition-all duration-200 px-4 py-2 dark:bg-black;
 }
 .btn:not(.btn-sm):not(.btn-with-input) {
     @apply py-2 px-4;
@@ -195,13 +195,13 @@ select.input {
 }
 
 .btn-primary {
-    @apply text-blue-600 border-blue-300;
+    @apply text-blue-600 border-blue-300 dark:border-blue-500;
 }
 .btn-primary:hover:not(:disabled) {
     @apply bg-blue-500 text-white;
 }
 .btn-primary:focus:not(:disabled) {
-    @apply ring-blue-200;
+    @apply ring-blue-200 dark:ring-blue-800;
 }
 
 .btn-black {
