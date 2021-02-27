@@ -238,20 +238,23 @@ select.input {
 .table {
     @apply w-full text-left;
 }
+.table tbody {
+    @apply divide-y divide-solid divide-gray-200 dark:divide-gray-700;
+}
 .table th {
-    @apply bg-gray-100 font-bold text-xs text-gray-800 uppercase border-b-2 border-gray-200 tracking-wide align-middle dark:bg-gray-800 dark:border-gray-800 dark:text-gray-300;
+    @apply bg-gray-100 font-bold text-xs text-gray-800 uppercase border-b-2 border-gray-200 tracking-wide align-middle p-3 dark:bg-gray-800 dark:border-gray-800 dark:text-gray-300;
 }
 .table:not(.table-sm) th {
     @apply py-3 px-3;
 }
 .table td {
-    @apply border-b border-gray-200 align-middle dark:border-gray-800;
+    @apply align-middle py-4 px-3;
 }
 .table:not(.table-sm) td {
     @apply py-4 px-3;
 }
 .table-hover tr:hover {
-    @apply bg-gray-100 transition-colors duration-150 ease-out dark:bg-gray-900;
+    @apply bg-gray-50 transition-colors duration-150 ease-out dark:bg-gray-900 dark:bg-opacity-50;
 }
 .table-sm th {
     @apply py-2 px-3;
