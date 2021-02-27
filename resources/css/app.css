@@ -170,16 +170,16 @@ select.input {
 /* Buttons
 ---------------------------------------------------------------------------- */
 .btn {
-    @apply inline-block cursor-pointer shadow border transition-all duration-200;
+    @apply text-left shadow-md border bg-white transition-all duration-200 px-4 py-2;
 }
 .btn:not(.btn-sm):not(.btn-with-input) {
     @apply py-2 px-4;
 }
 .btn:not(.btn-with-input) {
-    @apply rounded;
+    @apply rounded-full;
 }
 .btn:focus {
-    @apply outline-none;
+    @apply ring-4 outline-none;
 }
 
 .btn:disabled {
@@ -191,47 +191,27 @@ select.input {
 }
 
 .btn-with-input {
-    @apply pt-1 pb-1 px-4 rounded-r;
+    @apply pt-1 pb-1 px-4 rounded-r-full;
 }
 
 .btn-primary {
-    @apply bg-blue-600 border-blue-700 text-white;
+    @apply text-blue-600 border-blue-300;
 }
 .btn-primary:hover:not(:disabled) {
-    @apply bg-black border-black dark:bg-white dark:border-white dark:text-black;
+    @apply bg-blue-500 text-white;
 }
 .btn-primary:focus:not(:disabled) {
-    @apply ring-4 ring-opacity-50 ring-blue-600;
+    @apply ring-blue-200;
 }
 
 .btn-black {
-    @apply bg-gray-800 border-gray-900 text-white;
+    @apply text-black border-black;
 }
 .btn-black:hover:not(:disabled) {
-    @apply bg-black border-black;
+    @apply bg-black text-white;
 }
 .btn-black:focus:not(:disabled) {
-    @apply ring-4 ring-opacity-50 ring-gray-800;
-}
-
-.btn-outline-primary {
-    @apply text-blue-600 border border-blue-600;
-}
-.btn-outline-primary:hover:not(:disabled) {
-    @apply text-white bg-blue-600;
-}
-.btn-outline-primary:focus:not(:disabled) {
-    @apply ring-4 ring-opacity-50 ring-blue-600;
-}
-
-.btn-outline-black {
-    @apply text-black border border-black;
-}
-.btn-outline-black:hover:not(:disabled) {
-    @apply text-white bg-black;
-}
-.btn-outline-black:focus:not(:disabled) {
-    @apply ring-4 ring-opacity-50 ring-black;
+    @apply ring-gray-400;
 }
 
 /* Cards
