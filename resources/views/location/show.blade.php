@@ -63,7 +63,7 @@
     <h4 class="text-2xl mt-6 mb-4">{{ __('location.show.daily_values') }}</h4>
 
     <div class="card">
-        <table class="table table-hover">
+        <table class="table table-sm table-hover">
             <thead>
                 <tr>
                     <th>{{ __('validation.attributes.date') }}</th>
@@ -84,7 +84,7 @@
     <h4 class="text-2xl mt-6 mb-4">{{ __('location.show.hourly_values') }}</h4>
 
     <div class="card">
-        <table class="table table-hover">
+        <table class="table table-sm table-hover">
             <thead>
                 <tr>
                     <th>{{ __('validation.attributes.date') }}</th>
