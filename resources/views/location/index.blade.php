@@ -3,7 +3,7 @@
 @section('title', __('location.index.title'))
 
 @section('content')
-    {{ html()->form('GET', route('locations.index'))->open() }}
+    {{ html()->form('GET', route('locations.index'))->class('pb-4')->open() }}
         <div class="flex">
             {{ html()->text('term', request()->get('term'))->attributes(['class' => 'input input-with-btn', 'placeholder' => __('common.search_term')]) }}
 
