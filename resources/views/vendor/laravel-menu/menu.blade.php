@@ -1,3 +1,3 @@
-<div class="{{ classNames('lg:flex lg:flex-wrap', $classNames) }}">
+<div class="{{ classNames('lg:flex w-full lg:w-auto', $classNames) }}">
     {!! $content !!}
 </div>
