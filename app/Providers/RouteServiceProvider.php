@@ -47,10 +47,6 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
         });
-
-        Route::bind('location', function ($value) {
-            return Location::find(getIdFromSlug($value));
-        });
     }
 
     /**
