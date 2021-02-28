@@ -14,7 +14,7 @@
         data: {!! json_encode($data) !!},
         height: {{ $height }},
         rotateXAxis: {{ json_encode($rotateXAxis) }},
-        isDarkModeEnabled: {{ json_encode($isDarkModeEnabled) }},
+        isDarkModeEnabled: localStorage.getItem('theme') === 'dark' || window.matchMedia('(prefers-color-scheme: dark)').matches,
     }, {{ $width }});
 
     const chart{{ $chartSuffix }} = window.laravelRecharts.{{ $chartComponent }};
