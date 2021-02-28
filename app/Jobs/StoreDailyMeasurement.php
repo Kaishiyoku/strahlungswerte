@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Libraries\Odl\Models\MeasurementSite;
 use App\Models\DailyMeasurement;
 use App\Models\Location;
 use Illuminate\Bus\Queueable;
@@ -10,8 +9,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 class StoreDailyMeasurement implements ShouldQueue
@@ -24,9 +23,9 @@ class StoreDailyMeasurement implements ShouldQueue
     protected $location;
 
     /**
-     * @var string
+     * @var Collection<DailyMeasurement>
      */
-    protected $filePath;
+    protected $dailyMeasurements;
 
     /**
      * @var string
@@ -37,12 +36,12 @@ class StoreDailyMeasurement implements ShouldQueue
      * Create a new job instance.
      *
      * @param Location $location
-     * @param string $filePath
+     * @param Collection<DailyMeasurement> $dailyMeasurements
      */
-    public function __construct(Location $location, string $filePath)
+    public function __construct(Location $location, Collection $dailyMeasurements)
     {
         $this->location = $location;
-        $this->filePath = $filePath;
+        $this->dailyMeasurements = $dailyMeasurements;
     }
 
     /**
@@ -55,9 +54,7 @@ class StoreDailyMeasurement implements ShouldQueue
         $numberOfNewEntries = 0;
 
         try {
-            $measurementSite = MeasurementSite::fromJson(json_decode(Storage::disk('odl_archives')->get($this->filePath), true));
-
-            foreach ($measurementSite->getDailyMeasurements() as $measurement) {
+            foreach ($this->dailyMeasurements as $measurement) {
                 // only add the value if it doesn't exist yet
                 $existingDailyMeasurements = $this->location->dailyMeasurements()->whereDate('date', $measurement->getDate());
 
