@@ -123,6 +123,6 @@ if (!function_exists('formatDecimal')) {
 if (!function_exists('getOdlFetcher')) {
     function getOdlFetcher(): OdlFetcher
     {
-        return new OdlFetcher(env('ODL_BASE_URL'), env('ODL_USER'), env('ODL_PASSWORD'));
+        return new OdlFetcher(config('odl.base_url'), config('odl.user'), config('odl.password'));
     }
 }

@@ -23,7 +23,7 @@ class CreateStatusesTable extends Migration
         });
 
         // create statuses
-        $statuses = getKeyValuePairsFromStr(env('ODL_STATUSES'));
+        $statuses = getKeyValuePairsFromStr(config('odl.statuses'));
 
         foreach ($statuses as $key => $value) {
             $status = new Status();

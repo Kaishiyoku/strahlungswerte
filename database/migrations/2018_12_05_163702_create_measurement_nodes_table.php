@@ -23,7 +23,7 @@ class CreateMeasurementNodesTable extends Migration
         });
 
         // create measurement nodes
-        $measurementNodes = getKeyValuePairsFromStr(env('ODL_MEASUREMENT_NODES'));
+        $measurementNodes = getKeyValuePairsFromStr(config('odl.measurement_nodes'));
 
         foreach ($measurementNodes as $key => $value) {
             $measurementNode = new MeasurementNode();
