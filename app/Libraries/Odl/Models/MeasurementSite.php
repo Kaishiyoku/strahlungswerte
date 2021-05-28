@@ -15,17 +15,17 @@ class MeasurementSite
     private $location;
 
     /**
-     * @var Collection<HourlyMeasurement>
+     * @var Collection
      */
     private $hourlyMeasurements;
 
     /**
-     * @var Collection<DailyMeasurement>
+     * @var Collection
      */
     private $dailyMeasurements;
 
     /**
-     * @var Collection<PrecipitationProbability>
+     * @var Collection
      */
     private $hourlyPrecipitationProbabilities;
 
@@ -33,7 +33,7 @@ class MeasurementSite
      * @param array $json
      * @return MeasurementSite
      */
-    public static function fromJson(array $json): MeasurementSite
+    public static function fromJson($json)
     {
         $measurementSite = new MeasurementSite();
         $measurementSite->location = Location::createFromJson(Arr::get($json, 'stamm'));
@@ -86,31 +86,31 @@ class MeasurementSite
     /**
      * @return Location
      */
-    public function getLocation(): Location
+    public function getLocation()
     {
         return $this->location;
     }
 
     /**
-     * @return Collection<HourlyMeasurement>
+     * @return Collection
      */
-    public function getHourlyMeasurements(): Collection
+    public function getHourlyMeasurements()
     {
         return $this->hourlyMeasurements;
     }
 
     /**
-     * @return Collection<PrecipitationProbability>
+     * @return Collection
      */
-    public function getHourlyPrecipitationProbabilities(): Collection
+    public function getHourlyPrecipitationProbabilities()
     {
         return $this->hourlyPrecipitationProbabilities;
     }
 
     /**
-     * @return Collection<DailyMeasurement>
+     * @return Collection
      */
-    public function getDailyMeasurements(): Collection
+    public function getDailyMeasurements()
     {
         return $this->dailyMeasurements;
     }

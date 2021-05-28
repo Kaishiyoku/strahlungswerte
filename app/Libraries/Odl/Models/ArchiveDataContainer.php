@@ -22,7 +22,7 @@ class ArchiveDataContainer
     private $statisticsFilePath;
 
     /**
-     * @var Collection<string>
+     * @var Collection
      */
     private $measurementSiteFilePaths;
 
@@ -72,7 +72,7 @@ class ArchiveDataContainer
     }
 
     /**
-     * @return Collection<string>
+     * @return Collection
      */
     public function getMeasurementSiteFilePaths(): Collection
     {

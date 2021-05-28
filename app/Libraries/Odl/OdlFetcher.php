@@ -5,7 +5,6 @@ namespace App\Libraries\Odl;
 use App\Jobs\StoreDailyMeasurement;
 use App\Jobs\StoreHourlyMeasurement;
 use App\Libraries\Odl\Models\ArchiveDataContainer;
-use App\Libraries\Odl\Models\MeasurementSite;
 use App\Models\Location;
 use App\Models\Statistic;
 use Carbon\Carbon;
@@ -56,13 +55,9 @@ class OdlFetcher
 
         $statistic = Statistic::createFromJson(json_decode($odlArchivesStorage->get($archiveDataContainer->getStatisticsFilePath()), true));
 
-        $measurementSites = $archiveDataContainer->getMeasurementSiteFilePaths()->map((function ($measurementSiteFilePath) use ($odlArchivesStorage) {
-            return MeasurementSite::fromJson(json_decode($odlArchivesStorage->get($measurementSiteFilePath), true));
-        }));
-
         $this->updateLocations($locations);
         $this->updateStatistic($statistic);
-        $this->updateMeasurements($measurementSites);
+        $this->updateMeasurements($archiveDataContainer->getMeasurementSiteFilePaths(), $archiveDataContainer->isWithCosmicAndTerrestrialRate());
     }
 
     /**
@@ -166,21 +161,23 @@ class OdlFetcher
     }
 
     /**
-     * @param Collection<MeasurementSite> $measurementSites
+     * @param Collection $measurementSiteFilePaths
+     * @param bool $withCosmicAndTerrestrialRate
      */
-    private function updateMeasurements(Collection $measurementSites)
+    private function updateMeasurements(Collection $measurementSiteFilePaths, bool $withCosmicAndTerrestrialRate = false)
     {
-        Location::select(['uuid', 'name'])->orderBy('name')->get()->each(function ($location) use ($measurementSites) {
-            /*** @var MeasurementSite $measurementSite */
-            $measurementSite = $measurementSites
-                ->filter(function (MeasurementSite $measurementSite) use ($location) {
-                    return $measurementSite->getLocation()->uuid === $location->uuid;
+        $fileNameSuffix = $withCosmicAndTerrestrialRate ? 'ct' : '';
+
+        Location::orderBy('name')->get()->each(function ($location) use ($measurementSiteFilePaths, $fileNameSuffix) {
+            $measurementSiteFilePath = $measurementSiteFilePaths
+                ->filter(function ($path) use ($location, $fileNameSuffix) {
+                    return Str::endsWith($path, "{$location->uuid}{$fileNameSuffix}.json");
                 })
                 ->first();
 
-            if ($measurementSite) {
-                StoreDailyMeasurement::dispatch($location, $measurementSite->getDailyMeasurements());
-                StoreHourlyMeasurement::dispatch($location, $measurementSite->getHourlyMeasurements());
+            if ($measurementSiteFilePath) {
+                StoreDailyMeasurement::dispatch($location, $measurementSiteFilePath);
+                StoreHourlyMeasurement::dispatch($location, $measurementSiteFilePath);
             } else {
                 Log::channel('odl')->warning("No JSON file found for location with UUID {$location->uuid}");
             }

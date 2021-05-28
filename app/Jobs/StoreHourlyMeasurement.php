@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Libraries\Odl\Models\MeasurementSite;
 use App\Models\HourlyMeasurement;
 use App\Models\Location;
 use Illuminate\Bus\Queueable;
@@ -9,8 +10,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 class StoreHourlyMeasurement implements ShouldQueue
@@ -23,9 +24,9 @@ class StoreHourlyMeasurement implements ShouldQueue
     protected $location;
 
     /**
-     * @var Collection<HourlyMeasurement>
+     * @var string
      */
-    protected $hourlyMeasurements;
+    protected $filePath;
 
     /**
      * @var string
@@ -36,12 +37,11 @@ class StoreHourlyMeasurement implements ShouldQueue
      * Create a new job instance.
      *
      * @param Location $location
-     * @param Collection<HourlyMeasurement> $hourlyMeasurements
      */
-    public function __construct(Location $location, Collection $hourlyMeasurements)
+    public function __construct(Location $location, string $filePath)
     {
         $this->location = $location;
-        $this->hourlyMeasurements = $hourlyMeasurements;
+        $this->filePath = $filePath;
     }
 
     /**
@@ -54,7 +54,9 @@ class StoreHourlyMeasurement implements ShouldQueue
         try {
             $numberOfNewEntries = 0;
 
-            foreach ($this->hourlyMeasurements as $measurement) {
+            $measurementSite = MeasurementSite::fromJson(json_decode(Storage::disk('odl_archives')->get($this->filePath), true));
+
+            foreach ($measurementSite->getHourlyMeasurements() as $measurement) {
                 // only add the value if it doesn't exist yet
                 $existingHourlyMeasurements = $this->location->hourlyMeasurements()->where('date', $measurement->getDate()->seconds(0));
 

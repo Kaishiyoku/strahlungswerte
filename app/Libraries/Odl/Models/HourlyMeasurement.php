@@ -2,8 +2,6 @@
 
 namespace App\Libraries\Odl\Models;
 
-use Carbon\Carbon;
-
 class HourlyMeasurement extends Measurement
 {
     /**
@@ -17,31 +15,31 @@ class HourlyMeasurement extends Measurement
     private $precipitationProbabilityValue;
 
     /**
-     * @param Carbon $date
-     * @param float|null $value
-     * @param int|null $inspectionStatus
-     * @param int|null $precipitationProbabilityValue
+     * @param $date
+     * @param $value
+     * @param $inspectionStatus
+     * @param $precipitationProbabilityValue
      */
-    public function __construct(Carbon $date, ?float $value, ?int $inspectionStatus, ?int $precipitationProbabilityValue)
+    public function __construct($date, $value, $inspectionStatus, $precipitationProbabilityValue)
     {
-        parent::__construct($date, $value);
-
+        $this->date = $date;
+        $this->value = $value;
         $this->inspectionStatus = $inspectionStatus;
         $this->precipitationProbabilityValue = $precipitationProbabilityValue;
     }
 
     /**
-     * @return int|null
+     * @return mixed
      */
-    public function getInspectionStatus(): ?int
+    public function getInspectionStatus()
     {
         return $this->inspectionStatus;
     }
 
     /**
-     * @param int|null $inspectionStatus
+     * @param mixed $inspectionStatus
      */
-    public function setInspectionStatus(?int $inspectionStatus): void
+    public function setInspectionStatus($inspectionStatus): void
     {
         $this->inspectionStatus = $inspectionStatus;
     }
@@ -49,15 +47,15 @@ class HourlyMeasurement extends Measurement
     /**
      * @return float|null
      */
-    public function getPrecipitationProbabilityValue(): ?float
+    public function getPrecipitationProbabilityValue()
     {
         return $this->precipitationProbabilityValue;
     }
 
     /**
-     * @param float|null $precipitationProbability
+     * @param float $precipitationProbability
      */
-    public function setPrecipitationProbabilityValue(?float $precipitationProbabilityValue): void
+    public function setPrecipitationProbabilityValue(float $precipitationProbabilityValue): void
     {
         $this->precipitationProbabilityValue = $precipitationProbabilityValue;
     }
