@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f0198aab2c0e7e2cef1499a62739a7d9",
+    "content-hash": "3ff4785d1ba543fc43f74b4629404892",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4526,22 +4526,22 @@
         },
         {
             "name": "spatie/laravel-sluggable",
-            "version": "3.0.2",
+            "version": "2.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-sluggable.git",
-                "reference": "8f2090004f5f02072ed8dbc6fd27d461b8e559fe"
+                "reference": "297097239a675747d74fbd1ecb3ae0d4724a17de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-sluggable/zipball/8f2090004f5f02072ed8dbc6fd27d461b8e559fe",
-                "reference": "8f2090004f5f02072ed8dbc6fd27d461b8e559fe",
+                "url": "https://api.github.com/repos/spatie/laravel-sluggable/zipball/297097239a675747d74fbd1ecb3ae0d4724a17de",
+                "reference": "297097239a675747d74fbd1ecb3ae0d4724a17de",
                 "shasum": ""
             },
             "require": {
                 "illuminate/database": "^7.30|^8.0",
                 "illuminate/support": "^7.30|^8.0",
-                "php": "^8.0"
+                "php": "^7.4|^8.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.18",
@@ -4575,7 +4575,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-sluggable/issues",
-                "source": "https://github.com/spatie/laravel-sluggable/tree/3.0.2"
+                "source": "https://github.com/spatie/laravel-sluggable/tree/2.6.2"
             },
             "funding": [
                 {
@@ -4583,7 +4583,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-05-07T14:58:12+00:00"
+            "time": "2021-03-20T18:07:00+00:00"
         },
         {
             "name": "spatie/temporary-directory",

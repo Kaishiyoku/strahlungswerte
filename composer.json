@@ -29,7 +29,7 @@
         "predis/predis": "^1.1.7",
         "spatie/laravel-backup": "^6.16.0",
         "spatie/laravel-html": "^2.29.0",
-        "spatie/laravel-sluggable": "^3.0.2",
+        "spatie/laravel-sluggable": "^2.6.2",
         "tabuna/breadcrumbs": "^2.3.1"
     },
     "require-dev": {
