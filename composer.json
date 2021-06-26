@@ -7,7 +7,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3",
+        "php": "^7.3|^8.0",
         "ext-json": "*",
         "doctrine/dbal": "^2.13.1",
         "fideloper/proxy": "^4.4.1",
@@ -16,7 +16,7 @@
         "h4kuna/number-format": "^3.0.4",
         "kaishiyoku/laravel-cli-create-user": "^3.1.2",
         "kaishiyoku/laravel-menu": "^4.5.2",
-        "kaishiyoku/laravel-recharts": "^0.9.0",
+        "kaishiyoku/laravel-recharts": "^0.10.0",
         "khill/php-duration": "^1.1.0",
         "laracasts/flash": "^3.2",
         "laravel/framework": "^8.44.0",
