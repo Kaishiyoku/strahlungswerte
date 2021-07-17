@@ -30,7 +30,9 @@ class LocationController extends Controller
 
         $locations = $locations->paginate();
 
-        return view('location.index', compact('locations'));
+        return view('location.index', [
+            'locations' => $locations,
+        ]);
     }
 
     /**
