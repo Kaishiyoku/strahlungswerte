@@ -3,7 +3,6 @@ import toggleDarkMode from "./toggleDarkMode";
 import navbarCollapser from "./navbarCollapser";
 import setDarkModeTogglerIcon from "./setDarkModeTogglerIcon";
 import onDomReady from "./onDomReady";
-import {v4} from 'uuid';
 
 onDomReady(() => {
     setDarkModeTogglerIcon();
