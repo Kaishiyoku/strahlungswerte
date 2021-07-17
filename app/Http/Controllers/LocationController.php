@@ -14,7 +14,7 @@ class LocationController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index(Request $request)
     {
@@ -37,7 +37,7 @@ class LocationController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function show(Location $location)
     {
@@ -46,15 +46,22 @@ class LocationController extends Controller
         $hourlyMinDate = Carbon::now()->subDays(3);
         $dailyMinDate = Carbon::now()->subMonths(2);
 
-        $hourlyMeasurements = $location->hourlyMeasurements()->where('date', '>=', $hourlyMinDate);
-        $hourlyMeasurementsForChart = (clone $hourlyMeasurements)->orderBy('date');
+        $hourlyMeasurementDateSortFn = function (HourlyMeasurement $hourlyMeasurement) {
+            return $hourlyMeasurement->date->timestamp;
+        };
 
-        $hourlyMeasurementsChart = $laravelRecharts->makeChart(
-            [
+        $dailyMeasurementDateSortFn = function (DailyMeasurement $dailyMeasurement) {
+            return $dailyMeasurement->date->timestamp;
+        };
+
+        $hourlyMeasurements = $location->hourlyMeasurements()->where('date', '>=', $hourlyMinDate)->get();
+        $hourlyMeasurementsForChart = $hourlyMeasurements->sortBy($hourlyMeasurementDateSortFn);
+
+        $hourlyMeasurementsChart = $laravelRecharts->makeChart([
                 LaravelRecharts::element(__('location.show.hourly_values'), LaravelRecharts::TYPE_AREA, 'rgba(0, 123, 255, .75)'),
                 LaravelRecharts::element(__('location.show.precipitation_probability'), LaravelRecharts::TYPE_AREA, 'rgba(232, 62, 140, .75)'),
             ],
-            $hourlyMeasurementsForChart->get()->map(function (HourlyMeasurement $hourlyMeasurement) {
+            $hourlyMeasurementsForChart->map(function (HourlyMeasurement $hourlyMeasurement) {
                 return [
                     'name' => $hourlyMeasurement->date->format(__('common.date_formats.datetime')),
                     __('location.show.hourly_values') => $hourlyMeasurement->value,
@@ -64,12 +71,14 @@ class LocationController extends Controller
             300
         );
 
-        $dailyMeasurements = $location->dailyMeasurements()->where('date', '>=', $dailyMinDate);
-        $dailyMeasurementsForChart = (clone $dailyMeasurements)->orderBy('date');
+        $hourlyMeasurementsForTable = $hourlyMeasurements->sortByDesc($hourlyMeasurementDateSortFn);
+
+        $dailyMeasurements = $location->dailyMeasurements()->where('date', '>=', $dailyMinDate)->get();
+        $dailyMeasurementsForChart = $dailyMeasurements->sortBy($dailyMeasurementDateSortFn);
 
         $dailyMeasurementsChart = $laravelRecharts->makeChart(
             [LaravelRecharts::element(__('location.show.daily_values'), LaravelRecharts::TYPE_AREA, 'rgba(102, 16, 242, .75)')],
-            $dailyMeasurementsForChart->get()->map(function (DailyMeasurement $dailyMeasurement) {
+            $dailyMeasurementsForChart->map(function (DailyMeasurement $dailyMeasurement) {
                 return [
                     'name' => $dailyMeasurement->date->format(__('common.date_formats.date')),
                     __('location.show.daily_values') => $dailyMeasurement->value,
@@ -78,6 +87,16 @@ class LocationController extends Controller
             300
         );
 
-        return view('location.show', compact('location', 'hourlyMeasurementsChart', 'dailyMeasurementsChart', 'hourlyMeasurements', 'dailyMeasurements'));
+        $dailyMeasurementsForTable = $dailyMeasurements->sortByDesc($dailyMeasurementDateSortFn);
+
+        return view('location.show', [
+            'location' => $location,
+            'hourlyMeasurementsChart' => $hourlyMeasurementsChart,
+            'dailyMeasurementsChart' => $dailyMeasurementsChart,
+            'hourlyMeasurements' => $hourlyMeasurements,
+            'hourlyMeasurementsForTable' => $hourlyMeasurementsForTable,
+            'dailyMeasurements' => $dailyMeasurements,
+            'dailyMeasurementsForTable' => $dailyMeasurementsForTable,
+        ]);
     }
 }

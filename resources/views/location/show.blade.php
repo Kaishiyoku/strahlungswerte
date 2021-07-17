@@ -53,7 +53,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($dailyMeasurements->orderBy('date', 'desc')->get() as $dailyMeasurement)
+                            @foreach ($dailyMeasurementsForTable as $dailyMeasurement)
                                 <tr>
                                     <td>{{ $dailyMeasurement->date->format(l('date')) }}</td>
                                     <td class="text-right">{{ formatDecimal($dailyMeasurement->value) }} µSv/h</td>
@@ -72,7 +72,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($hourlyMeasurements->orderBy('date', 'desc')->get() as $hourlyMeasurement)
+                            @foreach ($hourlyMeasurementsForTable as $hourlyMeasurement)
                                 <tr>
                                     <td>{{ $hourlyMeasurement->date->format(l('datetime')) }}</td>
                                     <td class="text-right">{{ formatDecimal($hourlyMeasurement->value) }} µSv/h</td>
