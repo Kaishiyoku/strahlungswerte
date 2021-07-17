@@ -150,7 +150,7 @@ select.input {
 /* Breadcrumbs
 ---------------------------------------------------------------------------- */
 .breadcrumb {
-    @apply bg-gray-200 my-4 py-2 px-4 rounded dark:bg-gray-800;
+    @apply bg-gray-200 bg-opacity-50 my-4 py-2 px-4 rounded dark:bg-gray-800;
 }
 .breadcrumb-item {
     @apply inline-block text-gray-600 dark:text-gray-500;
@@ -241,8 +241,14 @@ select.input {
 .table tbody {
     @apply divide-y divide-solid divide-gray-200 dark:divide-gray-700;
 }
-.table th {
+.table thead th {
     @apply bg-gray-100 font-bold text-xs text-gray-800 uppercase border-b-2 border-gray-200 tracking-wide align-middle p-3 dark:bg-gray-700 dark:border-gray-800 dark:text-gray-300;
+}
+.table thead th:first-child {
+    @apply rounded-tl-lg;
+}
+.table thead th:last-child {
+    @apply rounded-tr-lg;
 }
 .table:not(.table-sm) th {
     @apply py-3 px-3;
@@ -253,8 +259,14 @@ select.input {
 .table:not(.table-sm) td {
     @apply py-4 px-3;
 }
+.table-striped tr:nth-child(odd) {
+    @apply bg-gray-50 bg-opacity-75;
+}
 .table-hover tr:hover {
     @apply bg-gray-50 transition-colors duration-150 ease-out dark:bg-gray-900 dark:bg-opacity-50;
+}
+.table-striped tr:hover {
+    @apply bg-gray-100;
 }
 .table-sm th {
     @apply py-2 px-3;
@@ -279,6 +291,12 @@ select.input {
 }
 .alert-danger {
     @apply bg-red-100 text-red-800 border-red-400 dark:bg-red-900 dark:border-red-700 dark:text-red-500;
+}
+
+/* Alpine.js
+---------------------------------------------------------------------------- */
+[x-cloak] {
+    display: none !important;
 }
 
 /* Other

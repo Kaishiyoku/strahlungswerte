@@ -10,35 +10,77 @@
     </h1>
 
     <div class="lg:grid lg:grid-cols-2 lg:gap-4">
-        <div class="card p-4 mb-8">
-            <div class="md:flex py-2 border-b border-gray-200 dark:border-gray-800">
-                <div class="md:inline-block md:w-2/6">{{ __('validation.attributes.height') }}:</div>
-                <div class="md:inline-block md:w-4/6">{{ $location->height }}m</div>
+        <div class="card p-4 mb-8 flex flex-col justify-between">
+            <div>
+                <div class="md:flex py-2 border-b border-gray-200 dark:border-gray-800">
+                    <div class="md:inline-block md:w-2/6">{{ __('validation.attributes.height') }}:</div>
+                    <div class="md:inline-block md:w-4/6">{{ $location->height }}m</div>
+                </div>
+
+                <div class="md:flex py-2 border-b border-gray-200 dark:border-gray-800">
+                    <div class="md:inline-block md:w-2/6">{{ __('validation.attributes.last_measured_one_hour_value') }}:</div>
+                    <div class="md:inline-block md:w-4/6">{{ formatDecimal($location->last_measured_one_hour_value) }}µSv/h</div>
+                </div>
+
+                <div class="md:flex py-2 border-b border-gray-200 dark:border-gray-800">
+                    <div class="md:inline-block md:w-2/6">{{ __('validation.attributes.longitude') }}:</div>
+                    <div class="md:inline-block md:w-4/6">{{ formatDecimal($location->longitude) }}</div>
+                </div>
+
+                <div class="md:flex py-2 border-b border-gray-200 dark:border-gray-800">
+                    <div class="md:inline-block md:w-2/6">{{ __('validation.attributes.latitude') }}:</div>
+                    <div class="md:inline-block md:w-4/6">{{ formatDecimal($location->latitude) }}</div>
+                </div>
+
+                <div class="md:flex py-2 border-b border-gray-200 dark:border-gray-800">
+                    <div class="md:inline-block md:w-2/6">{{ __('validation.attributes.status_id') }}:</div>
+                    <div class="md:inline-block md:w-4/6">{{ formatStatus($location->status) }}</div>
+                </div>
+
+                <div class="md:flex py-2">
+                    <div class="md:inline-block md:w-2/6">{{ __('validation.attributes.measurement_node_id') }}:</div>
+                    <div class="md:inline-block md:w-4/6">{{ $location->measurementNode->name }}</div>
+                </div>
             </div>
 
-            <div class="md:flex py-2 border-b border-gray-200 dark:border-gray-800">
-                <div class="md:inline-block md:w-2/6">{{ __('validation.attributes.last_measured_one_hour_value') }}:</div>
-                <div class="md:inline-block md:w-4/6">{{ formatDecimal($location->last_measured_one_hour_value) }}µSv/h</div>
-            </div>
+            <div class="flex space-x-2 mt-8">
+                <x-modal name="daily_values_modal" :title="__('location.show.daily_values')">
+                    <table class="table table-sm table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>{{ __('validation.attributes.date') }}</th>
+                                <th class="text-right">{{ __('validation.attributes.value') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($dailyMeasurements->orderBy('date', 'desc')->get() as $dailyMeasurement)
+                                <tr>
+                                    <td>{{ $dailyMeasurement->date->format(l('date')) }}</td>
+                                    <td class="text-right">{{ formatDecimal($dailyMeasurement->value) }} µSv/h</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </x-modal>
 
-            <div class="md:flex py-2 border-b border-gray-200 dark:border-gray-800">
-                <div class="md:inline-block md:w-2/6">{{ __('validation.attributes.longitude') }}:</div>
-                <div class="md:inline-block md:w-4/6">{{ formatDecimal($location->longitude) }}</div>
-            </div>
-
-            <div class="md:flex py-2 border-b border-gray-200 dark:border-gray-800">
-                <div class="md:inline-block md:w-2/6">{{ __('validation.attributes.latitude') }}:</div>
-                <div class="md:inline-block md:w-4/6">{{ formatDecimal($location->latitude) }}</div>
-            </div>
-
-            <div class="md:flex py-2 border-b border-gray-200 dark:border-gray-800">
-                <div class="md:inline-block md:w-2/6">{{ __('validation.attributes.status_id') }}:</div>
-                <div class="md:inline-block md:w-4/6">{{ formatStatus($location->status) }}</div>
-            </div>
-
-            <div class="md:flex py-2">
-                <div class="md:inline-block md:w-2/6">{{ __('validation.attributes.measurement_node_id') }}:</div>
-                <div class="md:inline-block md:w-4/6">{{ $location->measurementNode->name }}</div>
+                <x-modal name="hourly_values_modal" :title="__('location.show.hourly_values')">
+                    <table class="table table-sm table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>{{ __('validation.attributes.date') }}</th>
+                                <th class="text-right">{{ __('validation.attributes.value') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($hourlyMeasurements->orderBy('date', 'desc')->get() as $hourlyMeasurement)
+                                <tr>
+                                    <td>{{ $hourlyMeasurement->date->format(l('datetime')) }}</td>
+                                    <td class="text-right">{{ formatDecimal($hourlyMeasurement->value) }} µSv/h</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </x-modal>
             </div>
         </div>
 
@@ -58,47 +100,5 @@
 
     <div class="card mt-8">
         {!! $dailyMeasurementsChart->render() !!}
-    </div>
-
-    <h4 class="text-2xl mt-6 mb-4">{{ __('location.show.daily_values') }}</h4>
-
-    <div class="card">
-        <table class="table table-sm table-hover">
-            <thead>
-                <tr>
-                    <th>{{ __('validation.attributes.date') }}</th>
-                    <th class="text-right">{{ __('validation.attributes.value') }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($dailyMeasurements->orderBy('date', 'desc')->get() as $dailyMeasurement)
-                    <tr>
-                        <td>{{ $dailyMeasurement->date->format(l('date')) }}</td>
-                        <td class="text-right">{{ formatDecimal($dailyMeasurement->value) }} µSv/h</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-
-    <h4 class="text-2xl mt-6 mb-4">{{ __('location.show.hourly_values') }}</h4>
-
-    <div class="card">
-        <table class="table table-sm table-hover">
-            <thead>
-                <tr>
-                    <th>{{ __('validation.attributes.date') }}</th>
-                    <th class="text-right">{{ __('validation.attributes.value') }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($hourlyMeasurements->orderBy('date', 'desc')->get() as $hourlyMeasurement)
-                    <tr>
-                        <td>{{ $hourlyMeasurement->date->format(l('datetime')) }}</td>
-                        <td class="text-right">{{ formatDecimal($hourlyMeasurement->value) }} µSv/h</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
     </div>
 @endsection

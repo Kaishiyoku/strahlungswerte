@@ -27,6 +27,7 @@
         "nao-pon/flysystem-google-drive": "^1.1.13",
         "nelexa/zip": "^4.0.0",
         "predis/predis": "^1.1.7",
+        "ramsey/uuid": "^4.1",
         "spatie/laravel-backup": "^6.16.0",
         "spatie/laravel-html": "^2.29.0",
         "spatie/laravel-sluggable": "^2.6.2",
