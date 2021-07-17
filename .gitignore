@@ -6,6 +6,7 @@
 /public/hot
 /public/storage
 /public/mix-manifest.json
+/public/vendor/blade-fontawesome
 /storage/*.key
 /vendor
 /.idea

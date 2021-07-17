@@ -126,3 +126,10 @@ if (!function_exists('getOdlFetcher')) {
         return new OdlFetcher(config('odl.base_url'), config('odl.user'), config('odl.password'));
     }
 }
+
+if (!function_exists('getFontAwesomeSvgImageHtml')) {
+    function getFontAwesomeSvgImageHtml(string $iconType, string $iconName): string
+    {
+        return '<img src="' . asset("vendor/blade-fontawesome/{$iconType}/{$iconName}.svg") . '"/>';
+    }
+}

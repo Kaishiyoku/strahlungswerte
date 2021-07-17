@@ -4,7 +4,8 @@
     data-dropdown-target="#{{ $id }}"
 >
     {!! $title !!}
-    <i class="fas fa-caret-down mt-1"></i>
+
+    {!! getFontAwesomeSvgImageHtml('solid', 'caret-down') !!}
 </a>
 <div id="{{ $id }}" class="dropdown flex flex-col hidden rounded-md shadow-xl">
     @foreach ($entries as $entry)

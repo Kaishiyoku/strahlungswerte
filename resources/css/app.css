@@ -13,13 +13,16 @@
 /* Navbar
 ---------------------------------------------------------------------------- */
 .navbar-link {
-    @apply block cursor-pointer block transition-all duration-200 px-4 py-5 text-black border-transparent lg:border-b-4 border-l-4 lg:border-l-0 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700;
+    @apply block flex items-center cursor-pointer block transition-all duration-200 px-4 py-5 text-black border-transparent lg:border-b-4 border-l-4 lg:border-l-0 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700;
 }
 .navbar-link:hover {
     @apply text-black bg-gray-50;
 }
 .navbar-link-active {
     @apply border-blue-500;
+}
+.navbar-link img {
+    @apply w-4 h-4 mr-1;
 }
 
 /* Typograhpy
@@ -60,13 +63,16 @@ h3 {
 }
 
 .dropdown-item {
-    @apply text-left px-4 py-2 leading-5 text-gray-700 cursor-pointer transition-all duration-200 dark:text-gray-500;
+    @apply flex items-center text-left px-4 py-2 leading-5 text-gray-700 cursor-pointer transition-all duration-200 dark:text-gray-500;
 }
 .dropdown-item:hover {
     @apply bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-gray-300;
 }
 .dropdown-item:focus {
     @apply outline-none bg-gray-100 text-gray-900;
+}
+.dropdown-item img {
+    @apply w-4 h-4 mr-1;
 }
 
 .dropdown-item.dropdown-item-active {
