@@ -7,13 +7,13 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>@lang('validation.attributes.date')</th>
-                    <th class="text-right">@lang('validation.attributes.number_of_operational_locations')</th>
-                    <th class="text-right">@lang('validation.attributes.average_value')</th>
-                    <th>@lang('validation.attributes.min_location_uuid')</th>
-                    <th class="text-right">@lang('validation.attributes.min_value')</th>
-                    <th>@lang('validation.attributes.max_location_uuid')</th>
-                    <th class="text-right">@lang('validation.attributes.max_value')</th>
+                    <th>{{ __('validation.attributes.date') }}</th>
+                    <th class="text-right">{{ __('validation.attributes.number_of_operational_locations') }}</th>
+                    <th class="text-right">{{ __('validation.attributes.average_value') }}</th>
+                    <th>{{ __('validation.attributes.min_location_uuid') }}</th>
+                    <th class="text-right">{{ __('validation.attributes.min_value') }}</th>
+                    <th>{{ __('validation.attributes.max_location_uuid') }}</th>
+                    <th class="text-right">{{ __('validation.attributes.max_value') }}</th>
                 </tr>
             </thead>
             <tbody>

@@ -15,13 +15,13 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th class="hidden md:table-cell">@lang('validation.attributes.postal_code')</th>
-                    <th>@lang('validation.attributes.name')</th>
-                    <th class="hidden md:table-cell">@lang('validation.attributes.status_id')</th>
-                    <th class="text-right">@lang('validation.attributes.last_measured_one_hour_value')</th>
-                    <th class="hidden md:table-cell text-right">@lang('validation.attributes.height')</th>
-                    <th class="hidden md:table-cell text-right">@lang('validation.attributes.longitude')</th>
-                    <th class="hidden md:table-cell text-right">@lang('validation.attributes.latitude')</th>
+                    <th class="hidden md:table-cell">{{ __('validation.attributes.postal_code') }}</th>
+                    <th>{{ __('validation.attributes.name') }}</th>
+                    <th class="hidden md:table-cell">{{ __('validation.attributes.status_id') }}</th>
+                    <th class="text-right">{{ __('validation.attributes.last_measured_one_hour_value') }}</th>
+                    <th class="hidden md:table-cell text-right">{{ __('validation.attributes.height') }}</th>
+                    <th class="hidden md:table-cell text-right">{{ __('validation.attributes.longitude') }}</th>
+                    <th class="hidden md:table-cell text-right">{{ __('validation.attributes.latitude') }}</th>
                 </tr>
             </thead>
             <tbody>
