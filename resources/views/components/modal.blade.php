@@ -31,9 +31,9 @@
             x-transition:leave="ease-in duration-200"
             x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
             x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            class="flex flex-col rounded-lg shadow-lg bg-white w-3/5 h-3/5 z-10"
+            class="flex flex-col rounded-lg shadow-lg bg-white dark:bg-gray-900 w-3/5 h-3/5 z-10"
         >
-            <div class="px-4 py-4 border-b border-gray-200">
+            <div class="px-4 py-4 border-b border-gray-200 dark:border-gray-800">
                 <div class="text-xl" id="{{ $name }}_label" x-ref="{{ $name }}_label">{{ $title }}</div>
             </div>
             <div class="p-4 overflow-y-scroll">
