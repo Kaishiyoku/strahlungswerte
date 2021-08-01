@@ -165,7 +165,6 @@ return [
         /*
          * Package Service Providers...
          */
-        \App\Providers\GoogleDriveServiceProvider::class,
         \App\Providers\BreadcrumbsServiceProvider::class,
 
         /*
