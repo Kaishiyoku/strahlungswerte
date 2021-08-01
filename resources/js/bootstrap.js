@@ -1,12 +1,8 @@
-/**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
- */
-
-try {
-    require('./additions');
-} catch (e) {}
+import tippy from 'tippy.js';
+import toggleDarkMode from "./toggleDarkMode";
+import navbarCollapser from "./navbarCollapser";
+import setDarkModeTogglerIcon from "./setDarkModeTogglerIcon";
+import onDomReady from "./onDomReady";
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -34,3 +30,46 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+onDomReady(() => {
+    setDarkModeTogglerIcon();
+
+    document.querySelectorAll('[data-toggle="dark-mode"]').forEach((element) => {
+        element.addEventListener('click', (event) => {
+            toggleDarkMode();
+        });
+    });
+
+    document.querySelectorAll('[data-confirm]').forEach((element) => {
+        element.addEventListener('click', function () {
+            let confirmationText = element.getAttribute('data-confirm');
+
+            if (!confirmationText) {
+                confirmationText = 'Sind Sie sicher?';
+            }
+
+            if (!confirm(confirmationText)) {
+                return false;
+            }
+        });
+    });
+
+    tippy('[data-provide-dropdown]', {
+        theme: 'dropdown',
+        allowHTML: true,
+        interactive: true,
+        arrow: 'false',
+        trigger: 'click',
+        placement: 'bottom-start',
+        offset: [0, -5],
+        animation: 'shift-away-subtle',
+        content(reference) {
+            let dropdown = document.querySelector(reference.getAttribute('data-dropdown-target'));
+            dropdown.classList.remove('hidden');
+
+            return dropdown;
+        },
+    });
+
+    navbarCollapser();
+});
