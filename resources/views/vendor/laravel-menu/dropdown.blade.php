@@ -5,7 +5,7 @@
 >
     {!! $title !!}
 
-    {!! getFontAwesomeSvgImageHtml('solid', 'caret-down') !!}
+    {!! getHeroiconSvgImageHtml('s-chevron-down') !!}
 </a>
 <div id="{{ $id }}" class="dropdown flex flex-col hidden rounded-md shadow-xl">
     @foreach ($entries as $entry)

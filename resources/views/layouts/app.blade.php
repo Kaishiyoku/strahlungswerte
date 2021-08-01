@@ -35,7 +35,7 @@
                         <div class="text-xl mr-2 ml-2 md:ml-0 py-5"><a href="{{ url('/') }}" class="text-gray-700 transition-all duration-200 hover:text-black dark:text-gray-400 dark:hover:text-white">{{ config('app.name', 'Laravel') }}</a></div>
 
                         <button class="lg:hidden py-4 px-6 text-xl transition-all outline-none duration-200 text-gray-500 hover:text-black hover:bg-gray-50 focus:outline-none focus:ring-4 focus:ring-primary-200 focus:ring-inset dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" data-navbar-control>
-                            <x-fas-bars class="w-5 h-5"/>
+                            <x-heroicon-s-menu class="w-5 h-5"/>
                         </button>
                     </div>
 

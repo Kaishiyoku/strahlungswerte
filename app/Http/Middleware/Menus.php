@@ -37,20 +37,20 @@ class Menus
         $isAdministrator = $isLoggedIn && $this->auth->user()->is_administrator;
 
         \LaravelMenu::register()
-            ->link('locations.index,locations.show', getFontAwesomeSvgImageHtml('solid', 'globe-europe') . __('common.nav.home'))
-            ->link('statistics.index', getFontAwesomeSvgImageHtml('solid', 'chart-line') . __('common.nav.statistics'));
+            ->link('locations.index,locations.show', getHeroiconSvgImageHtml('s-globe') . __('common.nav.home'))
+            ->link('statistics.index', getHeroiconSvgImageHtml('s-chart-bar') . __('common.nav.statistics'));
 
         if ($isLoggedIn) {
             \LaravelMenu::register('user')
-                ->dropdownIf($isAdministrator, getFontAwesomeSvgImageHtml('solid', 'user') . $this->auth->user()->name, \LaravelMenu::dropdownContainer()
+                ->dropdownIf($isAdministrator, getHeroiconSvgImageHtml('s-user-circle') . $this->auth->user()->name, \LaravelMenu::dropdownContainer()
                     ->header(__('common.nav.administration'))
-                    ->link('horizon.index', getFontAwesomeSvgImageHtml('solid', 'compass') . __('common.nav.horizon'))
+                    ->link('horizon.index', getHeroiconSvgImageHtml('s-chart-square-bar') . __('common.nav.horizon'))
                 )
-                ->link('logout', getFontAwesomeSvgImageHtml('solid', 'sign-out-alt') . __('common.nav.logout'))
+                ->link('logout', getHeroiconSvgImageHtml('s-logout') . __('common.nav.logout'))
                 ->content('<a class="navbar-link" data-toggle="dark-mode"></a>');
         } else {
             \LaravelMenu::register('user')
-                ->link('login', getFontAwesomeSvgImageHtml('solid', 'sign-in-alt') . __('common.nav.login'))
+                ->link('login', getHeroiconSvgImageHtml('s-login') . __('common.nav.login'))
                 ->content('<a class="navbar-link" data-toggle="dark-mode"></a>');
         }
 

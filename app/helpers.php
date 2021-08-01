@@ -127,9 +127,9 @@ if (!function_exists('getOdlFetcher')) {
     }
 }
 
-if (!function_exists('getFontAwesomeSvgImageHtml')) {
-    function getFontAwesomeSvgImageHtml(string $iconType, string $iconName): string
+if (!function_exists('getHeroiconSvgImageHtml')) {
+    function getHeroiconSvgImageHtml(string $iconName): string
     {
-        return '<img src="' . asset("vendor/blade-fontawesome/{$iconType}/{$iconName}.svg") . '"/>';
+        return '<img src="' . asset("vendor/blade-heroicons/{$iconName}.svg") . '"/>';
     }
 }
