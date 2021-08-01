@@ -312,3 +312,12 @@ select.input {
 
     border: 0 !important;
 }
+
+/* Charts
+---------------------------------------------------------------------------- */
+.line-horizontal {
+
+}
+.line-vertical {
+    @apply hidden;
+}

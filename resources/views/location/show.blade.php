@@ -93,12 +93,14 @@
 
     @include('shared._odl_copyright_notice')
 
-    <div class="card mt-8">
-        {!! $hourlyMeasurementsChart->assets() !!}
-        {!! $hourlyMeasurementsChart->render() !!}
-    </div>
+    <div id="hourly-measurements-chart" class="card mt-8 py-4"></div>
 
-    <div class="card mt-8">
-        {!! $dailyMeasurementsChart->render() !!}
-    </div>
+    <div id="daily-measurements-chart" class="card mt-8 py-4"></div>
+
+    <script type="text/javascript">
+        onDomReady(() => {
+            renderChart('#hourly-measurements-chart', '{{ __('location.show.hourly_values') }}', @json($hourlyMeasurementsChartData), 350, ['#e83e8c', '#007bff'])
+            renderChart('#daily-measurements-chart', '{{ __('location.show.daily_values') }}', @json($dailyMeasurementsChartData), 350, ['#6610f2'])
+        });
+    </script>
 @endsection

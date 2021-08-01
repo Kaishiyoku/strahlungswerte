@@ -17,6 +17,7 @@
         "browser-sync": "^2.27.4",
         "browser-sync-webpack-plugin": "2.3.0",
         "cross-env": "^7.0.3",
+        "frappe-charts": "^1.6.2",
         "laravel-mix": "^6.0.25",
         "node-waves": "^0.7.6",
         "postcss": "^8.3.5",

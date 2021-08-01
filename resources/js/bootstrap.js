@@ -3,6 +3,7 @@ import toggleDarkMode from "./toggleDarkMode";
 import navbarCollapser from "./navbarCollapser";
 import setDarkModeTogglerIcon from "./setDarkModeTogglerIcon";
 import onDomReady from "./onDomReady";
+import {Chart} from 'frappe-charts';
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -30,6 +31,23 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+window.renderChart = (querySelector, title, data, height = 250, colors = ['#7cd6fd', '#743ee2']) => {
+    new Chart(querySelector, {
+        title,
+        data,
+        type: 'axis-mixed',
+        height,
+        colors,
+        lineOptions: {
+            regionFill: 1,
+            dotSize: -1,
+        },
+        axisOptions: {
+            xIsSeries: true,
+        },
+    });
+};
 
 onDomReady(() => {
     setDarkModeTogglerIcon();
