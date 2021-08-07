@@ -43,30 +43,6 @@ h3 {
 
 /* Forms & input
 ---------------------------------------------------------------------------- */
-.input:not(select) {
-    @apply py-2;
-}
-select.input {
-    @apply bg-white;
-
-    padding-top: .5rem;
-    padding-bottom: .3rem;
-}
-.input {
-    @apply px-3 outline-none shadow border w-full text-gray-700 leading-tight transition-all duration-200 placeholder-gray-400 dark:placeholder-gray-500 dark:bg-black dark:border-gray-800 dark:text-gray-300;
-}
-.input:focus {
-    @apply ring-4 ring-opacity-50 ring-blue-600;
-}
-
-.input:not(.input-with-btn) {
-    @apply rounded;
-}
-
-.input-with-btn {
-    @apply rounded-l;
-}
-
 .has-error {
     @apply border-red-600;
 }
@@ -74,38 +50,10 @@ select.input {
     @apply text-red-600 text-xs mt-1;
 }
 
-.label {
-    @apply block text-gray-700 text-sm font-bold mb-2 dark:text-gray-500;
-}
-
 .label-required:after {
     @apply text-gray-600;
 
     content: ' *';
-}
-
-.label-checkbox {
-    @apply inline-flex items-center mt-3;
-}
-.checkbox {
-    @apply block h-5 w-5 bg-white appearance-none border border-gray-500 rounded outline-none transition-all duration-200 mr-2 dark:bg-black dark:border-gray-700;
-}
-.checkbox:checked {
-    @apply bg-blue-600 border-blue-600;
-}
-.checkbox:checked:before {
-    @apply absolute h-5 w-5 text-white text-center;
-
-    margin-left: -1px;
-    margin-top: -1px;
-    line-height: 1.25rem;
-    font-family: "Font Awesome 5 Free";
-    font-size: .6rem;
-    font-weight: 900;
-    content: "\f00c";
-}
-.checkbox:focus {
-    @apply ring-4 ring-opacity-50 ring-blue-600;
 }
 
 /* Breadcrumbs
@@ -126,66 +74,6 @@ select.input {
 }
 .breadcrumb-item > a:hover {
     @apply underline;
-}
-
-/* Buttons
----------------------------------------------------------------------------- */
-.btn {
-    @apply text-left shadow-md border bg-white transition-all duration-200 px-4 py-2 dark:bg-black;
-}
-.btn:not(.btn-sm):not(.btn-with-input) {
-    @apply py-2 px-4;
-}
-.btn:not(.btn-with-input) {
-    @apply rounded-full;
-}
-.btn:focus {
-    @apply ring-4 outline-none;
-}
-
-.btn:disabled {
-    @apply bg-opacity-75 cursor-not-allowed;
-}
-
-.btn-sm {
-    @apply px-2 py-1 text-sm;
-}
-
-.btn-with-input {
-    @apply pt-1 pb-1 px-4 rounded-r-full;
-}
-
-.btn-primary {
-    @apply text-blue-600 border-blue-300 dark:border-blue-500;
-}
-.btn-primary:hover:not(:disabled) {
-    @apply bg-blue-500 text-white;
-}
-.btn-primary:focus:not(:disabled) {
-    @apply ring-blue-200 dark:ring-blue-800;
-}
-
-.btn-black {
-    @apply text-black border-black;
-}
-.btn-black:hover:not(:disabled) {
-    @apply bg-black text-white;
-}
-.btn-black:focus:not(:disabled) {
-    @apply ring-gray-400;
-}
-
-/* List items
----------------------------------------------------------------------------- */
-.list-item {
-    @apply transition-all duration-300;
-}
-.list-item:nth-child(odd) {
-    @apply bg-gray-200 bg-opacity-75;
-}
-.list-item:hover,
-.list-item:nth-child(odd):hover {
-    @apply bg-blue-100 bg-opacity-50;
 }
 
 /* Tables
@@ -252,14 +140,6 @@ select.input {
 ---------------------------------------------------------------------------- */
 [x-cloak] {
     display: none !important;
-}
-
-/* Other
----------------------------------------------------------------------------- */
-.prettyprint {
-    @apply overflow-auto;
-
-    border: 0 !important;
 }
 
 /* Charts
