@@ -47,8 +47,6 @@
                     @yield('breadcrumbs')
 
                     @yield('content')
-
-                    @include('shared._footer')
                 </div>
             </div>
         </main>
