@@ -3,8 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
@@ -27,36 +25,34 @@
     </script>
 </head>
 <body class="bg-gray-100 h-screen antialiased font-sans dark:bg-gray-900 dark:text-gray-300 transition-all transition-duration-1000 ease-in">
-    <div id="app">
-        <div class="bg-white shadow mb-6 dark:bg-gray-800">
-            <div class="container lg:px-20 mx-auto">
-                <div class="lg:flex lg:items-center">
-                    <div class="flex justify-between items-center">
-                        <div class="text-xl mr-2 ml-2 md:ml-0 py-5"><a href="{{ url('/') }}" class="text-gray-700 transition-all duration-200 hover:text-black dark:text-gray-400 dark:hover:text-white">{{ config('app.name', 'Laravel') }}</a></div>
+    <div class="min-h-screen bg-gray-100 dark:text-gray-400 dark:bg-gray-900">
+        <div class="{{ classNames(['shadow' => !isset($header)]) }}">
+            <x-navigation-menu/>
+        </div>
 
-                        <button class="lg:hidden py-4 px-6 text-xl transition-all outline-none duration-200 text-gray-500 hover:text-black hover:bg-gray-50 focus:outline-none focus:ring-4 focus:ring-primary-200 focus:ring-inset dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" data-navbar-control>
-                            <x-heroicon-s-menu class="w-5 h-5"/>
-                        </button>
-                    </div>
+        <!-- Page Heading -->
+        @isset ($header)
+            <header class="bg-white dark:bg-gray-700 shadow">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    {{ $header }}
+                </div>
+            </header>
+        @endisset
 
-                    <div class="flex flex-grow flex-col items-center lg:flex-row lg:justify-between transition-all duration-500 overflow-hidden" data-navbar-content>
-                        {!! \LaravelMenu::render() !!}
+        <!-- Page Content -->
+        <main>
+            <div class="py-12">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    @include('flash::message')
 
-                        {!! \LaravelMenu::render('user') !!}
-                    </div>
+                    @yield('breadcrumbs')
+
+                    @yield('content')
+
+                    @include('shared._footer')
                 </div>
             </div>
-        </div>
-
-        <div class="container px-4 lg:px-20 mx-auto">
-            @include('flash::message')
-
-            @yield('breadcrumbs')
-
-            @yield('content')
-
-            @include('shared._footer')
-        </div>
+        </main>
     </div>
 
     @auth

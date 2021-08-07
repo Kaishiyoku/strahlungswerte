@@ -1,6 +1,5 @@
 import tippy from 'tippy.js';
 import toggleDarkMode from "./toggleDarkMode";
-import navbarCollapser from "./navbarCollapser";
 import setDarkModeTogglerIcon from "./setDarkModeTogglerIcon";
 import onDomReady from "./onDomReady";
 import {Chart} from 'frappe-charts';
@@ -88,6 +87,4 @@ onDomReady(() => {
             return dropdown;
         },
     });
-
-    navbarCollapser();
 });
