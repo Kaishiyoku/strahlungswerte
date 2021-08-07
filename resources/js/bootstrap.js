@@ -55,18 +55,4 @@ onDomReady(() => {
             toggleDarkMode();
         });
     });
-
-    document.querySelectorAll('[data-confirm]').forEach((element) => {
-        element.addEventListener('click', function () {
-            let confirmationText = element.getAttribute('data-confirm');
-
-            if (!confirmationText) {
-                confirmationText = 'Sind Sie sicher?';
-            }
-
-            if (!confirm(confirmationText)) {
-                return false;
-            }
-        });
-    });
 });
