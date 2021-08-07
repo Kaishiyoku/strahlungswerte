@@ -5,9 +5,11 @@
 @section('content')
     {{ html()->form('GET', route('locations.index'))->class('pb-4')->open() }}
         <div class="flex">
-            {{ html()->text('term', request()->get('term'))->attributes(['class' => 'input input-with-btn', 'placeholder' => __('common.search_term')]) }}
+            <x-input id="term" class="block w-full rounded-r-none border-r-0" type="text" name="term" :value="request()->get('term')" :placeholder="__('common.search_term')"/>
 
-            {{ html()->button(__('location.search'), 'submit')->class('btn btn-with-input btn-primary') }}
+            <x-secondary-button class="rounded-l-none">
+                {{ __('location.search') }}
+            </x-secondary-button>
         </div>
     {{ html()->form()->close() }}
 

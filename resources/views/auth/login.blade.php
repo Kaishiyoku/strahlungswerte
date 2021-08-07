@@ -8,11 +8,9 @@
                     @csrf
 
                     <div class="mb-4">
-                        <label for="email" class="label">
-                            {{ __('validation.attributes.email') }}:
-                        </label>
+                        <x-label for="email" :value="__('validation.attributes.email')" required/>
 
-                        <input id="email" type="email" class="input @error('email') has-error @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="{{ __('validation.attributes.email') }}" autofocus>
+                        <x-input id="email" class="{{ classNames('block mt-1 w-full', ['has-error' => $errors->has('email')]) }}" type="email" name="email" :value="old('email')" :placeholder="__('validation.attributes.email')" required autocomplete="email" autofocus/>
 
                         @error('email')
                             <p class="invalid-feedback">
@@ -22,11 +20,9 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="password" class="label">
-                            {{ __('validation.attributes.password') }}
-                        </label>
+                        <x-label for="password" :value="__('validation.attributes.password')" required/>
 
-                        <input id="password" type="password" class="input @error('password') has-error @enderror" name="password" required placeholder="{{ __('validation.attributes.password') }}">
+                        <x-input id="password" class="{{ classNames('block mt-1 w-full', ['has-error' => $errors->has('password')]) }}" type="password" name="password" :placeholder="__('validation.attributes.password')" required/>
 
                         @error('password')
                             <p class="invalid-feedback">
@@ -35,17 +31,17 @@
                         @enderror
                     </div>
 
-                    <div class="mb-4">
-                        <label for="remember" class="label-checkbox">
-                            <input type="checkbox" name="remember" id="remember" class="checkbox" {{ old('remember') ? 'checked' : '' }}>
-                            <span>{{ __('login.remember_me') }}</span>
+                    <div class="block mt-4">
+                        <label for="remember_me" class="flex items-center">
+                            <x-checkbox id="remember_me" name="remember" />
+                            <span class="ml-2 text-sm text-gray-600 dark:text-gray-500">{{ __('login.remember_me') }}</span>
                         </label>
                     </div>
 
-                    <div class="flex flex-wrap items-center">
-                        <button type="submit" class="btn btn-primary">
+                    <div class="flex flex-wrap items-center mt-4">
+                        <x-button>
                             {{ __('login.submit') }}
-                        </button>
+                        </x-button>
 
                         @if (Route::has('password.request'))
                             <a class="text-sm text-purple-500 hover:text-purple-700 whitespace-no-wrap no-underline ml-auto" href="{{ route('password.request') }}">
