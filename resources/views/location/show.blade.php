@@ -5,7 +5,7 @@
 @include('shared._breadcrumbs', ['params' => $location])
 
 @section('content')
-    <h1 class="text-4xl pb-4">
+    <h1 class="text-4xl px-4 sm:px-0 pb-4">
         {{ $location->postal_code }} {{ $location->name }}
     </h1>
 
