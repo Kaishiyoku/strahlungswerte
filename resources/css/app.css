@@ -59,13 +59,13 @@ h3 {
 /* Breadcrumbs
 ---------------------------------------------------------------------------- */
 .breadcrumb {
-    @apply bg-gray-200 bg-opacity-50 my-4 py-2 px-4 rounded dark:bg-gray-800;
+    @apply bg-gray-200 bg-opacity-30 mb-8 py-2 px-4 sm:rounded-lg dark:bg-gray-800 dark:bg-opacity-30;
 }
 .breadcrumb-item {
     @apply inline-block text-gray-600 dark:text-gray-500;
 }
 .breadcrumb-item:not(:first-child):before {
-    @apply text-gray-400 pr-1;
+    @apply text-gray-400 dark:text-gray-700 pr-1;
 
     content: '/';
 }
