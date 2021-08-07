@@ -13,44 +13,35 @@
         </div>
     {{ html()->form()->close() }}
 
-    <div class="card mt-4">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th class="hidden md:table-cell">{{ __('validation.attributes.postal_code') }}</th>
-                    <th>{{ __('validation.attributes.name') }}</th>
-                    <th class="hidden md:table-cell">{{ __('validation.attributes.status_id') }}</th>
-                    <th class="text-right">{{ __('validation.attributes.last_measured_one_hour_value') }}</th>
-                    <th class="hidden md:table-cell text-right">{{ __('validation.attributes.height') }}</th>
-                    <th class="hidden md:table-cell text-right">{{ __('validation.attributes.longitude') }}</th>
-                    <th class="hidden md:table-cell text-right">{{ __('validation.attributes.latitude') }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($locations as $location)
-                    <tr>
-                        <td class="hidden md:table-cell">{{ $location->postal_code }}</td>
-                        <td>
-                            <div class="md:hidden">{{ $location->postal_code }}</div>
-                            <div>{{ html()->a(route('locations.show', $location), $location->name)->class('link') }}</div>
-                            <div class="md:hidden mt-2 text-sm text-muted">{{ formatStatus($location->status) }}</div>
-                        </td>
-                        <td class="hidden md:table-cell">{{ formatStatus($location->status) }}</td>
-                        <td class="text-right">
-                            @if ($location->status->name === 'operational')
-                                {{ formatDecimal($location->last_measured_one_hour_value) }}µSv/h
-                            @else
-                                /
-                            @endif
-                        </td>
-                        <td class="hidden md:table-cell text-right">{{ $location->height }}m</td>
-                        <td class="hidden md:table-cell text-right">{{ formatDecimal($location->longitude) }}</td>
-                        <td class="hidden md:table-cell text-right">{{ formatDecimal($location->latitude) }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+    <x-card class="overflow-y-hidden divide-y divide-gray-100 dark:divide-gray-800">
+        @foreach ($locations as $location)
+            <a href="{{ route('locations.show', $location) }}" class="group block md:flex md:justify-between md:items-start md:space-x-4 px-4 py-3 transition ease-out duration-300 hover:bg-blue-500 focus:outline-none focus:text-white focus:bg-blue-600 transition">
+                <div>
+                    <div class="group-hover:text-white text-2xl md:text-base">
+                        {{ $location->postal_code }} {{ $location->name }}
+                    </div>
+
+                    <div class="hidden md:block group-hover:text-gray-300 w-full group-focus:text-gray-200 md:flex md:justify-between md:space-x-2 text-muted md:text-xs pt-2 md:pt-0">
+                        {{ $location->height }}m
+                    </div>
+                </div>
+
+                <div class="group-hover:text-white group-focus:text-white pt-2 md:pt-0">
+                    <div>
+                        @if ($location->status->name === 'operational')
+                            {{ formatDecimal($location->last_measured_one_hour_value) }}µSv/h
+                        @else
+                            /
+                        @endif
+                    </div>
+
+                    <div class="group-hover:text-gray-300 w-full group-focus:text-gray-200 md:flex md:justify-between md:space-x-2 text-muted md:text-xs pt-2 md:pt-0">
+                        {{ formatStatus($location->status) }}
+                    </div>
+                </div>
+            </a>
+        @endforeach
+    </x-card>
 
     <div class="mt-4">
         {{ $locations->links() }}
