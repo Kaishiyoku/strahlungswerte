@@ -47,7 +47,7 @@
                 <x-modal name="daily_values_modal" :title="__('location.show.daily_values')">
                     <div class="divide-y divide-gray-100 dark:divide-gray-800">
                         @foreach ($dailyMeasurementsForTable as $dailyMeasurement)
-                            <div class="w-full flex justify-between px-2 py-1 hover:bg-gray-200 even:bg-gray-100 transition">
+                            <div class="w-full flex justify-between px-2 py-1 hover:bg-gray-200 dark:hover:bg-gray-800 even:bg-gray-100 dark:even:bg-gray-800 dark:even:bg-opacity-30 transition">
                                 <div>{{ $dailyMeasurement->date->format(l('date')) }}</div>
                                 <div class="text-right">{{ formatDecimal($dailyMeasurement->value) }} µSv/h</div>
                             </div>
@@ -58,7 +58,7 @@
                 <x-modal name="hourly_values_modal" :title="__('location.show.hourly_values')">
                     <div class="divide-y divide-gray-100 dark:divide-gray-800">
                         @foreach ($hourlyMeasurementsForTable as $hourlyMeasurement)
-                            <div class="w-full flex justify-between px-2 py-1 hover:bg-gray-200 even:bg-gray-100 transition">
+                            <div class="w-full flex justify-between px-2 py-1 hover:bg-gray-200 dark:hover:bg-gray-800 even:bg-gray-100 dark:even:bg-gray-800 dark:even:bg-opacity-30 transition">
                                 <div>{{ $hourlyMeasurement->date->format(l('datetime')) }}</div>
                                 <div class="text-right">{{ formatDecimal($hourlyMeasurement->value) }} µSv/h</div>
                             </div>

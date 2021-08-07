@@ -35,7 +35,7 @@
         >
             <div class="flex justify-between items-center px-4 py-4 border-b border-gray-200 dark:border-gray-800">
                 <div class="text-xl" id="{{ $name }}_label" x-ref="{{ $name }}_label">{{ $title }}</div>
-                <button class="p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 focus:text-gray-900 focus:bg-gray-200 rounded-full transition" @click="closeDialog()">
+                <button class="p-2 text-gray-600 hover:text-gray-800 dark:hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 focus:text-gray-900 dark:focus:text-gray-400 focus:bg-gray-200 dark:focus:bg-gray-700 rounded-full transition" @click="closeDialog()">
                     <x-heroicon-s-x class="w-7 h-7"/>
                 </button>
             </div>
