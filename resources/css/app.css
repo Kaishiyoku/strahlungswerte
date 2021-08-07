@@ -41,36 +41,6 @@ h3 {
     @apply underline;
 }
 
-/* Dropdown
----------------------------------------------------------------------------- */
-.dropdown {
-    @apply rounded-md bg-white shadow-xl py-1 overflow-auto dark:bg-gray-900;
-}
-
-.dropdown-item {
-    @apply flex items-center text-left px-4 py-2 leading-5 text-gray-700 cursor-pointer transition-all duration-200 dark:text-gray-500;
-}
-.dropdown-item:hover {
-    @apply bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-gray-300;
-}
-.dropdown-item:focus {
-    @apply outline-none bg-gray-100 text-gray-900;
-}
-.dropdown-item img {
-    @apply w-4 h-4 mr-1;
-}
-
-.dropdown-item.dropdown-item-active {
-    @apply text-white bg-blue-500;
-}
-.dropdown-item.dropdown-item-active:hover {
-    @apply text-white bg-blue-700;
-}
-
-.dropdown-header {
-    @apply px-4 py-2 font-bold text-xs text-gray-800 dark:text-gray-500 uppercase tracking-wide;
-}
-
 /* Forms & input
 ---------------------------------------------------------------------------- */
 .input:not(select) {

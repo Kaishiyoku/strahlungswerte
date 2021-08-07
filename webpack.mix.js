@@ -16,8 +16,7 @@ mix
   .js('resources/js/misc.js', 'public/js')
   .postCss('resources/css/app.css', 'public/css', [
     require('tailwindcss'),
-  ])
-  .sass('resources/sass/additions.scss', 'public/css');
+  ]);
 
 if (mix.inProduction()) {
   mix

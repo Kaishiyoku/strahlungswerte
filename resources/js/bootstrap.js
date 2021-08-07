@@ -1,4 +1,3 @@
-import tippy from 'tippy.js';
 import toggleDarkMode from "./toggleDarkMode";
 import setDarkModeTogglerIcon from "./setDarkModeTogglerIcon";
 import onDomReady from "./onDomReady";
@@ -69,22 +68,5 @@ onDomReady(() => {
                 return false;
             }
         });
-    });
-
-    tippy('[data-provide-dropdown]', {
-        theme: 'dropdown',
-        allowHTML: true,
-        interactive: true,
-        arrow: 'false',
-        trigger: 'click',
-        placement: 'bottom-start',
-        offset: [0, -5],
-        animation: 'shift-away-subtle',
-        content(reference) {
-            let dropdown = document.querySelector(reference.getAttribute('data-dropdown-target'));
-            dropdown.classList.remove('hidden');
-
-            return dropdown;
-        },
     });
 });
