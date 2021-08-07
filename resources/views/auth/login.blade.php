@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex flex-wrap justify-center">
         <div class="w-full max-w-sm">
-            <div class="flex flex-col mt-8 card">
+            <x-card class="flex flex-col mt-8">
                 <form class="w-full p-6" method="POST" action="{{ route('login') }}">
                     @csrf
 
@@ -51,7 +51,7 @@
                     </div>
                 </form>
 
-            </div>
+            </x-card>
         </div>
     </div>
 @endsection

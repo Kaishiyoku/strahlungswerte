@@ -10,7 +10,7 @@
     </h1>
 
     <div class="lg:grid lg:grid-cols-2 lg:gap-4">
-        <div class="card p-4 mb-8 flex flex-col justify-between">
+        <x-card class="p-4 mb-8 flex flex-col justify-between">
             <div>
                 <div class="md:flex py-2 border-b border-gray-200 dark:border-gray-800">
                     <div class="md:inline-block md:w-2/6">{{ __('validation.attributes.height') }}:</div>
@@ -66,20 +66,20 @@
                     </div>
                 </x-modal>
             </div>
-        </div>
+        </x-card>
 
-        <div class="card mb-8 flex justify-center">
+        <x-card class="mb-8 flex justify-center overflow-hidden">
             <a href="{{ getGoogleMapsUrlForLocation($location) }}" class="w-full">
                 <img src="{{ getStaticMapUrlForLocation($location) }}" alt="map" class="w-full dark:img-invert"/>
             </a>
-        </div>
+        </x-card>
     </div>
 
     @include('shared._odl_copyright_notice')
 
-    <div id="hourly-measurements-chart" class="card mt-8 py-4"></div>
+    <x-card id="hourly-measurements-chart" class="mt-8 py-4"/>
 
-    <div id="daily-measurements-chart" class="card mt-8 py-4"></div>
+    <x-card id="daily-measurements-chart" class="mt-8 py-4"/>
 
     <script type="text/javascript">
         onDomReady(() => {

@@ -284,7 +284,7 @@ select.input {
 /* Alerts
 ---------------------------------------------------------------------------- */
 .alert {
-    @apply p-4 my-4 border-l-4 rounded break-words;
+    @apply my-4 p-4 border-l-4 sm:rounded break-words;
 }
 .alert-info {
     @apply bg-blue-100 text-blue-800 border-blue-400 dark:bg-blue-900 dark:border-blue-700 dark:text-blue-500;

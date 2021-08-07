@@ -3,7 +3,7 @@
 @section('title', __('statistic.index.title'))
 
 @section('content')
-    <div class="card">
+    <x-card>
         <table class="table">
             <thead>
                 <tr>
@@ -30,7 +30,7 @@
                 @endforeach
             </tbody>
         </table>
-    </div>
+    </x-card>
 
     <div class="mt-4">
         {{ $statistics->links() }}
