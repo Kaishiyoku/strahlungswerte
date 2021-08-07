@@ -16,7 +16,6 @@
         "guzzlehttp/guzzle": "^7.3.0",
         "h4kuna/number-format": "^3.0.5",
         "kaishiyoku/laravel-cli-create-user": "^3.1.2",
-        "kaishiyoku/laravel-menu": "^4.5.2",
         "khill/php-duration": "^1.1.0",
         "laracasts/flash": "^3.2",
         "laravel/framework": "^8.52.0",
