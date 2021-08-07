@@ -1,7 +1,7 @@
 <div x-data="modal()" x-on:keydown.escape="closeDialog()">
-    <button x-ref="modal_button" @click="openDialog()" {{ $attributes->merge(['class' => 'btn btn-primary']) }}>
+    <x-secondary-button x-ref="modal_button" @click="openDialog()" {{ $attributes }}>
         {{ $title }}
-    </button>
+    </x-secondary-button>
 
     <div
         role="dialog"
@@ -31,10 +31,13 @@
             x-transition:leave="ease-in duration-200"
             x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
             x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            class="flex flex-col rounded-lg shadow-lg bg-white dark:bg-gray-900 w-3/5 h-3/5 z-10"
+            class="flex flex-col sm:rounded-lg shadow-lg bg-white dark:bg-gray-900 w-full sm:w-2/4 h-full sm:h-3/5 z-10"
         >
-            <div class="px-4 py-4 border-b border-gray-200 dark:border-gray-800">
+            <div class="flex justify-between items-center px-4 py-4 border-b border-gray-200 dark:border-gray-800">
                 <div class="text-xl" id="{{ $name }}_label" x-ref="{{ $name }}_label">{{ $title }}</div>
+                <button class="p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 focus:text-gray-900 focus:bg-gray-200 rounded-full transition" @click="closeDialog()">
+                    <x-heroicon-s-x class="w-7 h-7"/>
+                </button>
             </div>
             <div class="p-4 overflow-y-scroll">
                 {{ $slot }}

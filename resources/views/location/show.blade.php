@@ -45,41 +45,25 @@
 
             <div class="flex space-x-2 mt-8">
                 <x-modal name="daily_values_modal" :title="__('location.show.daily_values')">
-                    <table class="table table-sm table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>{{ __('validation.attributes.date') }}</th>
-                                <th class="text-right">{{ __('validation.attributes.value') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($dailyMeasurementsForTable as $dailyMeasurement)
-                                <tr>
-                                    <td>{{ $dailyMeasurement->date->format(l('date')) }}</td>
-                                    <td class="text-right">{{ formatDecimal($dailyMeasurement->value) }} µSv/h</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    <div class="divide-y divide-gray-100 dark:divide-gray-800">
+                        @foreach ($dailyMeasurementsForTable as $dailyMeasurement)
+                            <div class="w-full flex justify-between px-2 py-1 hover:bg-gray-200 even:bg-gray-100 transition">
+                                <div>{{ $dailyMeasurement->date->format(l('date')) }}</div>
+                                <div class="text-right">{{ formatDecimal($dailyMeasurement->value) }} µSv/h</div>
+                            </div>
+                        @endforeach
+                    </div>
                 </x-modal>
 
                 <x-modal name="hourly_values_modal" :title="__('location.show.hourly_values')">
-                    <table class="table table-sm table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>{{ __('validation.attributes.date') }}</th>
-                                <th class="text-right">{{ __('validation.attributes.value') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($hourlyMeasurementsForTable as $hourlyMeasurement)
-                                <tr>
-                                    <td>{{ $hourlyMeasurement->date->format(l('datetime')) }}</td>
-                                    <td class="text-right">{{ formatDecimal($hourlyMeasurement->value) }} µSv/h</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    <div class="divide-y divide-gray-100 dark:divide-gray-800">
+                        @foreach ($hourlyMeasurementsForTable as $hourlyMeasurement)
+                            <div class="w-full flex justify-between px-2 py-1 hover:bg-gray-200 even:bg-gray-100 transition">
+                                <div>{{ $hourlyMeasurement->date->format(l('datetime')) }}</div>
+                                <div class="text-right">{{ formatDecimal($hourlyMeasurement->value) }} µSv/h</div>
+                            </div>
+                        @endforeach
+                    </div>
                 </x-modal>
             </div>
         </div>
