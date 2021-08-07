@@ -15,7 +15,7 @@
 
     <x-card class="overflow-y-hidden divide-y divide-gray-100 dark:divide-gray-800">
         @foreach ($locations as $location)
-            <a href="{{ route('locations.show', $location) }}" class="group block md:flex md:justify-between md:items-start md:space-x-4 px-4 py-3 transition ease-out duration-300 hover:bg-blue-500 focus:outline-none focus:text-white focus:bg-blue-600 transition">
+            <a href="{{ route('locations.show', $location) }}" class="group block md:flex md:justify-between md:items-start md:space-x-4 px-4 py-3 transition ease-out duration-300 hover:bg-blue-500 focus:outline-none focus:text-white focus:bg-blue-600">
                 <div>
                     <div class="group-hover:text-white text-2xl md:text-base">
                         {{ $location->postal_code }} {{ $location->name }}
