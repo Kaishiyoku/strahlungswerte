@@ -10,101 +10,112 @@
     }
 }
 
-/* Typograhpy
----------------------------------------------------------------------------- */
-h1 {
-    @apply text-4xl mb-5;
-}
-h1 > .headline-info {
-    @apply text-gray-600 text-3xl;
+@layer base {
+    /**
+     * Typograhpy
+     */
+    h1 {
+        @apply text-4xl mb-5;
+    }
+    h1 > .headline-info {
+        @apply text-gray-600 text-3xl;
+    }
+
+    h2 {
+        @apply text-3xl mt-3 mb-2;
+    }
+    h2 > .headline-info {
+        @apply text-gray-600 text-2xl;
+    }
+
+    h3 {
+        @apply text-2xl mt-3 mb-2;
+    }
+
+    .text-muted {
+        @apply text-gray-600 dark:text-gray-500;
+    }
+
+    .link {
+        @apply cursor-pointer text-blue-600 dark:text-blue-400;
+    }
+    .link:hover {
+        @apply underline;
+    }
+
+    /**
+     * Alpine.js
+     */
+    [x-cloak] {
+        display: none !important;
+    }
+
+    /**
+     * Charts
+     */
+    .line-horizontal {
+
+    }
+    .line-vertical {
+        @apply hidden;
+    }
 }
 
-h2 {
-    @apply text-3xl mt-3 mb-2;
-}
-h2 > .headline-info {
-    @apply text-gray-600 text-2xl;
-}
+@layer components {
+    /**
+     * Forms & input
+     */
+    .has-error {
+        @apply border-red-600;
+    }
 
-h3 {
-    @apply text-2xl mt-3 mb-2;
-}
+    .invalid-feedback {
+        @apply text-red-600 text-xs mt-1;
+    }
 
-.text-muted {
-    @apply text-gray-600 dark:text-gray-500;
-}
+    .label-required:after {
+        @apply text-gray-600;
 
-.link {
-    @apply cursor-pointer text-blue-600 dark:text-blue-400;
-}
-.link:hover {
-    @apply underline;
-}
+        content: ' *';
+    }
 
-/* Forms & input
----------------------------------------------------------------------------- */
-.has-error {
-    @apply border-red-600;
-}
-.invalid-feedback {
-    @apply text-red-600 text-xs mt-1;
-}
+    /**
+     * Breadcrumbs
+     */
+    .breadcrumb {
+        @apply bg-gray-200 bg-opacity-30 mb-8 py-2 px-4 sm:rounded-lg dark:bg-gray-800 dark:bg-opacity-30;
+    }
+    .breadcrumb-item {
+        @apply inline-block text-gray-600 dark:text-gray-500;
+    }
+    .breadcrumb-item:not(:first-child):before {
+        @apply text-gray-400 dark:text-gray-700 pr-1;
 
-.label-required:after {
-    @apply text-gray-600;
+        content: '/';
+    }
+    .breadcrumb-item > a {
+        @apply cursor-pointer text-blue-600 dark:text-blue-400;
+    }
+    .breadcrumb-item > a:hover {
+        @apply underline;
+    }
 
-    content: ' *';
-}
-
-/* Breadcrumbs
----------------------------------------------------------------------------- */
-.breadcrumb {
-    @apply bg-gray-200 bg-opacity-30 mb-8 py-2 px-4 sm:rounded-lg dark:bg-gray-800 dark:bg-opacity-30;
-}
-.breadcrumb-item {
-    @apply inline-block text-gray-600 dark:text-gray-500;
-}
-.breadcrumb-item:not(:first-child):before {
-    @apply text-gray-400 dark:text-gray-700 pr-1;
-
-    content: '/';
-}
-.breadcrumb-item > a {
-    @apply cursor-pointer text-blue-600 dark:text-blue-400;
-}
-.breadcrumb-item > a:hover {
-    @apply underline;
-}
-
-/* Alerts
----------------------------------------------------------------------------- */
-.alert {
-    @apply my-4 p-4 border-l-4 sm:rounded break-words;
-}
-.alert-info {
-    @apply bg-blue-100 text-blue-800 border-blue-400 dark:bg-blue-900 dark:border-blue-700 dark:text-blue-500;
-}
-.alert-success {
-    @apply bg-green-100 text-green-800 border-green-400 dark:bg-green-900 dark:border-green-700 dark:text-green-500;
-}
-.alert-warning {
-    @apply bg-yellow-100 text-yellow-800 border-yellow-400 dark:bg-yellow-900 dark:border-yellow-700 dark:text-yellow-500;
-}
-.alert-danger {
-    @apply bg-red-100 text-red-800 border-red-400 dark:bg-red-900 dark:border-red-700 dark:text-red-500;
-}
-
-/* Alpine.js
----------------------------------------------------------------------------- */
-[x-cloak] {
-    display: none !important;
-}
-
-/* Charts
----------------------------------------------------------------------------- */
-.line-horizontal {
-
-}
-.line-vertical {
-    @apply hidden;
+    /**
+     * Alerts
+     */
+    .alert {
+        @apply my-4 p-4 border-l-4 sm:rounded break-words;
+    }
+    .alert--info {
+        @apply bg-blue-100 text-blue-800 border-blue-400 dark:bg-blue-900 dark:border-blue-700 dark:text-blue-500;
+    }
+    .alert--success {
+        @apply bg-green-100 text-green-800 border-green-400 dark:bg-green-900 dark:border-green-700 dark:text-green-500;
+    }
+    .alert--warning {
+        @apply bg-yellow-100 text-yellow-800 border-yellow-400 dark:bg-yellow-900 dark:border-yellow-700 dark:text-yellow-500;
+    }
+    .alert--danger {
+        @apply bg-red-100 text-red-800 border-red-400 dark:bg-red-900 dark:border-red-700 dark:text-red-500;
+    }
 }
