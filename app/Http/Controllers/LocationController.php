@@ -23,8 +23,7 @@ class LocationController extends Controller
         if ($searchTerm) {
             $locations = $locations
                 ->where('name', 'like', "%$searchTerm%")
-                ->orWhere('postal_code', 'like', "%$searchTerm%")
-            ;
+                ->orWhere('postal_code', 'like', "%$searchTerm%");
         }
 
         $locations = $locations->paginate();
@@ -32,6 +31,33 @@ class LocationController extends Controller
         return view('location.index', [
             'locations' => $locations,
         ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function find(Request $request)
+    {
+        $searchTerm = $request->get('term');
+
+        if (!$searchTerm) {
+            return response()->json([]);
+        }
+
+        $locationOptions = Location::orderBy('name')
+            ->where('name', 'like', "%{$searchTerm}%")
+            ->orWhere('postal_code', 'like', "%$searchTerm%")
+            ->take(50)
+            ->pluck('name')
+            ->map(function ($name) {
+                return [
+                    'label' => $name,
+                ];
+            });
+
+        return response()->json($locationOptions);
     }
 
     /**

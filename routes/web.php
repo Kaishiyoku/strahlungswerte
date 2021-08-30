@@ -5,6 +5,7 @@ use App\Http\Controllers\StatisticController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LocationController::class, 'index'])->name('locations.index');
+Route::get('/locations/find', [LocationController::class, 'find'])->name('locations.find');
 Route::get('/locations/{location}', [LocationController::class, 'show'])->name('locations.show');
 Route::get('/statistics', [StatisticController::class, 'index'])->name('statistics.index');
 
