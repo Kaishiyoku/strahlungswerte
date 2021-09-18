@@ -5,7 +5,7 @@
 @section('content')
     {{ html()->form('GET', route('locations.index'))->class('pb-4')->open() }}
         <div class="flex">
-            <x-select-autocomplete id="term" class="block w-full rounded-r-none border-r-0" :placeholder="__('common.search_term')" name="term" :value="request()->get('term')"/>
+            <x-select-autocomplete id="term" class="block w-full rounded-r-none border-r-0" :placeholder="__('common.search_term')" name="term" uri="/locations/find?term=" min-chars="3" :value="request()->get('term')"/>
 
             <x-secondary-button class="rounded-l-none">
                 {{ __('location.search') }}

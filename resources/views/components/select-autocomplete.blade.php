@@ -1,4 +1,4 @@
-@props(['name' => null, 'value' => null, 'autocompleteValues' => []])
+@props(['name' => null, 'value' => null, 'autocompleteValues' => [], 'uri', 'minChars' => 1])
 
 <div x-data="selectAutocomplete()" {{ $attributes->merge(['class' => 'relative']) }}>
     <x-input
@@ -61,6 +61,7 @@
 
 <script type="text/javascript">
     const autocompleteValues = @json($autocompleteValues);
+    const minChars = @json($minChars);
 
     function selectAutocomplete() {
         return {
@@ -82,7 +83,7 @@
 
                 this.inputValue = newInputValue;
 
-                if (!newInputValue || !hasInputValueChanged) {
+                if (!newInputValue || !hasInputValueChanged || newInputValue.length < minChars) {
                     return [];
                 }
 
@@ -90,7 +91,7 @@
 
                 const trimmedInputValue = this.inputValue.trim().toLowerCase();
 
-                axios.get(`/locations/find?term=${trimmedInputValue}`).then(({data}) => {
+                axios.get(`{{ $uri }}${trimmedInputValue}`).then(({data}) => {
                     this.filteredAutocompleteValues = data;
                 });
             },

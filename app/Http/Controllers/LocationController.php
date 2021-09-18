@@ -49,7 +49,7 @@ class LocationController extends Controller
         $locationOptions = Location::orderBy('name')
             ->where('name', 'like', "%{$searchTerm}%")
             ->orWhere('postal_code', 'like', "%$searchTerm%")
-            ->take(50)
+            ->take(20)
             ->pluck('name')
             ->map(function ($name) {
                 return [
