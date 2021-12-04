@@ -30,6 +30,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: true
 // });
 
+const withDefault = (defaultValue, value) => value || defaultValue;
+
+window.withDefault = withDefault;
+
 window.renderChart = (querySelector, title, data, height = 250, colors = ['#7cd6fd', '#743ee2']) => {
     new Chart(querySelector, {
         title,

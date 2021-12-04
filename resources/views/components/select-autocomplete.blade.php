@@ -1,9 +1,10 @@
-@props(['name' => null, 'value' => null, 'autocompleteValues' => [], 'uri', 'minChars' => 1])
+@props(['name' => null, 'value' => null, 'uri', 'minChars' => 1])
 
 <div x-data="selectAutocomplete()" {{ $attributes->merge(['class' => 'relative']) }}>
     <x-input
         type="text"
         class="w-full"
+        autocomplete="off"
         :name="$name"
         :value="$value"
         x-ref="inputElement"
@@ -16,14 +17,23 @@
     <div
         class="flex justify-center items-center absolute top-[1px] right-0 w-10 h-10 text-gray-500 border-l border-gray-200"
         @click.stop="isFocused ? isFocused = false : $refs.inputElement.focus()"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="transform opacity-0"
+        x-transition:enter-end="transform opacity-100"
+        x-transition:leave="transition ease-in duration-75"
+        x-transition:leave-start="transform opacity-100"
+        x-transition:leave-end="transform opacity-0"
+        x-show="isLoading || filteredAutocompleteValues.length > 0"
+        x-cloak
     >
-        <x-heroicon-s-chevron-up class="w-7 h-7" x-show="isFocused" x-cloak/>
-        <x-heroicon-s-chevron-down class="w-7 h-7" x-show="!isFocused"/>
+        <x-icon.loading-spinner class="w-5 h-5" x-show="isLoading" x-cloak/>
+        <x-heroicon-s-chevron-up class="w-7 h-7" x-show="isFocused && !isLoading" x-cloak/>
+        <x-heroicon-s-chevron-down class="w-7 h-7" x-show="!isFocused && !isLoading"/>
     </div>
 
     <div
         x-cloak
-        x-show="isFocused"
+        x-show="isFocused && !isLoading && getTrimmedInputValue().length >= minChars"
         @click.stop=""
         x-transition:enter="transition ease-out duration-200"
         x-transition:enter-start="transform opacity-0 scale-95"
@@ -60,15 +70,13 @@
 </div>
 
 <script type="text/javascript">
-    const autocompleteValues = @json($autocompleteValues);
-    const minChars = @json($minChars);
-
     function selectAutocomplete() {
         return {
-            autocompleteValues,
+            minChars: @json($minChars),
             isFocused: false,
             inputValue: @json($value),
             filteredAutocompleteValues: [],
+            isLoading: false,
             init() {
                 this.$refs.inputElement.value = this.inputValue;
             },
@@ -77,22 +85,25 @@
                 this.inputValue = autocompleteValue.label;
                 this.$refs.inputElement.value = autocompleteValue.label;
             },
+            getTrimmedInputValue() {
+                return withDefault('', this.inputValue).trim().toLowerCase();
+            },
             handleKeyUp(event) {
                 const newInputValue = event.target.value;
                 const hasInputValueChanged = this.inputValue !== newInputValue;
 
                 this.inputValue = newInputValue;
 
-                if (!newInputValue || !hasInputValueChanged || newInputValue.length < minChars) {
+                if (!newInputValue || !hasInputValueChanged || newInputValue.length < this.minChars) {
                     return [];
                 }
 
                 this.filteredAutocompleteValues = [];
+                this.isLoading = true;
 
-                const trimmedInputValue = this.inputValue.trim().toLowerCase();
-
-                axios.get(`{{ $uri }}${trimmedInputValue}`).then(({data}) => {
+                axios.get(`{{ $uri }}${this.getTrimmedInputValue()}`).then(({data}) => {
                     this.filteredAutocompleteValues = data;
+                    this.isLoading = false;
                 });
             },
         };
