@@ -8,7 +8,7 @@ module.exports = {
         './resources/views/**/*.blade.php',
         './resources/js/bootstrap.js',
     ],
-    darkMode: 'class',
+    darkMode: 'media',
     theme: {
         extend: {
             fontFamily: {

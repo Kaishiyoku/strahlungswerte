@@ -26,8 +26,6 @@
                         <x-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
                             {{ __('common.nav.login') }}
                         </x-nav-link>
-
-                        <x-nav-link class="cursor-pointer" data-toggle="dark-mode"/>
                     </div>
                 </div>
             </div>
@@ -135,9 +133,5 @@
                 </x-responsive-nav-link>
             </div>
         @endauth
-
-        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-            <x-responsive-nav-link class="cursor-pointer" data-toggle="dark-mode"/>
-        </div>
     </div>
 </nav>

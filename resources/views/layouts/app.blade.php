@@ -16,12 +16,6 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-
-    <script type="text/javascript">
-        if (localStorage.getItem('theme') === 'dark' || window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.querySelector('html').classList.add('dark');
-        }
-    </script>
 </head>
 <body class="bg-gray-100 h-screen antialiased font-sans dark:bg-gray-900 dark:text-gray-300 transition-all transition-duration-1000 ease-in">
     <div class="min-h-screen bg-gray-100 dark:text-gray-400 dark:bg-gray-900">

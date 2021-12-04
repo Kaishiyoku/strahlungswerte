@@ -1,6 +1,3 @@
-import toggleDarkMode from "./toggleDarkMode";
-import setDarkModeTogglerIcon from "./setDarkModeTogglerIcon";
-import onDomReady from "./onDomReady";
 import {Chart} from 'frappe-charts';
 
 /**
@@ -50,13 +47,3 @@ window.renderChart = (querySelector, title, data, height = 250, colors = ['#7cd6
         },
     });
 };
-
-onDomReady(() => {
-    setDarkModeTogglerIcon();
-
-    document.querySelectorAll('[data-toggle="dark-mode"]').forEach((element) => {
-        element.addEventListener('click', (event) => {
-            toggleDarkMode();
-        });
-    });
-});
