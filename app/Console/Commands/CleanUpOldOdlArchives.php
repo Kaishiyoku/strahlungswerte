@@ -67,7 +67,7 @@ class CleanUpOldOdlArchives extends Command
                 $odlArchivesStorage->deleteDirectory($directoryInfo['name']);
             });
 
-        $this->info($archiveDirectories->count() . ' ' . Str::plural('directory', $archiveDirectories->count()) . ' will be deleted.');
+        $this->info($archiveDirectories->count() . ' ' . Str::plural('directory', $archiveDirectories->count()) . ' deleted.');
 
         return 0;
     }
