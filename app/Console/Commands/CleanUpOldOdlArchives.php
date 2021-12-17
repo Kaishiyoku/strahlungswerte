@@ -51,7 +51,18 @@ class CleanUpOldOdlArchives extends Command
                 $odlArchivesStorage->delete($fileName);
             });
 
-        $this->info($fileNames->count() . ' ' . Str::plural('archive', $fileNames->count()) . ' deleted.');
+        $this->info($fileNames->count() . ' .tar ' . Str::plural('archive', $fileNames->count()) . ' deleted.');
+
+        // delete old tgz archives
+        $fileNames = collect($odlArchivesStorage->files())
+            ->filter(function ($fileName) {
+                return Str::endsWith($fileName, '.tgz');
+            })
+            ->each(function ($fileName) use ($odlArchivesStorage) {
+                $odlArchivesStorage->delete($fileName);
+            });
+
+        $this->info($fileNames->count() . ' .tgz ' . Str::plural('archive', $fileNames->count()) . ' deleted.');
 
         // delete all folders except the latest
         $archiveDirectories = collect($odlArchivesStorage->directories())
