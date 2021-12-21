@@ -4,7 +4,7 @@
         <div class="flex justify-between h-16">
             <div class="flex w-full">
                 <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center">
+                <div class="shrink-0 flex items-center">
                     <a href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
@@ -89,11 +89,11 @@
         x-cloak
         class="sm:hidden"
         x-transition:enter="transition ease-out duration-200"
-        x-transition:enter-start="transform opacity-0 -translate-y-12"
-        x-transition:enter-end="transform opacity-100 translate-y-0"
+        x-transition:enter-start="opacity-0 -translate-y-12"
+        x-transition:enter-end="opacity-100 translate-y-0"
         x-transition:leave="transition ease-in duration-100"
-        x-transition:leave-start="transform opacity-100 translate-y-0"
-        x-transition:leave-end="transform opacity-0 -translate-y-12"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 -translate-y-12"
     >
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link href="{{ route('locations.index') }}" :active="request()->routeIs('locations.*')">

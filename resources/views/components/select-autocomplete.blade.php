@@ -18,11 +18,11 @@
         class="flex justify-center items-center absolute top-[1px] right-0 w-10 h-10 text-gray-500 border-l border-gray-200"
         @click.stop="isFocused ? isFocused = false : $refs.inputElement.focus()"
         x-transition:enter="transition ease-out duration-200"
-        x-transition:enter-start="transform opacity-0"
-        x-transition:enter-end="transform opacity-100"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
         x-transition:leave="transition ease-in duration-75"
-        x-transition:leave-start="transform opacity-100"
-        x-transition:leave-end="transform opacity-0"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
         x-show="isLoading || filteredAutocompleteValues.length > 0"
         x-cloak
     >
@@ -36,11 +36,11 @@
         x-show="isFocused && !isLoading && getTrimmedInputValue().length >= minChars"
         @click.stop=""
         x-transition:enter="transition ease-out duration-200"
-        x-transition:enter-start="transform opacity-0 scale-95"
-        x-transition:enter-end="transform opacity-100 scale-100"
+        x-transition:enter-start="opacity-0 scale-95"
+        x-transition:enter-end="opacity-100 scale-100"
         x-transition:leave="transition ease-in duration-75"
-        x-transition:leave-start="transform opacity-100 scale-100"
-        x-transition:leave-end="transform opacity-0 scale-95"
+        x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-95"
         class="absolute z-50 mr-4 mt-2 rounded-md shadow-lg origin-top-right"
     >
         <div class="rounded-md ring-1 ring-black ring-opacity-5 py-1 bg-white overflow-y-auto max-h-[200px] min-w-[300px] sm:min-w-[350px] md:max-w-[800px]">

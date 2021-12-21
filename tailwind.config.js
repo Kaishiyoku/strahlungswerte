@@ -1,14 +1,15 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
-const colors = require('tailwindcss/colors');
 
 module.exports = {
-    mode: 'jit',
-    purge: [
+    content: [
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './resources/js/bootstrap.js',
     ],
-    darkMode: 'media',
+    safelist: [
+        'grow',
+        'sm:inline',
+    ],
     theme: {
         extend: {
             fontFamily: {
@@ -17,7 +18,6 @@ module.exports = {
             backgroundOpacity: ['dark'],
         },
     },
-    variants: {},
     plugins: [
         require('@tailwindcss/forms'),
     ],
