@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\OdlUpdateDailyMeasurements;
 use App\Console\Commands\OdlUpdateLocations;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -32,6 +33,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('horizon:snapshot')->everyFiveMinutes();
 
         $schedule->command(OdlUpdateLocations::class)->hourlyAt(30);
+        $schedule->command(OdlUpdateDailyMeasurements::class)->dailyAt('03:00');
 
         if (config('odl.odl_cleanup_enabled')) {
             $schedule->command('odl:cleanup')->weeklyOn(0, '02:00');

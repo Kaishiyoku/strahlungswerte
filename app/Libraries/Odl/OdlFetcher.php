@@ -2,18 +2,20 @@
 
 namespace App\Libraries\Odl;
 
-use App\Enums\LocationStatus;
-use App\Jobs\StoreDailyMeasurement;
+use App\Jobs\StoreDailyMeasurementsForLocation;
 use App\Jobs\StoreHourlyMeasurement;
 use App\Libraries\Odl\Features\FeatureCollection;
 use App\Libraries\Odl\Features\LocationFeature;
+use App\Libraries\Odl\Features\MeasurementFeature;
 use App\Models\Location;
 use App\Models\Statistic;
 use Arr;
+use Carbon\CarbonPeriod;
 use Http;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Spatie\ArrayToXml\ArrayToXml;
 use Throwable;
 
 class OdlFetcher
@@ -31,17 +33,20 @@ class OdlFetcher
         $this->baseUrl = $baseUrl;
     }
 
-    public function processData()
-    {
-        // TODO: remove function
-
-//        $this->updateStatistic($statistic);
-//        $this->updateMeasurements($archiveDataContainer->getMeasurementSiteFilePaths(), $archiveDataContainer->isWithCosmicAndTerrestrialRate());
-    }
-
     public function fetchLocationFeatureCollection(): FeatureCollection
     {
         return FeatureCollection::fromJson(LocationFeature::class, $this->fetchData('opendata:odlinfo_odl_1h_latest'));
+    }
+
+    public function fetchDailyMeasurementFeatureCollection(string $measurementSiteUuid, ArrayToXml $filter): FeatureCollection
+    {
+        $additionalParams = [
+            'viewparams' => "kenn:{$measurementSiteUuid}",
+            'sortBy' => 'end_measure',
+            'filter' => $filter->toXml(),
+        ];
+
+        return FeatureCollection::fromJson(MeasurementFeature::class, $this->fetchData('opendata:odlinfo_timeseries_odl_24h', $additionalParams));
     }
 
     public function updateLocations()
@@ -71,7 +76,17 @@ class OdlFetcher
             }
         });
 
-        Log::channel('odl')->info("{$numberOfNewEntries} new  and {$numberOfUpdatedEntries} updated locations", ['method' => __METHOD__]);
+        Log::channel('odl')->info("{$numberOfNewEntries} new  and {$numberOfUpdatedEntries} updated locations");
+    }
+
+    public function updateDailyMeasurements(CarbonPeriod $datePeriod)
+    {
+        Location::query()
+            ->orderBy('name')
+            ->get()
+            ->each(function ($location) use ($datePeriod) {
+                StoreDailyMeasurementsForLocation::dispatch($location, $datePeriod);
+            });
     }
 
     /**
@@ -110,7 +125,7 @@ class OdlFetcher
                 ->first();
 
             if ($measurementSiteFilePath) {
-                StoreDailyMeasurement::dispatch($location, $measurementSiteFilePath);
+                StoreDailyMeasurementsForLocation::dispatch($location, $measurementSiteFilePath);
                 StoreHourlyMeasurement::dispatch($location, $measurementSiteFilePath);
             } else {
                 Log::channel('odl')->warning("No JSON file found for location with UUID {$location->uuid}");
@@ -118,15 +133,15 @@ class OdlFetcher
         });
     }
 
-    private function fetchData(string $typeName): array
+    private function fetchData(string $typeName, array $additionalParams = []): array
     {
-        $queryStr = Arr::query([
+        $queryStr = Arr::query(array_merge([
             'service' => 'WFS',
             'version' => '1.1.0',
             'request' => 'GetFeature',
             'outputFormat' => 'application/json',
             'typeName' => $typeName,
-        ]);
+        ], $additionalParams));
 
         return Http::get("{$this->baseUrl}?{$queryStr}")->json();
     }

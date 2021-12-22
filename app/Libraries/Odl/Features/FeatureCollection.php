@@ -20,17 +20,19 @@ class FeatureCollection
 
     public Carbon $timeStamp;
 
-    public Crs $crs;
+    public ?Crs $crs;
 
     public static function fromJson(string $featureClassName, array $json): self
     {
+        $crsJson = Arr::get($json, 'crs');
+
         $featureCollection = new self();
         $featureCollection->features = collect(Arr::get($json, 'features'))->map(fn(array $featureJson) => $featureClassName::fromJson($featureJson));
         $featureCollection->totalFeatures = Arr::get($json, 'totalFeatures');
         $featureCollection->numberMatched = Arr::get($json, 'numberMatched');
         $featureCollection->numberReturned = Arr::get($json, 'numberReturned');
         $featureCollection->timeStamp = Carbon::parse(Arr::get($json, 'timeStamp'));
-        $featureCollection->crs = Crs::fromJson(Arr::get($json, 'crs'));
+        $featureCollection->crs = $crsJson ? Crs::fromJson($crsJson) : null;
 
         return $featureCollection;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Libraries\Odl\Features\MeasurementFeature;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -58,5 +59,21 @@ class DailyMeasurement extends Model
     public function location()
     {
         return $this->belongsTo(Location::class);
+    }
+
+    /**
+     * @param MeasurementFeature $measurementFeature
+     * @return DailyMeasurement
+     */
+    public static function fromMeasurementFeature(MeasurementFeature $measurementFeature)
+    {
+        $dailyMeasurement = new self();
+
+        $dailyMeasurement->location_uuid = $measurementFeature->properties->kenn;
+        $dailyMeasurement->location_uuid_new = $measurementFeature->properties->id;
+        $dailyMeasurement->value = $measurementFeature->properties->value;
+        $dailyMeasurement->date = $measurementFeature->properties->startMeasure;
+
+        return $dailyMeasurement;
     }
 }
