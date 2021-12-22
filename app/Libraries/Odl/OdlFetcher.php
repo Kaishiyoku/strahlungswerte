@@ -33,7 +33,8 @@ class OdlFetcher
 
     public function processData()
     {
-        $this->updateLocations();
+        // TODO: remove function
+
 //        $this->updateStatistic($statistic);
 //        $this->updateMeasurements($archiveDataContainer->getMeasurementSiteFilePaths(), $archiveDataContainer->isWithCosmicAndTerrestrialRate());
     }
@@ -43,7 +44,7 @@ class OdlFetcher
         return FeatureCollection::fromJson(LocationFeature::class, $this->fetchData('opendata:odlinfo_odl_1h_latest'));
     }
 
-    private function updateLocations()
+    public function updateLocations()
     {
         $locationFeatureCollection = $this->fetchLocationFeatureCollection();
 
@@ -70,7 +71,7 @@ class OdlFetcher
             }
         });
 
-        Log::channel('odl')->info("{$numberOfNewEntries} new  and {$numberOfUpdatedEntries} updated locations");
+        Log::channel('odl')->info("{$numberOfNewEntries} new  and {$numberOfUpdatedEntries} updated locations", ['method' => __METHOD__]);
     }
 
     /**

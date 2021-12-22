@@ -4,14 +4,14 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class OdlUpdate extends Command
+class OdlUpdateLocations extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'odl:update';
+    protected $signature = 'odl:locations';
 
     /**
      * The console command description.
@@ -31,6 +31,6 @@ class OdlUpdate extends Command
     {
         $odlFetcher = getOdlFetcher();
 
-        $odlFetcher->processData();
+        $odlFetcher->updateLocations();
     }
 }
