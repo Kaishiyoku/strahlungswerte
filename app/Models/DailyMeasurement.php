@@ -20,6 +20,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|DailyMeasurement whereLocationUuid($value)
  * @method static \Illuminate\Database\Eloquent\Builder|DailyMeasurement whereValue($value)
  * @mixin \Eloquent
+ * @property string|null $location_uuid_new
+ * @method static \Illuminate\Database\Eloquent\Builder|DailyMeasurement whereLocationUuidNew($value)
  */
 class DailyMeasurement extends Model
 {

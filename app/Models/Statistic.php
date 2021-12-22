@@ -31,6 +31,10 @@ use Illuminate\Support\Arr;
  * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereMinValue($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereNumberOfOperationalLocations($value)
  * @mixin \Eloquent
+ * @property string|null $min_location_uuid_new
+ * @property string|null $max_location_uuid_new
+ * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereMaxLocationUuidNew($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereMinLocationUuidNew($value)
  */
 class Statistic extends Model
 {

@@ -31,8 +31,6 @@ class OdlUpdate extends Command
     {
         $odlFetcher = getOdlFetcher();
 
-        $archiveDataContainer = $odlFetcher->downloadArchiveData();
-
-        $odlFetcher->processArchiveData($archiveDataContainer);
+        $odlFetcher->processData();
     }
 }

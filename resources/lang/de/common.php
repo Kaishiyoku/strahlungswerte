@@ -15,10 +15,9 @@ return [
         'datetime' => 'd.m.Y H:i',
     ],
     'statuses' => [
-        'faulty' => 'defekt',
-        'operational' => 'in Betrieb',
-        'test_mode' => 'Testbetrieb',
-        'maintenance' => 'Wartung',
+        1 => 'in Betrieb',
+        2 => 'defekt',
+        3 => 'Testbetrieb',
     ],
     'search_term' => 'Suchbegriff',
     'lists' => [

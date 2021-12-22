@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|HourlyMeasurement wherePrecipitationProbability($value)
  * @method static \Illuminate\Database\Eloquent\Builder|HourlyMeasurement whereValue($value)
  * @mixin \Eloquent
+ * @property string|null $location_uuid_new
+ * @method static \Illuminate\Database\Eloquent\Builder|HourlyMeasurement whereLocationUuidNew($value)
  */
 class HourlyMeasurement extends Model
 {
