@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property string $location_uuid
+ * @property string|null $location_uuid_new
  * @property float|null $value
  * @property \Illuminate\Support\Carbon $date
  * @property-read \App\Models\Location $location
@@ -19,10 +20,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|DailyMeasurement whereDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|DailyMeasurement whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|DailyMeasurement whereLocationUuid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DailyMeasurement whereLocationUuidNew($value)
  * @method static \Illuminate\Database\Eloquent\Builder|DailyMeasurement whereValue($value)
  * @mixin \Eloquent
- * @property string|null $location_uuid_new
- * @method static \Illuminate\Database\Eloquent\Builder|DailyMeasurement whereLocationUuidNew($value)
  */
 class DailyMeasurement extends Model
 {
@@ -72,7 +72,7 @@ class DailyMeasurement extends Model
         $dailyMeasurement->location_uuid = $measurementFeature->properties->kenn;
         $dailyMeasurement->location_uuid_new = $measurementFeature->properties->id;
         $dailyMeasurement->value = $measurementFeature->properties->value;
-        $dailyMeasurement->date = $measurementFeature->properties->startMeasure;
+        $dailyMeasurement->date = $measurementFeature->properties->endMeasure;
 
         return $dailyMeasurement;
     }

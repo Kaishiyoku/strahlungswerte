@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DailyMeasurement;
 use App\Models\HourlyMeasurement;
 use App\Models\Location;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -17,6 +18,10 @@ class LocationController extends Controller
      */
     public function index(Request $request)
     {
+        $datePeriod = CarbonPeriod::create(now()->subHours(6)->seconds(0), now());
+
+        getOdlFetcher()->fetchHourlyMeasurementFeatureCollection('053130003', getOdlFetcher()->getFilterXml($datePeriod));
+
         $searchTerm = $request->get('term');
         $locations = Location::orderBy('name');
 

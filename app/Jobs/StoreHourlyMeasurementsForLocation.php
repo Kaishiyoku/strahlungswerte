@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Libraries\Odl\Features\MeasurementFeature;
 use App\Models\DailyMeasurement;
+use App\Models\HourlyMeasurement;
 use App\Models\Location;
 use Carbon\CarbonPeriod;
 use Illuminate\Bus\Queueable;
@@ -12,17 +13,12 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Throwable;
 
-class StoreDailyMeasurementsForLocation implements ShouldQueue
+class StoreHourlyMeasurementsForLocation implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    /**
-     * The number of times the job may be attempted.
-     *
-     * @var int
-     */
-    public $tries = 5;
 
     /**
      * @var Location
@@ -50,7 +46,6 @@ class StoreDailyMeasurementsForLocation implements ShouldQueue
      * Execute the job.
      *
      * @return void
-     * @throws \DOMException
      */
     public function handle()
     {
@@ -58,19 +53,19 @@ class StoreDailyMeasurementsForLocation implements ShouldQueue
 
         $odlFetcher = getOdlFetcher();
 
-        $dailyMeasurementFeatureCollection = $odlFetcher->fetchDailyMeasurementFeatureCollection($this->location->uuid, $odlFetcher->getFilterXml($this->datePeriod));
+        $hourlyMeasurementFeatureCollection = $odlFetcher->fetchHourlyMeasurementFeatureCollection($this->location->uuid, $odlFetcher->getFilterXml($this->datePeriod));
 
-        $dailyMeasurementFeatureCollection->features->each(function (MeasurementFeature $measurementFeature) use (&$numberOfNewEntries) {
+        $hourlyMeasurementFeatureCollection->features->each(function (MeasurementFeature $measurementFeature) use (&$numberOfNewEntries) {
             // only add the value if it doesn't exist yet
-            $existingDailyMeasurements = $this->location->dailyMeasurements()->whereDate('date', $measurementFeature->properties->endMeasure);
+            $existingHourlyMeasurements = $this->location->hourlyMeasurements()->where('date', $measurementFeature->properties->endMeasure->seconds(0));
 
-            if ($existingDailyMeasurements->count() === 0) {
-                $this->location->dailyMeasurements()->save(DailyMeasurement::fromMeasurementFeature($measurementFeature));
+            if ($existingHourlyMeasurements->count() === 0) {
+                $this->location->hourlyMeasurements()->save(HourlyMeasurement::fromMeasurementFeature($measurementFeature));
 
                 $numberOfNewEntries = $numberOfNewEntries + 1;
             }
         });
 
-        Log::channel('odl')->info("{$numberOfNewEntries} new daily value(s) for location \"{$this->location->postal_code} {$this->location->name}\"");
+        Log::channel('odl')->info("{$numberOfNewEntries} new hourly values for location \"{$this->location->postal_code} {$this->location->name}\"");
     }
 }

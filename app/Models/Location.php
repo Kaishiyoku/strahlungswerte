@@ -13,16 +13,18 @@ use Spatie\Sluggable\SlugOptions;
  * App\Models\Location
  *
  * @property string $uuid
+ * @property string|null $uuid_new
  * @property string $name
  * @property string $postal_code
  * @property int $measurement_node_id
- * @property int $status_id
+ * @property LocationStatus|null $status
  * @property int $height
  * @property float $longitude
  * @property float $latitude
  * @property float|null $last_measured_one_hour_value
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $slug
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\DailyMeasurement[] $dailyMeasurements
  * @property-read int|null $daily_measurements_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\HourlyMeasurement[] $hourlyMeasurements
@@ -39,16 +41,12 @@ use Spatie\Sluggable\SlugOptions;
  * @method static \Illuminate\Database\Eloquent\Builder|Location whereMeasurementNodeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Location whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Location wherePostalCode($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Location whereStatusId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Location whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Location whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Location whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Location whereUuid($value)
- * @mixin \Eloquent
- * @property string|null $slug
- * @method static \Illuminate\Database\Eloquent\Builder|Location whereSlug($value)
- * @property string|null $uuid_new
  * @method static \Illuminate\Database\Eloquent\Builder|Location whereUuidNew($value)
- * @property string|null $status
- * @method static \Illuminate\Database\Eloquent\Builder|Location whereStatus($value)
+ * @mixin \Eloquent
  */
 class Location extends Model
 {

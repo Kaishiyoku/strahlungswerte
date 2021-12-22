@@ -3,7 +3,7 @@
 namespace App\Libraries\Odl;
 
 use App\Jobs\StoreDailyMeasurementsForLocation;
-use App\Jobs\StoreHourlyMeasurement;
+use App\Jobs\StoreHourlyMeasurementsForLocation;
 use App\Libraries\Odl\Features\FeatureCollection;
 use App\Libraries\Odl\Features\LocationFeature;
 use App\Libraries\Odl\Features\MeasurementFeature;
@@ -49,6 +49,17 @@ class OdlFetcher
         return FeatureCollection::fromJson(MeasurementFeature::class, $this->fetchData('opendata:odlinfo_timeseries_odl_24h', $additionalParams));
     }
 
+    public function fetchHourlyMeasurementFeatureCollection(string $measurementSiteUuid, ArrayToXml $filter): FeatureCollection
+    {
+        $additionalParams = [
+            'viewparams' => "kenn:{$measurementSiteUuid}",
+            'sortBy' => 'end_measure',
+            'filter' => $filter->toXml(),
+        ];
+
+        return FeatureCollection::fromJson(MeasurementFeature::class, $this->fetchData('opendata:odlinfo_timeseries_odl_1h', $additionalParams));
+    }
+
     public function updateLocations()
     {
         $locationFeatureCollection = $this->fetchLocationFeatureCollection();
@@ -89,6 +100,43 @@ class OdlFetcher
             });
     }
 
+    public function updateHourlyMeasurements(CarbonPeriod $datePeriod)
+    {
+        Location::query()
+            ->orderBy('name')
+            ->get()
+            ->each(function ($location) use ($datePeriod) {
+                StoreHourlyMeasurementsForLocation::dispatch($location, $datePeriod);
+            });
+    }
+
+    /**
+     * @throws \DOMException
+     */
+    public function getFilterXml(CarbonPeriod $datePeriod): ArrayToXml
+    {
+        $filter = [
+            'PropertyIsBetween' => [
+                'PropertyName' => 'end_measure',
+                'LowerBoundary' => [
+                    'Literal' => $datePeriod->getStartDate()->toIso8601ZuluString('millisecond'),
+                ],
+                'UpperBoundary' => [
+                    'Literal' => $datePeriod->getEndDate()->toIso8601ZuluString('millisecond'),
+                ],
+            ],
+        ];
+
+        return (new ArrayToXml($filter, [
+            'rootElementName' => 'Filter',
+            '_attributes' => [
+                'xmlns' => 'http://www.opengis.net/ogc',
+                'xmlns:ogc' => 'http://www.opengis.net',
+                'xmlns:gml' => 'http://www.opengis.net/gml',
+            ],
+        ]))->dropXmlDeclaration();
+    }
+
     /**
      * @param Statistic $statistic
      */
@@ -126,7 +174,7 @@ class OdlFetcher
 
             if ($measurementSiteFilePath) {
                 StoreDailyMeasurementsForLocation::dispatch($location, $measurementSiteFilePath);
-                StoreHourlyMeasurement::dispatch($location, $measurementSiteFilePath);
+                StoreHourlyMeasurementsForLocation::dispatch($location, $measurementSiteFilePath);
             } else {
                 Log::channel('odl')->warning("No JSON file found for location with UUID {$location->uuid}");
             }

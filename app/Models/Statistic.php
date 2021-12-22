@@ -14,8 +14,10 @@ use Illuminate\Support\Arr;
  * @property int $number_of_operational_locations
  * @property float|null $average_value
  * @property string $min_location_uuid
+ * @property string|null $min_location_uuid_new
  * @property float|null $min_value
  * @property string $max_location_uuid
+ * @property string|null $max_location_uuid_new
  * @property float|null $max_value
  * @property-read \App\Models\Location $maxLocation
  * @property-read \App\Models\Location $minLocation
@@ -26,15 +28,13 @@ use Illuminate\Support\Arr;
  * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereMaxLocationUuid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereMaxLocationUuidNew($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereMaxValue($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereMinLocationUuid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereMinLocationUuidNew($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereMinValue($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereNumberOfOperationalLocations($value)
  * @mixin \Eloquent
- * @property string|null $min_location_uuid_new
- * @property string|null $max_location_uuid_new
- * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereMaxLocationUuidNew($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereMinLocationUuidNew($value)
  */
 class Statistic extends Model
 {
