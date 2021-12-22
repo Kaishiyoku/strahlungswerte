@@ -74,7 +74,8 @@
     "prefer-stable": true,
     "scripts": {
         "post-install-cmd": [
-            "php artisan vendor:publish --tag=blade-fontawesome --force"
+            "php artisan vendor:publish --tag=blade-fontawesome --force",
+            "php artisan horizon:publish"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",

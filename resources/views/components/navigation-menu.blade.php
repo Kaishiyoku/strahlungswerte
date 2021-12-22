@@ -22,11 +22,13 @@
                         </x-nav-link>
                     </div>
 
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
-                            {{ __('common.nav.login') }}
-                        </x-nav-link>
-                    </div>
+                    @guest
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                                {{ __('common.nav.login') }}
+                            </x-nav-link>
+                        </div>
+                    @endguest
                 </div>
             </div>
 
@@ -49,11 +51,17 @@
 
                             <x-slot name="content">
                                 <!-- Account Management -->
-                                <div class="block px-4 py-2 text-xs text-gray-400 dark:text-gray-500">
-                                    {{ __('Manage Account') }}
-                                </div>
+{{--                                <div class="block px-4 py-2 text-xs text-gray-400 dark:text-gray-500">--}}
+{{--                                    {{ __('Manage Account') }}--}}
+{{--                                </div>--}}
 
-                                <div class="border-t border-gray-100 dark:border-gray-700"></div>
+                                @if (Auth::user()->is_administrator)
+                                    <x-dropdown-link :href="route('horizon.index')">
+                                        {{ __('Horizon Dashboard') }}
+                                    </x-dropdown-link>
+
+                                    <div class="border-t border-gray-100 dark:border-gray-700"></div>
+                                @endif
 
                                 <!-- Authentication -->
                                 <form method="POST" action="{{ route('logout') }}">
