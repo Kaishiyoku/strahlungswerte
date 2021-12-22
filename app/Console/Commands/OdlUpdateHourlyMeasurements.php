@@ -12,7 +12,7 @@ class OdlUpdateHourlyMeasurements extends Command
      *
      * @var string
      */
-    protected $signature = 'odl:hourly_measurements {hours=6}';
+    protected $signature = 'odl:hourly_measurements {hours=7}';
 
     /**
      * The console command description.

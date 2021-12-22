@@ -12,7 +12,7 @@ class OdlUpdateDailyMeasurements extends Command
      *
      * @var string
      */
-    protected $signature = 'odl:daily_measurements {days=1}';
+    protected $signature = 'odl:daily_measurements {days=2}';
 
     /**
      * The console command description.
