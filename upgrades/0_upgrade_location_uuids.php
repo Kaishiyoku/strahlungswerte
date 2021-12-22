@@ -22,10 +22,10 @@ class UpgradeLocationUuids extends Upgrade
         }));
 
         $locationUuidsWithoutNewData = Location::query()
-            ->select('uuid', 'status_id')
+            ->select(['uuid', 'status'])
             ->get()
             ->filter(function (Location $location) use ($newLocationUuids) {
-                return !$newLocationUuids->contains($location->uuid) && $location->status_id !== 1;
+                return !$newLocationUuids->contains($location->uuid) && $location->status !== 1;
             })
             ->map(function (Location $location) {
                 return $location->uuid;
