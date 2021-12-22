@@ -36,7 +36,7 @@ class LocationProperties
 
     public string $unit;
 
-    public ?int $validated;
+    public bool $isValidated;
 
     public string $nuclide;
 
@@ -62,7 +62,7 @@ class LocationProperties
         $locationProperties->valueCosmic = Arr::get($json, 'value_cosmic');
         $locationProperties->valueTerrestrial = Arr::get($json, 'value_terrestrial');
         $locationProperties->unit = Arr::get($json, 'unit');
-        $locationProperties->validated = Arr::get($json, 'validated');
+        $locationProperties->isValidated = (bool) Arr::get($json, 'validated');
         $locationProperties->nuclide = Arr::get($json, 'nuclide');
         $locationProperties->duration = Arr::get($json, 'duration');
 

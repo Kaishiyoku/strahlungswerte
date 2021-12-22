@@ -22,7 +22,7 @@ class MeasurementProperties
 
     public string $unit;
 
-    public ?int $validated;
+    public bool $isValidated;
 
     public string $nuclide;
 
@@ -41,7 +41,7 @@ class MeasurementProperties
         $locationProperties->endMeasure = $endMeasureValue ? Carbon::parse($endMeasureValue) : null;
         $locationProperties->value = Arr::get($json, 'value');
         $locationProperties->unit = Arr::get($json, 'unit');
-        $locationProperties->validated = Arr::get($json, 'validated');
+        $locationProperties->isValidated = Arr::get($json, 'validated');
         $locationProperties->nuclide = Arr::get($json, 'nuclide');
         $locationProperties->duration = Arr::get($json, 'duration');
 

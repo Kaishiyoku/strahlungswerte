@@ -76,7 +76,7 @@ class HourlyMeasurement extends Model
 
         $hourlyMeasurement->location_uuid = $measurementFeature->properties->kenn;
         $hourlyMeasurement->location_uuid_new = $measurementFeature->properties->id;
-        $hourlyMeasurement->is_validated = $measurementFeature->properties->validated;
+        $hourlyMeasurement->is_validated = $measurementFeature->properties->isValidated;
         $hourlyMeasurement->value = $measurementFeature->properties->value;
         $hourlyMeasurement->precipitation_probability = null;
         $hourlyMeasurement->date = $measurementFeature->properties->endMeasure;
