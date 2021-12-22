@@ -43,6 +43,8 @@ return [
     ],
 
     'post_creation_fn' => \Opis\Closure\serialize(function ($user) {
+        $user->markEmailAsVerified();
+
         return $user;
     }),
 
