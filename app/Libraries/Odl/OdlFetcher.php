@@ -2,19 +2,20 @@
 
 namespace App\Libraries\Odl;
 
-use App\Jobs\StoreDailyMeasurement;
-use App\Jobs\StoreHourlyMeasurement;
-use App\Libraries\Odl\Models\ArchiveDataContainer;
+use App\Jobs\StoreDailyMeasurementsForLocation;
+use App\Jobs\StoreHourlyMeasurementsForLocation;
+use App\Libraries\Odl\Features\FeatureCollection;
+use App\Libraries\Odl\Features\LocationFeature;
+use App\Libraries\Odl\Features\MeasurementFeature;
 use App\Models\Location;
 use App\Models\Statistic;
-use Carbon\Carbon;
-use GuzzleHttp\Client;
+use Arr;
+use Carbon\CarbonPeriod;
+use Http;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use PharData;
-use Psr\Http\Message\ResponseInterface;
-use Storage;
+use Spatie\ArrayToXml\ArrayToXml;
 use Throwable;
 
 class OdlFetcher
@@ -25,121 +26,115 @@ class OdlFetcher
     private $baseUrl;
 
     /**
-     * @var Client
-     */
-    private $httpClient;
-
-    /**
      * @param string $baseUrl
-     * @param string $username
-     * @param string $password
      */
-    public function __construct(string $baseUrl, string $username, string $password)
+    public function __construct(string $baseUrl)
     {
         $this->baseUrl = $baseUrl;
-
-        $this->httpClient = new Client(['defaults' => ['verify' => false], 'auth' => [$username, $password]]);
     }
 
-    /**
-     * @param ArchiveDataContainer $archiveDataContainer
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
-     */
-    public function processArchiveData(ArchiveDataContainer $archiveDataContainer)
+    public function fetchLocationFeatureCollection(): FeatureCollection
     {
-        $odlArchivesStorage = Storage::disk('odl_archives');
+        return FeatureCollection::fromJson(LocationFeature::class, $this->fetchData('opendata:odlinfo_odl_1h_latest'));
+    }
 
-        $locations = collect(json_decode($odlArchivesStorage->get($archiveDataContainer->getLocationFilePath()), true))->map(function ($data) {
-            return Location::createFromJson($data);
+    public function fetchDailyMeasurementFeatureCollection(string $measurementSiteUuid, ArrayToXml $filter): FeatureCollection
+    {
+        $additionalParams = [
+            'viewparams' => "kenn:{$measurementSiteUuid}",
+            'sortBy' => 'end_measure',
+            'filter' => $filter->toXml(),
+        ];
+
+        return FeatureCollection::fromJson(MeasurementFeature::class, $this->fetchData('opendata:odlinfo_timeseries_odl_24h', $additionalParams));
+    }
+
+    public function fetchHourlyMeasurementFeatureCollection(string $measurementSiteUuid, ArrayToXml $filter): FeatureCollection
+    {
+        $additionalParams = [
+            'viewparams' => "kenn:{$measurementSiteUuid}",
+            'sortBy' => 'end_measure',
+            'filter' => $filter->toXml(),
+        ];
+
+        return FeatureCollection::fromJson(MeasurementFeature::class, $this->fetchData('opendata:odlinfo_timeseries_odl_1h', $additionalParams));
+    }
+
+    public function updateLocations()
+    {
+        $locationFeatureCollection = $this->fetchLocationFeatureCollection();
+
+        $numberOfNewEntries = 0;
+        $numberOfUpdatedEntries = 0;
+
+        $locationFeatureCollection->features->each(function (LocationFeature $locationFeature) use (&$numberOfNewEntries, &$numberOfUpdatedEntries) {
+            $existingLocation = Location::find($locationFeature->properties->kenn);
+
+            if (!$existingLocation) {
+                Location::fromLocationFeature($locationFeature)->save();
+
+                $numberOfNewEntries = $numberOfNewEntries + 1;
+            } else {
+                $existingLocation->status = $locationFeature->properties->siteStatus;
+                $existingLocation->height = $locationFeature->properties->heightAboveSea;
+                $existingLocation->longitude = $locationFeature->geometry->coordinates->longitude;
+                $existingLocation->latitude = $locationFeature->geometry->coordinates->latitude;
+                $existingLocation->last_measured_one_hour_value = $locationFeature->properties->value;
+
+                $existingLocation->save();
+
+                $numberOfUpdatedEntries = $numberOfUpdatedEntries + 1;
+            }
         });
 
-        $statistic = Statistic::createFromJson(json_decode($odlArchivesStorage->get($archiveDataContainer->getStatisticsFilePath()), true));
-
-        $this->updateLocations($locations);
-        $this->updateStatistic($statistic);
-        $this->updateMeasurements($archiveDataContainer->getMeasurementSiteFilePaths(), $archiveDataContainer->isWithCosmicAndTerrestrialRate());
+        Log::channel('odl')->info("{$numberOfNewEntries} new  and {$numberOfUpdatedEntries} updated locations");
     }
 
-    /**
-     * @param bool $withCosmicAndTerrestrialRate
-     * @return ArchiveDataContainer
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function downloadArchiveData($withCosmicAndTerrestrialRate = false)
+    public function updateDailyMeasurements(CarbonPeriod $datePeriod)
     {
-        $odlArchivesStorage = Storage::disk('odl_archives');
-
-        $response = $this->getJsonArchive();
-
-        $lastModified = Carbon::parse($response->getHeaderLine('Last-Modified'));
-        $directoryName = $this->getArchiveDirectoryName($lastModified, $withCosmicAndTerrestrialRate);
-        $fileName = "{$directoryName}.tgz";
-
-        if ($odlArchivesStorage->exists($fileName)) {
-            Log::channel('odl')->info("Archive {$fileName} already exists.");
-        } else {
-            Log::channel('odl')->info("Archive {$fileName} doesn't exist yet and will be stored.");
-
-            $odlArchivesStorage->put($fileName, $response->getBody()->getContents());
-        }
-
-        if (!$odlArchivesStorage->exists("{$directoryName}.tar")) {
-            $pharData = new PharData($odlArchivesStorage->path($fileName));
-            $pharData->decompress();
-            $pharData->extractTo($odlArchivesStorage->path($directoryName));
-        }
-
-        $filePaths = collect($odlArchivesStorage->allFiles($directoryName));
-        $measurementSiteFilePaths = $filePaths
-            ->filter(function ($filePath) {
-                return !Str::endsWith($filePath, ['/stamm.json', '/stat.json']);
+        Location::query()
+            ->orderBy('name')
+            ->get()
+            ->each(function ($location) use ($datePeriod) {
+                StoreDailyMeasurementsForLocation::dispatch($location, $datePeriod);
             });
-        $locationFilePath = $filePaths
-            ->filter(function ($filePath) {
-                return Str::endsWith($filePath, '/stamm.json');
-            })
-            ->first();
-        $statisticsFilePath = $filePaths
-            ->filter(function ($filePath) {
-                return Str::endsWith($filePath, '/stat.json');
-            })
-            ->first();
+    }
 
-        return new ArchiveDataContainer($directoryName, $locationFilePath, $statisticsFilePath, $measurementSiteFilePaths, $withCosmicAndTerrestrialRate);
+    public function updateHourlyMeasurements(CarbonPeriod $datePeriod)
+    {
+        Location::query()
+            ->orderBy('name')
+            ->get()
+            ->each(function ($location) use ($datePeriod) {
+                StoreHourlyMeasurementsForLocation::dispatch($location, $datePeriod);
+            });
     }
 
     /**
-     * @param Collection $locations
+     * @throws \DOMException
      */
-    private function updateLocations(Collection $locations)
+    public function getFilterXml(CarbonPeriod $datePeriod): ArrayToXml
     {
-        try {
-            $numberOfNewEntries = 0;
-            $numberOfUpdatedEntries = 0;
+        $filter = [
+            'PropertyIsBetween' => [
+                'PropertyName' => 'end_measure',
+                'LowerBoundary' => [
+                    'Literal' => $datePeriod->getStartDate()->toIso8601ZuluString('millisecond'),
+                ],
+                'UpperBoundary' => [
+                    'Literal' => $datePeriod->getEndDate()->toIso8601ZuluString('millisecond'),
+                ],
+            ],
+        ];
 
-            foreach ($locations as $location) {
-                $existingLocation = Location::find($location->uuid);
-
-                if ($existingLocation === null) {
-                    $location->save();
-
-                    $numberOfNewEntries = $numberOfNewEntries + 1;
-                } else {
-                    $existingLocation->height = $location->height;
-                    $existingLocation->longitude = $location->longitude;
-                    $existingLocation->latitude = $location->latitude;
-                    $existingLocation->last_measured_one_hour_value = $location->last_measured_one_hour_value;
-
-                    $existingLocation->save();
-
-                    $numberOfUpdatedEntries = $numberOfUpdatedEntries + 1;
-                }
-            }
-
-            Log::channel('odl')->info("{$numberOfNewEntries} new  and {$numberOfUpdatedEntries} updated locations");
-        } catch (Throwable $e) {
-            Log::channel('odl')->error("{$e->getMessage()}\n{$e->getTraceAsString()}");
-        }
+        return (new ArrayToXml($filter, [
+            'rootElementName' => 'Filter',
+            '_attributes' => [
+                'xmlns' => 'http://www.opengis.net/ogc',
+                'xmlns:ogc' => 'http://www.opengis.net',
+                'xmlns:gml' => 'http://www.opengis.net/gml',
+            ],
+        ]))->dropXmlDeclaration();
     }
 
     /**
@@ -147,6 +142,7 @@ class OdlFetcher
      */
     private function updateStatistic(Statistic $statistic)
     {
+        // TODO
         try {
             $existingStatistic = Statistic::where('date', $statistic->date);
 
@@ -166,6 +162,7 @@ class OdlFetcher
      */
     private function updateMeasurements(Collection $measurementSiteFilePaths, bool $withCosmicAndTerrestrialRate = false)
     {
+        // TODO
         $fileNameSuffix = $withCosmicAndTerrestrialRate ? 'ct' : '';
 
         Location::orderBy('name')->get()->each(function ($location) use ($measurementSiteFilePaths, $fileNameSuffix) {
@@ -176,35 +173,24 @@ class OdlFetcher
                 ->first();
 
             if ($measurementSiteFilePath) {
-                StoreDailyMeasurement::dispatch($location, $measurementSiteFilePath);
-                StoreHourlyMeasurement::dispatch($location, $measurementSiteFilePath);
+                StoreDailyMeasurementsForLocation::dispatch($location, $measurementSiteFilePath);
+                StoreHourlyMeasurementsForLocation::dispatch($location, $measurementSiteFilePath);
             } else {
                 Log::channel('odl')->warning("No JSON file found for location with UUID {$location->uuid}");
             }
         });
     }
 
-    /**
-     * @param bool $withCosmicAndTerrestrialRate
-     * @return ResponseInterface
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    private function getJsonArchive($withCosmicAndTerrestrialRate = false): ResponseInterface
+    private function fetchData(string $typeName, array $additionalParams = []): array
     {
-        $archiveFileName = $withCosmicAndTerrestrialRate ? 'json-ct.tgz' : 'json.tgz';
+        $queryStr = Arr::query(array_merge([
+            'service' => 'WFS',
+            'version' => '1.1.0',
+            'request' => 'GetFeature',
+            'outputFormat' => 'application/json',
+            'typeName' => $typeName,
+        ], $additionalParams));
 
-        return $this->httpClient->get("{$this->baseUrl}/{$archiveFileName}");
-    }
-
-    /**
-     * @param Carbon $lastModified
-     * @param bool $withCosmicAndTerrestrialRate
-     * @return string
-     */
-    private function getArchiveDirectoryName($lastModified, $withCosmicAndTerrestrialRate = false)
-    {
-        $baseFileName = $withCosmicAndTerrestrialRate ? 'json' : 'json-ct';
-
-        return "{$baseFileName}_{$lastModified->format('Y-m-d_H_i_s')}";
+        return Http::get("{$this->baseUrl}?{$queryStr}")->json();
     }
 }

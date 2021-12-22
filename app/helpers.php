@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\LocationStatus;
 use App\Libraries\Odl\OdlFetcher;
 use App\Models\Location;
 use h4kuna\Number\NumberFormatState;
@@ -68,9 +69,9 @@ if (!function_exists('getKeyValuePairsFromStr')) {
 }
 
 if (!function_exists('formatStatus')) {
-    function formatStatus(\App\Models\Status $status)
+    function formatStatus(LocationStatus $status)
     {
-        return __('common.statuses.' . $status->name);
+        return __('common.statuses.' . $status->value);
     }
 }
 

@@ -12,6 +12,4 @@ return [
 
     'measurement_nodes' => env('ODL_MEASUREMENT_NODES'),
 
-    'cleanup_enabled' => env('ODL_CLEANUP_ENABLED', true),
-
 ];
