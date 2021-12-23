@@ -8,15 +8,11 @@ use App\Libraries\Odl\Features\FeatureCollection;
 use App\Libraries\Odl\Features\LocationFeature;
 use App\Libraries\Odl\Features\MeasurementFeature;
 use App\Models\Location;
-use App\Models\Statistic;
 use Arr;
 use Carbon\CarbonPeriod;
 use Http;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use Spatie\ArrayToXml\ArrayToXml;
-use Throwable;
 
 class OdlFetcher
 {
@@ -135,50 +131,6 @@ class OdlFetcher
                 'xmlns:gml' => 'http://www.opengis.net/gml',
             ],
         ]))->dropXmlDeclaration();
-    }
-
-    /**
-     * @param Statistic $statistic
-     */
-    private function updateStatistic(Statistic $statistic)
-    {
-        // TODO
-        try {
-            $existingStatistic = Statistic::where('date', $statistic->date);
-
-            if ($existingStatistic->count() === 0) {
-                $statistic->save();
-
-                Log::channel('odl')->info("Stored statistic for {$statistic->date->toDateString()}");
-            }
-        } catch (Throwable $e) {
-            Log::channel('odl')->error("{$e->getMessage()}\n{$e->getTraceAsString()}");
-        }
-    }
-
-    /**
-     * @param Collection $measurementSiteFilePaths
-     * @param bool $withCosmicAndTerrestrialRate
-     */
-    private function updateMeasurements(Collection $measurementSiteFilePaths, bool $withCosmicAndTerrestrialRate = false)
-    {
-        // TODO
-        $fileNameSuffix = $withCosmicAndTerrestrialRate ? 'ct' : '';
-
-        Location::orderBy('name')->get()->each(function ($location) use ($measurementSiteFilePaths, $fileNameSuffix) {
-            $measurementSiteFilePath = $measurementSiteFilePaths
-                ->filter(function ($path) use ($location, $fileNameSuffix) {
-                    return Str::endsWith($path, "{$location->uuid}{$fileNameSuffix}.json");
-                })
-                ->first();
-
-            if ($measurementSiteFilePath) {
-                StoreDailyMeasurementsForLocation::dispatch($location, $measurementSiteFilePath);
-                StoreHourlyMeasurementsForLocation::dispatch($location, $measurementSiteFilePath);
-            } else {
-                Log::channel('odl')->warning("No JSON file found for location with UUID {$location->uuid}");
-            }
-        });
     }
 
     private function fetchData(string $typeName, array $additionalParams = []): array

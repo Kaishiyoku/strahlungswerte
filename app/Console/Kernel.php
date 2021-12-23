@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\OdlGenerateStatistics;
 use App\Console\Commands\OdlUpdateDailyMeasurements;
 use App\Console\Commands\OdlUpdateHourlyMeasurements;
 use App\Console\Commands\OdlUpdateLocations;
@@ -34,6 +35,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('horizon:snapshot')->everyFiveMinutes();
 
         $schedule->command(OdlUpdateLocations::class)->hourlyAt(30);
+        $schedule->command(OdlGenerateStatistics::class)->dailyAt('01:00');
         $schedule->command(OdlUpdateDailyMeasurements::class)->dailyAt('03:00');
 
         collect(['05:00', '11:00', '17:00', '23:00'])->each(function ($time) use ($schedule) {

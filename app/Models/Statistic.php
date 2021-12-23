@@ -59,7 +59,17 @@ class Statistic extends Model
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'date',
+        'number_of_operational_locations',
+        'average_value',
+        'min_location_uuid',
+        'min_location_uuid_new',
+        'min_value',
+        'max_location_uuid',
+        'max_location_uuid_new',
+        'max_value',
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
