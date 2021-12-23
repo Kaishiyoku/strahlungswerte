@@ -29,7 +29,7 @@
                 <div class="group-hover:text-white group-focus:text-white pt-2 md:pt-0">
                     <div>
                         @if ($location->status->is(\App\Enums\LocationStatus::Operational()))
-                            {{ formatDecimal($location->last_measured_one_hour_value) }}µSv/h
+                            {{ formatDecimal($location->last_measured_one_hour_value) }} µSv/h
                         @else
                             /
                         @endif

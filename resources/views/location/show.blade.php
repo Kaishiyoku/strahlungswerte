@@ -19,7 +19,7 @@
 
                 <div class="md:flex py-2 border-b border-gray-200 dark:border-gray-800">
                     <div class="md:inline-block md:w-2/6">{{ __('validation.attributes.last_measured_one_hour_value') }}:</div>
-                    <div class="md:inline-block md:w-4/6">{{ formatDecimal($location->last_measured_one_hour_value) }}µSv/h</div>
+                    <div class="md:inline-block md:w-4/6">{{ formatDecimal($location->last_measured_one_hour_value) }} µSv/h</div>
                 </div>
 
                 <div class="md:flex py-2 border-b border-gray-200 dark:border-gray-800">

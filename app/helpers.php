@@ -113,9 +113,9 @@ if (!function_exists('getGoogleMapsUrlForLocation')) {
 }
 
 if (!function_exists('formatDecimal')) {
-    function formatDecimal($value, int $decimals = 2): string
+    function formatDecimal($value, int $decimals = 4): string
     {
-        $numberFormat = new NumberFormatState(2);
+        $numberFormat = new NumberFormatState($decimals);
 
         return $numberFormat->format($value);
     }
