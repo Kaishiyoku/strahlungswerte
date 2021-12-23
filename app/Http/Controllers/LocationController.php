@@ -101,16 +101,16 @@ class LocationController extends Controller
                     'name' => __('location.show.hourly_values_short'),
                     'chartType' => 'line',
                     'values' => $hourlyMeasurementsForChart->map(function (HourlyMeasurement $hourlyMeasurement) {
-                        return $hourlyMeasurement->precipitation_probability;
-                    }),
-                ],
-                [
-                    'name' => __('location.show.precipitation_probability'),
-                    'chartType' => 'line',
-                    'values' => $hourlyMeasurementsForChart->map(function (HourlyMeasurement $hourlyMeasurement) {
                         return $hourlyMeasurement->value;
                     }),
                 ],
+//                [
+//                    'name' => __('location.show.precipitation_probability'),
+//                    'chartType' => 'line',
+//                    'values' => $hourlyMeasurementsForChart->map(function (HourlyMeasurement $hourlyMeasurement) {
+//                        return $hourlyMeasurement->precipitation_probability;
+//                    }),
+//                ],
             ],
             'yMarkers' => [
                 [
