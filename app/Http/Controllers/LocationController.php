@@ -94,7 +94,7 @@ class LocationController extends Controller
 
         $hourlyMeasurementsChartData = [
             'labels' => $hourlyMeasurementsForChart->map(function (HourlyMeasurement $hourlyMeasurement) {
-                return $hourlyMeasurement->date->format(__('common.date_formats.date'));
+                return $hourlyMeasurement->date->format(__('common.date_formats.datetime'));
             }),
             'datasets' => [
                 [
