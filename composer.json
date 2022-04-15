@@ -41,6 +41,7 @@
         "facade/ignition": "^2.11.2",
         "fzaninotto/faker": "^1.9.2",
         "laravel-frontend-presets/tailwindcss": "^4.3.1",
+        "laravel/envoy": "^2.8",
         "mockery/mockery": "^1.4.3",
         "nunomaduro/collision": "^5.6.0",
         "phpunit/phpunit": "^9.3"

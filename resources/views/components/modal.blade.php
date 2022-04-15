@@ -39,7 +39,7 @@
                     <x-heroicon-s-x class="w-7 h-7"/>
                 </button>
             </div>
-            <div class="p-4 overflow-y-scroll">
+            <div class="p-4 overflow-y-auto">
                 {{ $slot }}
             </div>
         </div>
