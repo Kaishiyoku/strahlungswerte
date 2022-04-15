@@ -28,10 +28,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('backup:clean')->dailyAt('02:30');
-        $schedule->command('backup:run')->dailyAt('02:40');
-        $schedule->command('backup:monitor')->dailyAt('05:00');
-
         $schedule->command('horizon:snapshot')->everyFiveMinutes();
 
         $schedule->command(OdlUpdateLocations::class)->hourlyAt(30);

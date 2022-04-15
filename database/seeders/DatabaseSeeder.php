@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeders;
 
 class DatabaseSeeder extends Seeder
