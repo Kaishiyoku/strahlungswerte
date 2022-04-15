@@ -43,15 +43,15 @@
         x-transition:leave-end="opacity-0 scale-95"
         class="absolute z-50 mr-4 mt-2 rounded-md shadow-lg origin-top-right"
     >
-        <div class="rounded-md ring-1 ring-black ring-opacity-5 py-1 bg-white overflow-y-auto max-h-[200px] min-w-[300px] sm:min-w-[350px] md:max-w-[800px]">
+        <div class="rounded-md ring-1 ring-black ring-opacity-5 py-1 bg-white dark:bg-gray-800 overflow-y-auto max-h-[200px] min-w-[300px] sm:min-w-[350px] md:max-w-[800px]">
             <div x-show="filteredAutocompleteValues.length === 0" class="w-full px-4 py-2 text-sm leading-5 text-gray-700">
                 {{ __('No entries found.') }}
             </div>
 
             <template x-for="autocompleteValue in filteredAutocompleteValues" :key="autocompleteValue.label">
                 <div
-                    class="w-full px-4 py-2 text-sm leading-5 text-gray-700 cursor-pointer focus:outline-none transition duration-150 ease-in-out"
-                    :class="{ 'text-white bg-indigo-500 hover:bg-indigo-600 focus:bg-indigo-700': inputValue === autocompleteValue.label, 'hover:bg-gray-100 focus:bg-gray-100': inputValue !== autocompleteValue.label }"
+                    class="w-full px-4 py-2 text-sm leading-5 cursor-pointer focus:outline-none transition duration-150 ease-in-out"
+                    :class="{ 'text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-700': inputValue === autocompleteValue.label, 'text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:bg-gray-100 focus:bg-gray-700': inputValue !== autocompleteValue.label }"
                     tabindex="0"
                     @click.stop="selectValue(autocompleteValue)"
                     @keydown.enter.prevent="selectValue(autocompleteValue)"
