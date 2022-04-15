@@ -15,7 +15,7 @@
     />
 
     <div
-        class="flex justify-center items-center absolute top-[1px] right-0 w-10 h-10 text-gray-500 border-l border-gray-200"
+        class="flex justify-center items-center absolute top-[1px] right-0 w-10 h-10 text-gray-500 border-l border-gray-200 dark:border-gray-600"
         @click.stop="isFocused ? isFocused = false : $refs.inputElement.focus()"
         x-transition:enter="transition ease-out duration-200"
         x-transition:enter-start="opacity-0"
@@ -41,9 +41,9 @@
         x-transition:leave="transition ease-in duration-75"
         x-transition:leave-start="opacity-100 scale-100"
         x-transition:leave-end="opacity-0 scale-95"
-        class="absolute z-50 mr-4 mt-2 rounded-md shadow-lg origin-top-right"
+        class="absolute z-50 mr-4 mt-2 rounded-md shadow-lg origin-top-right w-full"
     >
-        <div class="rounded-md ring-1 ring-black ring-opacity-5 py-1 bg-white dark:bg-gray-800 overflow-y-auto max-h-[200px] min-w-[300px] sm:min-w-[350px] md:max-w-[800px]">
+        <div class="rounded-md ring-1 ring-black ring-opacity-5 py-1 bg-white dark:bg-gray-800 overflow-y-auto max-h-[200px] min-w-[300px] sm:min-w-[350px] md:w-full">
             <div x-show="filteredAutocompleteValues.length === 0" class="w-full px-4 py-2 text-sm leading-5 text-gray-700">
                 {{ __('No entries found.') }}
             </div>
