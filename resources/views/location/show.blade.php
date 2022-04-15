@@ -70,7 +70,7 @@
 
         <x-card class="mb-8 flex justify-center overflow-hidden">
             <a href="{{ getGoogleMapsUrlForLocation($location) }}" class="w-full">
-                <img src="{{ getStaticMapUrlForLocation($location) }}" alt="map" class="w-full dark:img-invert"/>
+                <img src="{{ getStaticMapUrlForLocation($location) }}" alt="map" class="w-full dark:invert dark:brightness-90"/>
             </a>
         </x-card>
     </div>

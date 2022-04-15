@@ -1,4 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
+const colors = require('tailwindcss/colors');
 
 module.exports = {
     content: [
@@ -11,6 +12,17 @@ module.exports = {
         'sm:inline',
     ],
     theme: {
+        colors: {
+            inherit: 'inherit',
+            current: 'currentColor',
+            transparent: 'transparent',
+            black: '#000',
+            white: '#fff',
+            blue: colors.blue,
+            red: colors.red,
+            gray: colors.gray,
+        },
+
         extend: {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],

@@ -2,14 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-    @variants dark {
-        .img-invert {
-            filter: brightness(0.85) invert(1);
-        }
-    }
-}
-
 @layer base {
     /**
      * Typograhpy
