@@ -50,6 +50,7 @@
 
 @story('deploy')
     deployment_start
+    stop_queue
     change_storage_owner_to_deployment_user
     deployment_links
     deployment_composer
@@ -76,6 +77,11 @@
     echo "Deployment ({{ $date }}) started"
     git clone {{ $repo }} --branch={{ $branch }} --depth=1 -q {{ $release }}
     echo "Repository cloned"
+@endtask
+
+@task('stop_queue)
+    sudo supervisorctl stop horizon-strahlungswerte
+    echo "Queue stopped"
 @endtask
 
 @task('change_storage_owner_to_deployment_user')
@@ -133,6 +139,11 @@
     sudo chown -R www-data:www-data {{ $path }}/storage/*
 
     echo "Changed storage owner to www-data"
+@endtask
+
+@task('start_queue)
+    sudo supervisorctl start horizon-strahlungswerte
+    echo "Queue started"
 @endtask
 
 @task('deployment_cleanup')
