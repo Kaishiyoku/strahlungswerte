@@ -59,6 +59,7 @@
     deployment_npm
     deployment_finish
     change_storage_owner_to_www_data
+    start_queue
     health_check
     deployment_option_cleanup
 @endstory
@@ -79,7 +80,7 @@
     echo "Repository cloned"
 @endtask
 
-@task('stop_queue)
+@task('stop_queue')
     sudo supervisorctl stop horizon-strahlungswerte
     echo "Queue stopped"
 @endtask
@@ -141,7 +142,7 @@
     echo "Changed storage owner to www-data"
 @endtask
 
-@task('start_queue)
+@task('start_queue')
     sudo supervisorctl start horizon-strahlungswerte
     echo "Queue started"
 @endtask
