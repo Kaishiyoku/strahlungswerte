@@ -1,5 +1,4 @@
 import {Chart} from 'frappe-charts';
-import onDomReady from './onDomReady';
 import axios from 'axios';
 
 /**
@@ -49,5 +48,3 @@ window.renderChart = (querySelector, title, data, height = 250, colors = ['#7cd6
         },
     });
 };
-
-window.onDomReady = onDomReady;

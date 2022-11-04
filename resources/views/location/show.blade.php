@@ -81,10 +81,12 @@
 
     <x-card id="daily-measurements-chart" class="mt-8 py-4"/>
 
-    <script type="text/javascript">
-        onDomReady(() => {
-            renderChart('#hourly-measurements-chart', '{{ __('location.show.hourly_values') }}', @json($hourlyMeasurementsChartData), 350, ['#007bff', '#e83e8c'])
-            renderChart('#daily-measurements-chart', '{{ __('location.show.daily_values') }}', @json($dailyMeasurementsChartData), 350, ['#6610f2'])
-        });
-    </script>
+    @push ('scripts')
+        <script type="text/javascript">
+            onDomReady(() => {
+                renderChart('#hourly-measurements-chart', '{{ __('location.show.hourly_values') }}', @json($hourlyMeasurementsChartData), 350, ['#007bff', '#e83e8c'])
+                renderChart('#daily-measurements-chart', '{{ __('location.show.daily_values') }}', @json($dailyMeasurementsChartData), 350, ['#6610f2'])
+            });
+        </script>
+    @endpush
 @endsection

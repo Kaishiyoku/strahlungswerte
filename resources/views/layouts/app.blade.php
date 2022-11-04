@@ -13,6 +13,20 @@
     <!-- Scripts -->
     @vite('resources/js/app.js')
 
+    <script type="text/javascript">
+        function onDomReady(callback) {
+            const readyState = document.readyState;
+
+            if (readyState === 'complete' || (readyState !== 'loading' && !document.documentElement.doScroll)) {
+                callback();
+
+                return;
+            }
+
+            document.addEventListener("DOMContentLoaded", callback);
+        }
+    </script>
+
     <!-- Styles -->
     @vite('resources/css/app.css')
 </head>
@@ -59,6 +73,6 @@
         </form>
     @endauth
 
-    @yield('scripts')
+    @stack('scripts')
 </body>
 </html>
