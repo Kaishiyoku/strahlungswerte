@@ -91,8 +91,10 @@
 
 @task('change_storage_owner_to_deployment_user')
     sudo chown -R forge:forge {{ $path }}/storage/*
-
     echo "Changed storage owner to deployment user"
+
+    sudo chown -R forge:forge {{ $release }}/bootstrap/cache
+    echo "Changed bootstrap/cache owner to deployment user"
 @endtask
 
 @task('deployment_links')
@@ -119,7 +121,7 @@
     cd {{ $release }}
     npm install --no-audit --no-fund --no-optional
     echo "Running npm..."
-    npm run {{ $env }} --silent
+    npm run {{ $env === 'production' ? 'build' : 'dev' }} --silent
 @endtask
 
 @task('deployment_cache')
@@ -142,8 +144,10 @@
 
 @task('change_storage_owner_to_www_data')
     sudo chown -R www-data:www-data {{ $path }}/storage/*
-
     echo "Changed storage owner to www-data"
+
+    sudo chown -R www-data:www-data {{ $release }}/bootstrap/cache
+    echo "Changed bootstrap/cache owner to www-data"
 @endtask
 
 @task('start_queue')
@@ -162,7 +166,7 @@
 @task('deployment_option_cleanup')
     cd {{ $path }}/releases
 
-    @if (isset($cleanup) && $cleanup)
+    @if (!isset($noCleanup) && !$noCleanup)
         find . -maxdepth 1 -name "20*" | sort | head -n -4 | xargs -I '{}' sudo chown -R forge:forge '{}'
         echo "Changed releases owner to deployment user"
         find . -maxdepth 1 -name "20*" | sort | head -n -4 | xargs rm -Rf
@@ -207,4 +211,3 @@
 	@slack($slack, '#deployments', "Deployment on {$server}: {$date} complete")
 @endfinished
 --}}
-
