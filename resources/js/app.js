@@ -1,6 +1,6 @@
 import './bootstrap';
 
-const Alpine = require('alpinejs').default;
+import Alpine from 'alpinejs';
 
 // window.Alpine = Alpine;
 
