@@ -1,4 +1,4 @@
-require('./bootstrap');
+import './bootstrap';
 
 const Alpine = require('alpinejs').default;
 
