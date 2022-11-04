@@ -1,4 +1,5 @@
 import {Chart} from 'frappe-charts';
+import onDomReady from './onDomReady';
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -47,3 +48,5 @@ window.renderChart = (querySelector, title, data, height = 250, colors = ['#7cd6
         },
     });
 };
+
+window.onDomReady = onDomReady;
